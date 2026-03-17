@@ -17,8 +17,8 @@ class MenuScene:
     def __post_init__(self) -> None:
         self.font = self._load_font()
         self.small_font = (
-            self.assets.font("font/HarreeghPoppedCyrillic.ttf", 22)
-            if (self.assets.root / "font/HarreeghPoppedCyrillic.ttf").exists()
+            self.assets.font("font/Press_Start_2P.ttf", 22)
+            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
             else pg.font.SysFont(None, 22)
         )
 
@@ -31,8 +31,8 @@ class MenuScene:
 
     def _load_font(self) -> pg.font.Font:
         for rel in (
-            "font/alagard-12px-unicode.ttf",
-            "font/HarreeghPoppedCyrillic.ttf",
+            "font/Press_Start_2P.ttf",
+            "font/Press_Start_2P.ttf",
         ):
             try:
                 return self.assets.font(rel, 32)
@@ -139,8 +139,8 @@ class MenuScene:
 
     def _text(self, s: str, size: int) -> pg.Surface:
         font = (
-            self.assets.font("font/HarreeghPoppedCyrillic.ttf", size)
-            if (self.assets.root / "font/HarreeghPoppedCyrillic.ttf").exists()
+            self.assets.font("font/Press_Start_2P.ttf", size)
+            if (self.assets.root / "font/HarreeghPPress_Start_2PoppedCyrillic.ttf").exists()
             else pg.font.SysFont(None, size)
         )
         return font.render(s, True, WHITE)

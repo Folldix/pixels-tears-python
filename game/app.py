@@ -14,6 +14,7 @@ from game.ui.menu_scene import _SceneChange
 
 def run() -> None:
     pg.init()
+    pg.freetype.init()
     pg.mixer.init()
 
     screen = pg.display.set_mode((BASE_WIDTH, BASE_HEIGHT))

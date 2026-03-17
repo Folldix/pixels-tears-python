@@ -181,8 +181,8 @@ class PlayScene:
     state: GameState
 
     def __post_init__(self) -> None:
-        self.font = self.assets.font("font/HarreeghPoppedCyrillic.ttf", 18)
-        self.big_font = self.assets.font("font/HarreeghPoppedCyrillic.ttf", 28)
+        self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
+        self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
         self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
         self.player = Player(self.assets, self.state, pos=pg.Vector2(self.world_w // 2, self.world_h // 2))
