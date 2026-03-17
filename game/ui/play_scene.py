@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import random
 from queue import Queue
 from typing import Any
@@ -29,7 +29,7 @@ class Player:
     pos: pg.Vector2
     speed: float = 100.0
 
-    direction: pg.Vector2 = pg.Vector2(0, 0)
+    direction: pg.Vector2 = field(default_factory=lambda: pg.Vector2(0, 0))
     anim_time: float = 0.0
     anim_idx: int = 0
 
