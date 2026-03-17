@@ -1,0 +1,3400 @@
+{
+  "other": [
+    {
+      "path": ".gitattributes",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".gitignore",
+      "size_kb": 0.1
+    },
+    {
+      "path": "main.gdshader",
+      "size_kb": 0.3
+    },
+    {
+      "path": "main.gdshader.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\.COMMIT_EDITMSG.swp",
+      "size_kb": 16.0
+    },
+    {
+      "path": ".git\\COMMIT_EDITMSG",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\config",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\description",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\FETCH_HEAD",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\HEAD",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\index",
+      "size_kb": 10.7
+    },
+    {
+      "path": ".godot\\.gdignore",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\uid_cache.bin",
+      "size_kb": 5.6
+    },
+    {
+      "path": "MainMenu\\menu.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "Resource\\Icon.svg",
+      "size_kb": 58.5
+    },
+    {
+      "path": "src\\enemy.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\global.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\main.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\menu.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\multiplayer_menu.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\multiplayer_player.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\network_manager.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\pause_menu.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\player.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "src\\save_load\\save.gd.uid",
+      "size_kb": 0.0
+    },
+    {
+      "path": "Resource\\Button\\EButton.svg",
+      "size_kb": 4.1
+    },
+    {
+      "path": "Resource\\Button\\MenuButton.svg",
+      "size_kb": 3396.8
+    },
+    {
+      "path": "Resource\\Button\\MenuButton_v2.svg",
+      "size_kb": 2603.5
+    },
+    {
+      "path": "Resource\\Button\\MenuButton_v2_pressed.svg",
+      "size_kb": 2302.8
+    },
+    {
+      "path": "Resource\\Button\\ui_move_down_v1.svg",
+      "size_kb": 133.1
+    },
+    {
+      "path": "Resource\\Button\\ui_move_down_v2.svg",
+      "size_kb": 1204.5
+    },
+    {
+      "path": "Resource\\Button\\ui_move_left_v1.svg",
+      "size_kb": 133.1
+    },
+    {
+      "path": "Resource\\Button\\ui_move_left_v2.svg",
+      "size_kb": 1204.5
+    },
+    {
+      "path": "Resource\\Button\\ui_move_right_v1.svg",
+      "size_kb": 133.3
+    },
+    {
+      "path": "Resource\\Button\\ui_move_right_v2.svg",
+      "size_kb": 1204.5
+    },
+    {
+      "path": "Resource\\Button\\ui_move_up_v1.svg",
+      "size_kb": 133.1
+    },
+    {
+      "path": "Resource\\Button\\ui_move_up_v2.svg",
+      "size_kb": 1204.5
+    },
+    {
+      "path": "Resource\\Enemy\\down1.svg",
+      "size_kb": 69.2
+    },
+    {
+      "path": "Resource\\Enemy\\down2.svg",
+      "size_kb": 69.9
+    },
+    {
+      "path": "Resource\\Enemy\\down3.svg",
+      "size_kb": 69.6
+    },
+    {
+      "path": "Resource\\Enemy\\down4.svg",
+      "size_kb": 69.9
+    },
+    {
+      "path": "Resource\\Enemy\\down5.svg",
+      "size_kb": 69.2
+    },
+    {
+      "path": "Resource\\Enemy\\down6.svg",
+      "size_kb": 69.9
+    },
+    {
+      "path": "Resource\\Enemy\\down7.svg",
+      "size_kb": 69.6
+    },
+    {
+      "path": "Resource\\Enemy\\down8.svg",
+      "size_kb": 69.9
+    },
+    {
+      "path": "Resource\\Enemy\\left1.svg",
+      "size_kb": 116.4
+    },
+    {
+      "path": "Resource\\Enemy\\left2.svg",
+      "size_kb": 116.6
+    },
+    {
+      "path": "Resource\\Enemy\\left3.svg",
+      "size_kb": 117.9
+    },
+    {
+      "path": "Resource\\Enemy\\left4.svg",
+      "size_kb": 115.4
+    },
+    {
+      "path": "Resource\\Enemy\\left5.svg",
+      "size_kb": 111.1
+    },
+    {
+      "path": "Resource\\Enemy\\left6.svg",
+      "size_kb": 116.2
+    },
+    {
+      "path": "Resource\\Enemy\\left7.svg",
+      "size_kb": 119.2
+    },
+    {
+      "path": "Resource\\Enemy\\left8.svg",
+      "size_kb": 116.6
+    },
+    {
+      "path": "Resource\\Enemy\\right1.svg",
+      "size_kb": 116.4
+    },
+    {
+      "path": "Resource\\Enemy\\right2.svg",
+      "size_kb": 116.6
+    },
+    {
+      "path": "Resource\\Enemy\\right3.svg",
+      "size_kb": 117.9
+    },
+    {
+      "path": "Resource\\Enemy\\right4.svg",
+      "size_kb": 115.4
+    },
+    {
+      "path": "Resource\\Enemy\\right5.svg",
+      "size_kb": 111.1
+    },
+    {
+      "path": "Resource\\Enemy\\right6.svg",
+      "size_kb": 116.2
+    },
+    {
+      "path": "Resource\\Enemy\\right7.svg",
+      "size_kb": 119.2
+    },
+    {
+      "path": "Resource\\Enemy\\right8.svg",
+      "size_kb": 116.6
+    },
+    {
+      "path": "Resource\\Enemy\\up1.svg",
+      "size_kb": 82.0
+    },
+    {
+      "path": "Resource\\Enemy\\up2.svg",
+      "size_kb": 82.4
+    },
+    {
+      "path": "Resource\\Enemy\\up3.svg",
+      "size_kb": 83.1
+    },
+    {
+      "path": "Resource\\Enemy\\up4.svg",
+      "size_kb": 82.7
+    },
+    {
+      "path": "Resource\\Enemy\\up5.svg",
+      "size_kb": 82.7
+    },
+    {
+      "path": "Resource\\Enemy\\up6.svg",
+      "size_kb": 82.7
+    },
+    {
+      "path": "Resource\\Enemy\\up7.svg",
+      "size_kb": 83.1
+    },
+    {
+      "path": "Resource\\Enemy\\up8.svg",
+      "size_kb": 82.4
+    },
+    {
+      "path": "Resource\\Font\\alagard-12px-unicode.ttf",
+      "size_kb": 131.4
+    },
+    {
+      "path": "Resource\\Font\\HarreeghPoppedCyrillic.ttf",
+      "size_kb": 19.9
+    },
+    {
+      "path": "Resource\\items\\log.svg",
+      "size_kb": 4.9
+    },
+    {
+      "path": "Resource\\items\\rocks.svg",
+      "size_kb": 4.8
+    },
+    {
+      "path": "Resource\\items\\rope.svg",
+      "size_kb": 5.4
+    },
+    {
+      "path": "Resource\\Map\\map1.svg",
+      "size_kb": 155023.4
+    },
+    {
+      "path": "Resource\\Map\\map10.svg",
+      "size_kb": 155044.5
+    },
+    {
+      "path": "Resource\\Map\\map11.svg",
+      "size_kb": 155050.4
+    },
+    {
+      "path": "Resource\\Map\\map12.svg",
+      "size_kb": 155044.5
+    },
+    {
+      "path": "Resource\\Map\\map2.svg",
+      "size_kb": 155029.4
+    },
+    {
+      "path": "Resource\\Map\\map3.svg",
+      "size_kb": 155047.3
+    },
+    {
+      "path": "Resource\\Map\\map4.svg",
+      "size_kb": 155044.5
+    },
+    {
+      "path": "Resource\\Map\\map5.svg",
+      "size_kb": 155041.5
+    },
+    {
+      "path": "Resource\\Map\\map6.svg",
+      "size_kb": 155044.5
+    },
+    {
+      "path": "Resource\\Map\\map7.svg",
+      "size_kb": 155050.4
+    },
+    {
+      "path": "Resource\\Map\\map8.svg",
+      "size_kb": 155044.5
+    },
+    {
+      "path": "Resource\\Map\\map9.svg",
+      "size_kb": 155041.5
+    },
+    {
+      "path": "Resource\\Menu\\menu1.jpg",
+      "size_kb": 119.3
+    },
+    {
+      "path": "Resource\\Menu\\menu10.jpg",
+      "size_kb": 51.1
+    },
+    {
+      "path": "Resource\\Menu\\menu11.jpg",
+      "size_kb": 51.7
+    },
+    {
+      "path": "Resource\\Menu\\menu12.jpg",
+      "size_kb": 52.8
+    },
+    {
+      "path": "Resource\\Menu\\menu2.jpg",
+      "size_kb": 120.7
+    },
+    {
+      "path": "Resource\\Menu\\menu3.jpg",
+      "size_kb": 118.4
+    },
+    {
+      "path": "Resource\\Menu\\menu4.jpg",
+      "size_kb": 117.7
+    },
+    {
+      "path": "Resource\\Menu\\menu5.jpg",
+      "size_kb": 116.7
+    },
+    {
+      "path": "Resource\\Menu\\menu6.jpg",
+      "size_kb": 120.7
+    },
+    {
+      "path": "Resource\\Menu\\menu7.jpg",
+      "size_kb": 52.9
+    },
+    {
+      "path": "Resource\\Menu\\menu8.jpg",
+      "size_kb": 52.8
+    },
+    {
+      "path": "Resource\\Menu\\menu9.jpg",
+      "size_kb": 50.3
+    },
+    {
+      "path": "Resource\\Sounds\\chelovek-bejit-po-trave-26013.mp3",
+      "size_kb": 772.6
+    },
+    {
+      "path": "Resource\\Sounds\\jutkiy-zvuk-vnezapnosti.mp3",
+      "size_kb": 58.6
+    },
+    {
+      "path": "Resource\\Sounds\\napryajennyiy-zvuk.mp3",
+      "size_kb": 296.2
+    },
+    {
+      "path": "Resource\\Sounds\\veter-na-igrovoy-ploschadke-35870.mp3",
+      "size_kb": 1429.1
+    },
+    {
+      "path": "Resource\\Tree\\tree1.svg",
+      "size_kb": 49.0
+    },
+    {
+      "path": "Resource\\Tree\\tree2.svg",
+      "size_kb": 49.2
+    },
+    {
+      "path": "Resource\\Tree\\tree3.svg",
+      "size_kb": 50.4
+    },
+    {
+      "path": ".godot\\editor\\create_recent.CanvasItem",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\create_recent.Node",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\editor\\editor_script_doc_cache.res",
+      "size_kb": 3.5
+    },
+    {
+      "path": ".godot\\editor\\favorites",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\favorites.CanvasItem",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\favorites.Node",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\favorites.Resource",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\favorite_properties",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\filesystem_cache10",
+      "size_kb": 38.3
+    },
+    {
+      "path": ".godot\\editor\\recent_dirs",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-5f735b4dc67d668eddaa897625db69e2.ctex",
+      "size_kb": 12.5
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-5f735b4dc67d668eddaa897625db69e2.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-612493887946280009e2db185df81193.ctex",
+      "size_kb": 12.5
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-612493887946280009e2db185df81193.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-d3b9d020771b619c8622bde974253aea.ctex",
+      "size_kb": 12.5
+    },
+    {
+      "path": ".godot\\imported\\20250421_213259.png-d3b9d020771b619c8622bde974253aea.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\alagard-12px-unicode.ttf-b18e119dc1466efd6efb19b91da037b2.fontdata",
+      "size_kb": 27.1
+    },
+    {
+      "path": ".godot\\imported\\alagard-12px-unicode.ttf-b18e119dc1466efd6efb19b91da037b2.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\chelovek-bejit-po-trave-26013.mp3-456d9c0b968b1c2a13778ea443ba9cd9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\chelovek-bejit-po-trave-26013.mp3-456d9c0b968b1c2a13778ea443ba9cd9.mp3str",
+      "size_kb": 772.9
+    },
+    {
+      "path": ".godot\\imported\\down1.png-9fa4a81f369396b56d28619be9db3017.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down1.png-9fa4a81f369396b56d28619be9db3017.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down1.png-a8537e7ee7ec2a820b9850ef8ece5f6e.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down1.png-a8537e7ee7ec2a820b9850ef8ece5f6e.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down1.svg-b03cee1715576b1c81a38f7ded7e461a.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down1.svg-b03cee1715576b1c81a38f7ded7e461a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down2.png-3fe0b692ec30539888fa8a2282d7ac45.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down2.png-3fe0b692ec30539888fa8a2282d7ac45.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down2.png-d306e522b74870413a961808f6c75f61.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down2.png-d306e522b74870413a961808f6c75f61.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down2.svg-02e809ea95c8f6d4595d32778193d2da.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down2.svg-02e809ea95c8f6d4595d32778193d2da.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down3.png-35128716b22ffbff33ef140fb9546cba.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down3.png-35128716b22ffbff33ef140fb9546cba.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down3.png-354c606c16a92da99d3300a345ddc157.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down3.png-354c606c16a92da99d3300a345ddc157.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down3.svg-76de99f7d36c8ffc819518a2f503b124.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down3.svg-76de99f7d36c8ffc819518a2f503b124.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down4.png-725a097c09d59ea239fe6794c274ccaa.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down4.png-725a097c09d59ea239fe6794c274ccaa.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down4.png-9e826c59a5c3e0beb8ed03703fc0a659.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\down4.png-9e826c59a5c3e0beb8ed03703fc0a659.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down4.svg-32d24d3e31fdc1235ad2c931504bff11.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down4.svg-32d24d3e31fdc1235ad2c931504bff11.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down5.svg-baafea2ba3d4f8ca4beef18a0e40f678.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down5.svg-baafea2ba3d4f8ca4beef18a0e40f678.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down6.svg-89e8853542f29a856c5ae5cc5d95eae4.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down6.svg-89e8853542f29a856c5ae5cc5d95eae4.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down7.svg-f7aa1050e452bf871c507dbc333176ad.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down7.svg-f7aa1050e452bf871c507dbc333176ad.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\down8.svg-5c8d20b8ac2a4c8145d00dc9fc85257b.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\down8.svg-5c8d20b8ac2a4c8145d00dc9fc85257b.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\EButton.svg-842aed26227c65bc1e8d1ad79b098b57.ctex",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\imported\\EButton.svg-842aed26227c65bc1e8d1ad79b098b57.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\HarreeghPoppedCyrillic.ttf-7e718402423f2de03b75602214e6b057.fontdata",
+      "size_kb": 6.9
+    },
+    {
+      "path": ".godot\\imported\\HarreeghPoppedCyrillic.ttf-7e718402423f2de03b75602214e6b057.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex",
+      "size_kb": 3.3
+    },
+    {
+      "path": ".godot\\imported\\icon.svg-218a8f2b3041327d8a5756f3a245f83b.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\icon.svg-b17358ef227b64bd482b48c9e746fc88.ctex",
+      "size_kb": 3.3
+    },
+    {
+      "path": ".godot\\imported\\icon.svg-b17358ef227b64bd482b48c9e746fc88.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\Icon.svg-eace530bab3bda136c539e9ad035bac7.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\Icon.svg-eace530bab3bda136c539e9ad035bac7.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\jutkiy-zvuk-vnezapnosti.mp3-a63ba13aaa265b33e34aedbc10db1a44.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\jutkiy-zvuk-vnezapnosti.mp3-a63ba13aaa265b33e34aedbc10db1a44.mp3str",
+      "size_kb": 58.9
+    },
+    {
+      "path": ".godot\\imported\\left1.png-1f8f11cb91638938f3f81645dd61c693.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left1.png-1f8f11cb91638938f3f81645dd61c693.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left1.png-6f246d7a0799db1ed1ae55b6324949f5.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left1.png-6f246d7a0799db1ed1ae55b6324949f5.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left1.svg-276b9b96cac516d7cee6d8558d36dc17.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left1.svg-276b9b96cac516d7cee6d8558d36dc17.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left2.png-73c9021f9c85264d0b0f28c3a8a3bcd1.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left2.png-73c9021f9c85264d0b0f28c3a8a3bcd1.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left2.png-8f02a16e12a270f85749e337a24acbeb.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left2.png-8f02a16e12a270f85749e337a24acbeb.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left2.svg-0387c2370083eba697608171629a9e9f.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left2.svg-0387c2370083eba697608171629a9e9f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left3.png-1de399ab67df344b55196c92a09bc8a2.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left3.png-1de399ab67df344b55196c92a09bc8a2.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left3.png-ed1d14efd078630d74a1fd618d0cab0c.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left3.png-ed1d14efd078630d74a1fd618d0cab0c.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left3.svg-3e8e2ec591cc3a928c6d0f28bc611175.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left3.svg-3e8e2ec591cc3a928c6d0f28bc611175.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left4.png-04057fa84ec8651a000ea90bf23c06e5.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left4.png-04057fa84ec8651a000ea90bf23c06e5.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left4.png-9e9fbe6e409d21c6ea5f676ebdd44c77.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\left4.png-9e9fbe6e409d21c6ea5f676ebdd44c77.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left4.svg-1ee3835165166c2c905bda1956e5e448.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left4.svg-1ee3835165166c2c905bda1956e5e448.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left5.svg-5cc4b6c1e1d7d58c15b1c22ef04cbc54.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left5.svg-5cc4b6c1e1d7d58c15b1c22ef04cbc54.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left6.svg-5de353e49ce0496cea5f28bcb150882c.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left6.svg-5de353e49ce0496cea5f28bcb150882c.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left7.svg-af1472e7031477749982306a2eebc6f8.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left7.svg-af1472e7031477749982306a2eebc6f8.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\left8.svg-bfe452314845908f29b1eae258bbff0f.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\left8.svg-bfe452314845908f29b1eae258bbff0f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\log.svg-463d67681d945883299633c731190071.ctex",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\imported\\log.svg-463d67681d945883299633c731190071.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map1.svg-b74538d96ae1a96ad3d9735a79488a4f.ctex",
+      "size_kb": 53.3
+    },
+    {
+      "path": ".godot\\imported\\map1.svg-b74538d96ae1a96ad3d9735a79488a4f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map10.svg-1395bd2d073cddcaf2f4ec30d5372552.ctex",
+      "size_kb": 53.1
+    },
+    {
+      "path": ".godot\\imported\\map10.svg-1395bd2d073cddcaf2f4ec30d5372552.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map11.svg-33576663b8dfa86008b059c6e97ab5cc.ctex",
+      "size_kb": 54.1
+    },
+    {
+      "path": ".godot\\imported\\map11.svg-33576663b8dfa86008b059c6e97ab5cc.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map12.svg-213d814ccd2875b4721b10c60de4e706.ctex",
+      "size_kb": 53.8
+    },
+    {
+      "path": ".godot\\imported\\map12.svg-213d814ccd2875b4721b10c60de4e706.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map2.svg-b83f6d4bd3c3483c43d4718b82a58765.ctex",
+      "size_kb": 53.6
+    },
+    {
+      "path": ".godot\\imported\\map2.svg-b83f6d4bd3c3483c43d4718b82a58765.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map3.svg-da9d957e147d95d95cbb0f8803639dc6.ctex",
+      "size_kb": 54.2
+    },
+    {
+      "path": ".godot\\imported\\map3.svg-da9d957e147d95d95cbb0f8803639dc6.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map4.svg-723bd97b7ede086f32016376328ad0e0.ctex",
+      "size_kb": 53.3
+    },
+    {
+      "path": ".godot\\imported\\map4.svg-723bd97b7ede086f32016376328ad0e0.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map5.svg-e78cf4891ad2d3e4c3d29baf6cb0ea60.ctex",
+      "size_kb": 53.3
+    },
+    {
+      "path": ".godot\\imported\\map5.svg-e78cf4891ad2d3e4c3d29baf6cb0ea60.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map6.svg-cba7119eb90f129210e5d2e73ada1301.ctex",
+      "size_kb": 53.6
+    },
+    {
+      "path": ".godot\\imported\\map6.svg-cba7119eb90f129210e5d2e73ada1301.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map7.svg-2577d3a2d5bd6cd9c1647a81a7db750d.ctex",
+      "size_kb": 54.1
+    },
+    {
+      "path": ".godot\\imported\\map7.svg-2577d3a2d5bd6cd9c1647a81a7db750d.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map8.svg-028b05be76ac90b8a274ecc73aecc525.ctex",
+      "size_kb": 53.8
+    },
+    {
+      "path": ".godot\\imported\\map8.svg-028b05be76ac90b8a274ecc73aecc525.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map8.svg-87cfc2051de9e93755dddac3fa8e3160.ctex",
+      "size_kb": 53.8
+    },
+    {
+      "path": ".godot\\imported\\map8.svg-87cfc2051de9e93755dddac3fa8e3160.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\map9.svg-4f3ec494da53986170817565922ebc4b.ctex",
+      "size_kb": 53.4
+    },
+    {
+      "path": ".godot\\imported\\map9.svg-4f3ec494da53986170817565922ebc4b.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu1.jpg-546f85f003e2e68ecba99438f43e09d9.ctex",
+      "size_kb": 40.1
+    },
+    {
+      "path": ".godot\\imported\\menu1.jpg-546f85f003e2e68ecba99438f43e09d9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu10.jpg-5a1fab9ffca65c7cd028c8ae3fd60dc6.ctex",
+      "size_kb": 86.9
+    },
+    {
+      "path": ".godot\\imported\\menu10.jpg-5a1fab9ffca65c7cd028c8ae3fd60dc6.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu11.jpg-1f7ff4b59e32ccf5df3230f7656b477a.ctex",
+      "size_kb": 90.5
+    },
+    {
+      "path": ".godot\\imported\\menu11.jpg-1f7ff4b59e32ccf5df3230f7656b477a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu12.jpg-c0cf9fc347528e0f0a064d0402e8bc42.ctex",
+      "size_kb": 88.9
+    },
+    {
+      "path": ".godot\\imported\\menu12.jpg-c0cf9fc347528e0f0a064d0402e8bc42.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu2.jpg-c45e8155ead1027c59d86440082a9802.ctex",
+      "size_kb": 28.1
+    },
+    {
+      "path": ".godot\\imported\\menu2.jpg-c45e8155ead1027c59d86440082a9802.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu3.jpg-faa5597040c7a49fefdfb613804b1543.ctex",
+      "size_kb": 28.7
+    },
+    {
+      "path": ".godot\\imported\\menu3.jpg-faa5597040c7a49fefdfb613804b1543.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu4.jpg-e08aa00ffc8cfe7ff8cba99596d1416d.ctex",
+      "size_kb": 27.8
+    },
+    {
+      "path": ".godot\\imported\\menu4.jpg-e08aa00ffc8cfe7ff8cba99596d1416d.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu5.jpg-26f100f62e02db0ecc04929fc608c44a.ctex",
+      "size_kb": 40.0
+    },
+    {
+      "path": ".godot\\imported\\menu5.jpg-26f100f62e02db0ecc04929fc608c44a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu6.jpg-455b5ed5960671baaea47144127599d3.ctex",
+      "size_kb": 28.1
+    },
+    {
+      "path": ".godot\\imported\\menu6.jpg-455b5ed5960671baaea47144127599d3.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu7.jpg-925407a651180570ceb87cb397aeeac6.ctex",
+      "size_kb": 92.5
+    },
+    {
+      "path": ".godot\\imported\\menu7.jpg-925407a651180570ceb87cb397aeeac6.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu8.jpg-a655903bd6aaff65e5dc8210beea33b8.ctex",
+      "size_kb": 88.9
+    },
+    {
+      "path": ".godot\\imported\\menu8.jpg-a655903bd6aaff65e5dc8210beea33b8.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\menu9.jpg-876814c30eccbef1cbef110ec5caf040.ctex",
+      "size_kb": 83.9
+    },
+    {
+      "path": ".godot\\imported\\menu9.jpg-876814c30eccbef1cbef110ec5caf040.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\MenuButton.svg-bfa815b2228d5db0c89b26546cb53a2f.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\MenuButton.svg-bfa815b2228d5db0c89b26546cb53a2f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\MenuButton_v2.svg-04d6248c8a1c6fc27c592601e13dc521.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\MenuButton_v2.svg-04d6248c8a1c6fc27c592601e13dc521.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\MenuButton_v2_pressed.svg-827ebc78107a211e0a221de0538f86f1.ctex",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".godot\\imported\\MenuButton_v2_pressed.svg-827ebc78107a211e0a221de0538f86f1.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\napryajennyiy-zvuk.mp3-2515861be6385435b40d606459e63314.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\napryajennyiy-zvuk.mp3-2515861be6385435b40d606459e63314.mp3str",
+      "size_kb": 296.5
+    },
+    {
+      "path": ".godot\\imported\\right1.png-5c17daf8668e3b82330fa42dd509147b.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right1.png-5c17daf8668e3b82330fa42dd509147b.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right1.png-fad2c9e527ae1d23cc5ff23f06f0e760.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right1.png-fad2c9e527ae1d23cc5ff23f06f0e760.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right1.svg-e60f337f3ea740bb85dd59ce20473d88.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right1.svg-e60f337f3ea740bb85dd59ce20473d88.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right2.png-311ca88cc7676ff5034612534bc45225.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right2.png-311ca88cc7676ff5034612534bc45225.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right2.png-d267abc4c28390253102542cc1074599.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right2.png-d267abc4c28390253102542cc1074599.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right2.svg-8afc487d017dd856c11a15bf7b039679.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right2.svg-8afc487d017dd856c11a15bf7b039679.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right3.png-d0c460784f8ebf0ae46d3301bb8db712.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right3.png-d0c460784f8ebf0ae46d3301bb8db712.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right3.png-ed60d9c8f9487746cb9d88ae842f53de.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right3.png-ed60d9c8f9487746cb9d88ae842f53de.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right3.svg-add44e287fef777d0609051dc2a1cd56.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right3.svg-add44e287fef777d0609051dc2a1cd56.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right4.png-1ded24bc8cf49cdbd9e313105d157bdb.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right4.png-1ded24bc8cf49cdbd9e313105d157bdb.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right4.png-655d3b987e0a0dbaef652b0c9d37cdaa.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\right4.png-655d3b987e0a0dbaef652b0c9d37cdaa.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right4.svg-02d3f89bb5ebfdd50c35ff8752c865bf.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right4.svg-02d3f89bb5ebfdd50c35ff8752c865bf.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right5.svg-4632a38e9e9f6e05f7b5ccbbce634390.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right5.svg-4632a38e9e9f6e05f7b5ccbbce634390.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right6.svg-b1cb4e89cfea377719d9ea68e9d5ccf0.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right6.svg-b1cb4e89cfea377719d9ea68e9d5ccf0.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right7.svg-4c08cd6c3f73c9a80916bee52b7bec61.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right7.svg-4c08cd6c3f73c9a80916bee52b7bec61.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\right8.svg-d51214730ac4db4fae4890a65a4746e2.ctex",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\imported\\right8.svg-d51214730ac4db4fae4890a65a4746e2.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\rocks.svg-19ef3abd3075da9db538d6adb0f8c63f.ctex",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\imported\\rocks.svg-19ef3abd3075da9db538d6adb0f8c63f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\rope.svg-720c0909fb14c66cf4799f1ae2e6dfb4.ctex",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".godot\\imported\\rope.svg-720c0909fb14c66cf4799f1ae2e6dfb4.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree 1.svg-f7e5a11a075f088d483791b52c969b55.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree 2.svg-fc2c09ba89d2727c2bcc0ae0285bfeef.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree 3.svg-c397098e5affcaf65fa2ae0562b3b221.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree1.svg-023ae9764d4a6e682eb793f6a5f5ff7a.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\tree1.svg-023ae9764d4a6e682eb793f6a5f5ff7a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree2.svg-44f8a5d46b45ed74c45a3a6d059ae18a.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\tree2.svg-44f8a5d46b45ed74c45a3a6d059ae18a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\tree3.svg-aa88cf28b2250274ed12ecc353582262.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\tree3.svg-aa88cf28b2250274ed12ecc353582262.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_down_v1.svg-9bda4789e5a797c2ed427010df681ea8.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\ui_move_down_v1.svg-9bda4789e5a797c2ed427010df681ea8.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_down_v2.svg-75080c53ea62e35c81f86e697f2d9e5b.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\ui_move_down_v2.svg-75080c53ea62e35c81f86e697f2d9e5b.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_left_v1.svg-fd52a8b3412311449aafc03ad24713b9.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_left_v1.svg-fd52a8b3412311449aafc03ad24713b9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_left_v2.svg-17f956a65810f1ee9d068e7856619542.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_left_v2.svg-17f956a65810f1ee9d068e7856619542.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_right_v1.svg-e126b49321d01e17eeb3a3244bbf2115.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_right_v1.svg-e126b49321d01e17eeb3a3244bbf2115.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_right_v2.svg-339cb7839ebcaeda091993c5bb50e027.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_right_v2.svg-339cb7839ebcaeda091993c5bb50e027.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_up_v1.svg-74be0eacadb5be0ad6dfec0b693c7a6e.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\ui_move_up_v1.svg-74be0eacadb5be0ad6dfec0b693c7a6e.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_up_v2.svg-3bd02af5cee0dff4413058cbaf714c01.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\ui_move_up_v2.svg-3bd02af5cee0dff4413058cbaf714c01.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_v1.svg-7795902a5ba951c67bdb7318cd9fe6fd.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_v1.svg-7795902a5ba951c67bdb7318cd9fe6fd.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\ui_move_v2.svg-be3ee8241d1ac623165b7f37268e1c22.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\ui_move_v2.svg-be3ee8241d1ac623165b7f37268e1c22.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up1.png-57a14f38b6443369b8ad8c7a40a2228c.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up1.png-57a14f38b6443369b8ad8c7a40a2228c.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up1.png-d613f4b54a791f7b71f96c533885d8fc.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up1.png-d613f4b54a791f7b71f96c533885d8fc.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up1.svg-7f48e2538ebda12d0d6857fc388ecd66.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up1.svg-7f48e2538ebda12d0d6857fc388ecd66.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up2.png-77411119faeec87b45660ab4030c00c4.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up2.png-77411119faeec87b45660ab4030c00c4.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up2.png-eab69a08a50b49a1aafb6c39e9b124b2.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up2.png-eab69a08a50b49a1aafb6c39e9b124b2.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up2.svg-b6ed896db329e7165b48b9b0e44383c1.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up2.svg-b6ed896db329e7165b48b9b0e44383c1.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up3.png-149a72753e09244e072a40f1c4c514bd.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up3.png-149a72753e09244e072a40f1c4c514bd.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up3.png-8b14be12faf071e0d47f5684ea19b5b6.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up3.png-8b14be12faf071e0d47f5684ea19b5b6.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up3.svg-b0ce0962dab69a95b11e1f8d497259b9.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up3.svg-b0ce0962dab69a95b11e1f8d497259b9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up4.png-683c63ac627a49b6e3dc73a59552aad0.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up4.png-683c63ac627a49b6e3dc73a59552aad0.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up4.png-aeaca286bc7b6b5cab621ae60dc8a5be.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\up4.png-aeaca286bc7b6b5cab621ae60dc8a5be.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up4.svg-45da97b4d75f840cd00b01f8fd8f6b5e.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up4.svg-45da97b4d75f840cd00b01f8fd8f6b5e.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up5.svg-7ebfa7c172939b933d17996a0cdc96bd.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up5.svg-7ebfa7c172939b933d17996a0cdc96bd.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up6.svg-2a41d2408d15fc02256c8646b80fa2f8.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up6.svg-2a41d2408d15fc02256c8646b80fa2f8.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up7.svg-2f504fe2e86bb8035f713223d9f10fb1.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up7.svg-2f504fe2e86bb8035f713223d9f10fb1.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\up8.svg-a9fd3dceba7305cf68c898272fbddf5a.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\up8.svg-a9fd3dceba7305cf68c898272fbddf5a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\veter-na-igrovoy-ploschadke-35870.mp3-1bd2dafeb69e6b370009d7e841a994cd.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\veter-na-igrovoy-ploschadke-35870.mp3-1bd2dafeb69e6b370009d7e841a994cd.mp3str",
+      "size_kb": 1429.5
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 1.svg-8efe05d0690bd111fa5d0e0f45679903.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 1.svg-8efe05d0690bd111fa5d0e0f45679903.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 2.svg-a3c452a20dbdd7a508971ffb05e19ad5.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 2.svg-a3c452a20dbdd7a508971ffb05e19ad5.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 3.svg-cb2b3d1c225893892ea28372cfbc3209.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\��ॢ� 3.svg-cb2b3d1c225893892ea28372cfbc3209.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 1.png-4a007b00747cbb9a809e9a6132695bf1.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 1.png-4a007b00747cbb9a809e9a6132695bf1.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 1.png-9f84a2223aad441a76e76bb2453b5849.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 2.png-005469a4c4719e47ddf03e5c249af1f4.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 2.png-13b7245e85d4491361bb533e50c0b514.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 2.png-13b7245e85d4491361bb533e50c0b514.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 3.png-2da377ce9338504ef8dd8a73641167ff.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 3.png-549ddf32c92f80cbe8ac3dda52fba9f6.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 3.png-549ddf32c92f80cbe8ac3dda52fba9f6.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 4.png-4e345d5dc20968925e0950b883419dba.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 4.png-4e345d5dc20968925e0950b883419dba.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ��ࠢ� 4.png-747626c229507ea3edbdb476b76c0d03.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 1.png-644bd2b0591d81bbf0a0ec59d6992c78.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 1.png-7316a99c95fa6db9f88d3712c7efe188.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 1.png-7316a99c95fa6db9f88d3712c7efe188.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 2.png-29a45c3a27d2fba27fb1a22b7c544578.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 2.png-29a45c3a27d2fba27fb1a22b7c544578.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 2.png-6540a48a9f18a1b7d70a15783988c5e4.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 3.png-78da6f25698b89dca10f30f38b4bf7eb.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 3.png-78da6f25698b89dca10f30f38b4bf7eb.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 3.png-ae09868f4e7c732ed5452326020ceaba.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 4.png-3e9b72495f4f8256f06d095f91fb5837.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 4.png-7806664521cac6425fa5156d67ff14e9.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���졠 ����� 4.png-7806664521cac6425fa5156d67ff14e9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 1.png-a93844e06639a208e4fb325fe8c10450.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���� 1.png-a93844e06639a208e4fb325fe8c10450.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 1.png-b9232ccc04f49b6e3554a1bf65e01158.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 1.png-c5099ea3f60e74ec967b040d9d46e57c.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\���� 1.png-c5099ea3f60e74ec967b040d9d46e57c.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 1.svg-3952c380935c71ee080378a0102a3bdb.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 1.svg-4034672b2929acc76bea8e3ae1a9be72.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 2.png-1dff999b99bb73f52e397e54f3804b28.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���� 2.png-1dff999b99bb73f52e397e54f3804b28.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 2.png-4fb98ad7d9f137652d21592b7fa31d85.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\���� 2.png-4fb98ad7d9f137652d21592b7fa31d85.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 2.png-f4c5153d2c97d4bb6684897126ff14f9.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 2.svg-109b01ba36af1776d62fd9a69b5e40d3.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 3.png-4b3831095b6e3f070bef4053f8752c3a.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\���� 3.png-4b3831095b6e3f070bef4053f8752c3a.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 3.png-6719b207e39f8942ca26ffecc28ff498.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���� 3.png-6719b207e39f8942ca26ffecc28ff498.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 3.png-a20e562cedda2824afa5aa9e5ae461fd.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 4.png-18b52e7d88ea276a7a31633d5a04e41f.ctex",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\imported\\���� 4.png-18b52e7d88ea276a7a31633d5a04e41f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 4.png-ec66b44bc6f6df45b405dba2f7177e0f.ctex",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\imported\\���� 4.png-ec66b44bc6f6df45b405dba2f7177e0f.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\imported\\���� 4.png-f633e50860ff1ca45243822d8f9197bf.md5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\shader_cache\\SkyShaderGLES3\\2c0e89d013f073915cad7046cb5c522b4b25fbeae337cb71171385dabdcc588e\\851ad615ab5772632d2dd49f5447ff21ea10b2fe.cache",
+      "size_kb": 62.1
+    },
+    {
+      "path": ".godot\\shader_cache\\SkyShaderGLES3\\3d1153e202fa2f96b8fa614367fbbc1457ac7d4b73677bdc8c8caafa7c389a08\\851ad615ab5772632d2dd49f5447ff21ea10b2fe.cache",
+      "size_kb": 62.1
+    },
+    {
+      "path": ".godot\\shader_cache\\SkyShaderGLES3\\53e0495b524ce76ef44e6c41f843100978d55055140d2c151e1b0fddec19314d\\2c82eb5fea9b549e20c9f41e308abf9a4fc5d76f.cache",
+      "size_kb": 54.3
+    },
+    {
+      "path": ".godot\\shader_cache\\SkyShaderGLES3\\c8f38c6e3d6f958349dd9cb9690f6d6b4cabb63b263e6badbb669ee8dffdddd0\\851ad615ab5772632d2dd49f5447ff21ea10b2fe.cache",
+      "size_kb": 62.1
+    },
+    {
+      "path": ".godot\\shader_cache\\SkyShaderGLES3\\c8f38c6e3d6f958349dd9cb9690f6d6b4cabb63b263e6badbb669ee8dffdddd0\\96b30af7886ea709c428e3dafd58844f2eedd348.cache",
+      "size_kb": 35.5
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\91872c193b11e1da0dcbd7f811d74e0d179b8560dcb2cee69629035739028cda\\0c9689a7dae2d011729a1e2cf29c71ecb4a7e8bb.cache",
+      "size_kb": 475.6
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\91872c193b11e1da0dcbd7f811d74e0d179b8560dcb2cee69629035739028cda\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 464.5
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\91872c193b11e1da0dcbd7f811d74e0d179b8560dcb2cee69629035739028cda\\e4803059b59d245bee29da2f87c302ecb830c09e.cache",
+      "size_kb": 484.7
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\bfbccbff26cf6acb715db76eca34604839ac59d12f00a43f7e3e50587c3ce438\\0c9689a7dae2d011729a1e2cf29c71ecb4a7e8bb.cache",
+      "size_kb": 475.6
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\bfbccbff26cf6acb715db76eca34604839ac59d12f00a43f7e3e50587c3ce438\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 464.5
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\bfbccbff26cf6acb715db76eca34604839ac59d12f00a43f7e3e50587c3ce438\\e4803059b59d245bee29da2f87c302ecb830c09e.cache",
+      "size_kb": 484.7
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\ce2bff432444b9b25438c505890c25fc0137fe3a31b4bea49581586a5c498fbe\\0c9689a7dae2d011729a1e2cf29c71ecb4a7e8bb.cache",
+      "size_kb": 475.6
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\ce2bff432444b9b25438c505890c25fc0137fe3a31b4bea49581586a5c498fbe\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 464.5
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\ce2bff432444b9b25438c505890c25fc0137fe3a31b4bea49581586a5c498fbe\\77047cd41f429f33ceff24e890e174f5465e755e.cache",
+      "size_kb": 576.3
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\ce2bff432444b9b25438c505890c25fc0137fe3a31b4bea49581586a5c498fbe\\e4803059b59d245bee29da2f87c302ecb830c09e.cache",
+      "size_kb": 484.7
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\dbdf6e8fe163ea67a4831eaedd9a9024ab4284a1fbdcae1336947f85a59fa465\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 464.7
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\dbdf6e8fe163ea67a4831eaedd9a9024ab4284a1fbdcae1336947f85a59fa465\\a38af2d0725c8e99d8492f4c72736f24d6a54cc5.cache",
+      "size_kb": 484.6
+    },
+    {
+      "path": ".godot\\shader_cache\\SceneShaderGLES3\\dbdf6e8fe163ea67a4831eaedd9a9024ab4284a1fbdcae1336947f85a59fa465\\cafb1506f2db0c3681435e264aa18e216d1a7a40.cache",
+      "size_kb": 475.5
+    },
+    {
+      "path": ".godot\\shader_cache\\PostShaderGLES3\\2442164d670b608a36316ba251df1804913a78b7e47ebbced60bc4c3d98e89c5\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 14.0
+    },
+    {
+      "path": ".godot\\shader_cache\\PostShaderGLES3\\5f6a3e59c5fd3b2716eb7fa44aaa52d3e31b2bdc85ed7cd3e0afd1628889c057\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 13.3
+    },
+    {
+      "path": ".godot\\shader_cache\\PostShaderGLES3\\8671555e2970ee8758f194ae39acf3506e323ba7f0f2c692548a22808bea2595\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 14.0
+    },
+    {
+      "path": ".godot\\shader_cache\\PostShaderGLES3\\97221a80647b9857a477d6cb0f57ed811cb1e856ba294deb56559e3689a49981\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 14.0
+    },
+    {
+      "path": ".godot\\shader_cache\\FeedShaderGLES3\\229c2bace501f1ce9981c1fd3f6f27dc31ed3cc22f7dee29e5506cd9870f7dce\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 8.1
+    },
+    {
+      "path": ".godot\\shader_cache\\FeedShaderGLES3\\309e1ffb72420f31e03fad11bf25d2d3deb28fa573b82a5e67b94a75c884c221\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 8.1
+    },
+    {
+      "path": ".godot\\shader_cache\\FeedShaderGLES3\\904cdea97f3fc00b4a1ee875180304f24b5632ef8d1cdfc38b92e1c86d5b0d83\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 8.1
+    },
+    {
+      "path": ".godot\\shader_cache\\FeedShaderGLES3\\b0940e8462451a9bbb7db8a3b769668fee035af8464a6904edce1463e2189141\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 8.1
+    },
+    {
+      "path": ".godot\\shader_cache\\CubemapFilterShaderGLES3\\0a97ea5a4d6494b8a9fa2db1a22b1d6edfa48c4b1f93046f61165328768bc03a\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 25.4
+    },
+    {
+      "path": ".godot\\shader_cache\\CubemapFilterShaderGLES3\\0d962c48949374ac45c915383cf25cc7b0020e7f33469fb5610c3d26cca57492\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 25.4
+    },
+    {
+      "path": ".godot\\shader_cache\\CubemapFilterShaderGLES3\\11ff52e36993015bcdb9e45b7f00956f15a4d338283f4862f987b5fd1b5aac77\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 25.4
+    },
+    {
+      "path": ".godot\\shader_cache\\CubemapFilterShaderGLES3\\e2095b3b527ef0299dd7df174535dc5338593162b9163cdaee470cd2c50a5405\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 25.4
+    },
+    {
+      "path": ".godot\\shader_cache\\CopyShaderGLES3\\2a9b94dd82c89caa462ab0db083cb9ebda496d7803d71801b07472f66c3b0878\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 95.6
+    },
+    {
+      "path": ".godot\\shader_cache\\CopyShaderGLES3\\e9027ee120324762c17921700c2d291fc18886b1b73b1bbc83d9b7a0dab896b6\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 106.3
+    },
+    {
+      "path": ".godot\\shader_cache\\CopyShaderGLES3\\ef1a4d2dfe9b54389a8ebbc479dab03c20914ecedd52527f5c0d0a1573599a0b\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 95.6
+    },
+    {
+      "path": ".godot\\shader_cache\\CopyShaderGLES3\\fddbc4e96bdf18949572ae285105f64afa3c7ec6ebbe9b69e82491e4c4d669fd\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 95.6
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\1975435a9f21605e984ea4e75fa9cba591aa0cb4.cache",
+      "size_kb": 16.1
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\69fdbe5059b1f5f61a21b6eff215fd0aa945e1de.cache",
+      "size_kb": 16.7
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 1933.3
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\b547968aa19902bd49de94fd81aaa8c91331c7dc.cache",
+      "size_kb": 30.2
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\c5e34cf3bf284287da57d6b10f8da707f1afb8e5.cache",
+      "size_kb": 15.5
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\d105ea87498bdac7d27c3558152243167d5dd3d1.cache",
+      "size_kb": 16.7
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\38d6780cef3b4a2e01784316172a7df0b1ff60123892e1f8f7a35879b3cf75a3\\eebec22b01e5e0893076b11e9acf727d2ebedc3f.cache",
+      "size_kb": 18.2
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\763294d9fe43b14f1894dcb2f984261ee84cddfcd904b2936fc90667ad9d763e\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 71.7
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\c8247fd2ab518bdefa218136adc30624b74a9894d7872139acdc176d42895cd5\\1975435a9f21605e984ea4e75fa9cba591aa0cb4.cache",
+      "size_kb": 16.1
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\c8247fd2ab518bdefa218136adc30624b74a9894d7872139acdc176d42895cd5\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 71.5
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\c8247fd2ab518bdefa218136adc30624b74a9894d7872139acdc176d42895cd5\\b547968aa19902bd49de94fd81aaa8c91331c7dc.cache",
+      "size_kb": 30.2
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\c8247fd2ab518bdefa218136adc30624b74a9894d7872139acdc176d42895cd5\\d105ea87498bdac7d27c3558152243167d5dd3d1.cache",
+      "size_kb": 16.7
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasShaderGLES3\\d25ec84c49a520a75719515380d467777243502e19816bee6fe5dcd516c36570\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 71.5
+    },
+    {
+      "path": ".godot\\shader_cache\\CanvasOcclusionShaderGLES3\\98223f67fea85de56aa24ad7b0c0ef652dd90a5926fb0fdd6d62727a07d8ff16\\6bb7c9a2fd1c4a8fa77cb96555b9b4a720209981.cache",
+      "size_kb": 26.8
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-2bdff2e28ff9e8751ad1da9ff967f70e-main_menu.scn",
+      "size_kb": 2.1
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-3070c538c03ee49b7677ff960a3f5195-main.scn",
+      "size_kb": 29.5
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-36a25e342948d0ceacc500772b5412b3-player.scn",
+      "size_kb": 9.8
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-571eec760c03d5c4ebf56ccab8a879c1-multiplayer_menu.scn",
+      "size_kb": 6.6
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-9f2fe39d573ef35b4ed80b15e42b23d1-multiplayer_player.scn",
+      "size_kb": 9.5
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-bdef6c2ae16844046ef8277bc21ccb40-menu.scn",
+      "size_kb": 13.2
+    },
+    {
+      "path": ".godot\\exported\\133200997\\export-ec12bd2205a8e44213188668d747d7fa-enemy.scn",
+      "size_kb": 5.5
+    },
+    {
+      "path": ".godot\\exported\\133200997\\file_cache",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\hooks\\applypatch-msg.sample",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\hooks\\commit-msg.sample",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\hooks\\fsmonitor-watchman.sample",
+      "size_kb": 4.6
+    },
+    {
+      "path": ".git\\hooks\\post-update.sample",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\hooks\\pre-applypatch.sample",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\hooks\\pre-commit.sample",
+      "size_kb": 1.6
+    },
+    {
+      "path": ".git\\hooks\\pre-merge-commit.sample",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\hooks\\pre-push.sample",
+      "size_kb": 1.3
+    },
+    {
+      "path": ".git\\hooks\\pre-rebase.sample",
+      "size_kb": 4.8
+    },
+    {
+      "path": ".git\\hooks\\pre-receive.sample",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\hooks\\prepare-commit-msg.sample",
+      "size_kb": 1.5
+    },
+    {
+      "path": ".git\\hooks\\push-to-checkout.sample",
+      "size_kb": 2.7
+    },
+    {
+      "path": ".git\\hooks\\sendemail-validate.sample",
+      "size_kb": 2.3
+    },
+    {
+      "path": ".git\\hooks\\update.sample",
+      "size_kb": 3.6
+    },
+    {
+      "path": ".git\\info\\exclude",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\logs\\HEAD",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\refs\\heads\\main",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\refs\\remotes\\orgin\\main",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\refs\\remotes\\orgin\\Moving",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\refs\\remotes\\orgin\\SkinChoose",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\refs\\remotes\\origin\\main",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\objects\\02\\d2e55d03d372da7a3df36b972de96be46ff04b",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\objects\\03\\f54ec57fcf967a94aba2fd864f676d3383435c",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\06\\0de8faa7ed2c02b304c4633d0edfe894c5bcb9",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\07\\7e9fe9586d8cac0ee217b51118a5374f4b62d9",
+      "size_kb": 90.2
+    },
+    {
+      "path": ".git\\objects\\07\\c985780ebfa004f54fe22a08080d126c49c978",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\objects\\09\\dfff6fe2670cad31c2e6afe7081a7fb6b3bfbe",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\0a\\2cce0d8facc86c9d94e74c6967cf4ca74df32e",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\0a\\4d1fab41dd45e6a1338dd1217fbfc979f78b0a",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\0f\\08703945435c596e239e4ea5236eb723122ae5",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\11\\7a24832270512c78c7b2cdc970ad091a2dbd9d",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\13\\7706531aacefd779c7515b24b2016d1e4cdadc",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\15\\df96aad170e8d8b7e54b4d25dc93a8c27fc188",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\18\\ca821663b1d104ad902d2e4e30a019212161e8",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\1c\\caf1ba8655d68b6a6343fe80b939805fd61410",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\1e\\68d66775343a15d84230d0c734fe9291ebf61a",
+      "size_kb": 3.5
+    },
+    {
+      "path": ".git\\objects\\21\\6b5dd4af24cbdde5cd1ba91f71ea1748ad40ac",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\22\\d9d7ef3d0eec990b33706f1d64bf2ea3b365da",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\27\\85a503346bde06987fbd56be0b250837b9b638",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\29\\1d9617b1e91c26ba8c7ca18300ab67d82797a7",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\29\\3e3bb59eeacd0f2c86a75caa216f936bb9d2ec",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\objects\\29\\a3567d86e140e7564d1e911534f30db15dbedc",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\2b\\e9178b49dbc8c287f111dd8225516ac7bcfd81",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\2c\\edccab8a2432fca6d9a835d7dcc2d7d0866006",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\2d\\826e25550a7742e307eb82696c1a2c8cc085d7",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\2f\\ec3f7071094a28b9aee19f9a2c042153399704",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\objects\\37\\d20899aec9e8d4e82d2192303bd800aa641ffe",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\39\\a7d84e42125990192f8a3624c989710d04d4eb",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\3b\\249142fc4a8ff0abac26b79016a9afeb77f92a",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\3c\\361ebe91ca9695e037c2e51b64fc4d5f5baed3",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\3f\\8552d58bc784be405e40798c7aa14ad023e9a7",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\42\\e9f7dfbda87b7e725b1ac91ceca10fe4e3aad4",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\45\\5d62844ac33607cb3a92a9f7a01efb1e80de47",
+      "size_kb": 38.4
+    },
+    {
+      "path": ".git\\objects\\47\\dd94579fa1c0cf59711326acb1d18783310f24",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\objects\\48\\5c5fa7f2e00e8cb989a96a1e819ea4074c38ff",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\4a\\9c1bd9599101f95b9799176b286211f15b2661",
+      "size_kb": 1.7
+    },
+    {
+      "path": ".git\\objects\\4a\\d4eff419175a4db29cd872fc54cfc1f55dc078",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\4c\\66ac484010e81e3dc63456696b13d40598263b",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\objects\\4c\\8df29dd537a943fe1a9cab957a808d7a1094fe",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\4f\\d4d35392fb4e3411248ab16bb6c9f8e1659e52",
+      "size_kb": 40.3
+    },
+    {
+      "path": ".git\\objects\\53\\14e58ee5ad654e26b450d73530d6cbc38a05b3",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\54\\51c0f4fb755ab7c7c1d3c645055a4b7b2d41d0",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\56\\24d35be1c6223a83fbe27a9f2bea9f3f68b5dd",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\objects\\5d\\f1be0df47df30d04769110a31894749d965e52",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\5e\\88b0cead5f187594723e48d751041eadf61a8c",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\60\\040adca7021693a8ee5f91ed119abd412b6cd8",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\60\\3bdc63c3ef79cfab9f9d23069dc463244e4ef8",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\61\\1d5512a10eb4a7601800b11f1ba1dc51f137ec",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\62\\ec6a1285b6ed6406bff3b6cc18ca56b25d42bb",
+      "size_kb": 89.0
+    },
+    {
+      "path": ".git\\objects\\63\\d3b9af728a8b2716c76ad3fd4e039e87e03398",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\63\\d8aabfa1a500b9bc195104c6395aa14438cf3c",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\6a\\7bc480f05d34230c6e1d27483b1a22f3e02f6c",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\6a\\8d75c20408fb63bd3d67779f02267295066f45",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\6b\\713e911e311d3d3c79214030872556da6dd514",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\6b\\f82064e5e5eddd3d719b9dcf5dc1368837a6b4",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\6f\\1ed54451714b894da5a006dd42c2ada37eadb0",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\6f\\75b2fa02f6dd02a1a782535bb4bf1f9a3cc180",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\6f\\d75de110e35d5e187488adb4dcd43f680c2b83",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\70\\34c4aea7459627d811563d96fa52d2d2b95280",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\objects\\70\\cbea27750a03db39496680788607c3080f7b0c",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\71\\9be386eda003fbb0514f66a72550f7dd52d0e2",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\72\\34d5e88c9ddb3d822c42ec94ddcb702ca76d69",
+      "size_kb": 94.9
+    },
+    {
+      "path": ".git\\objects\\72\\86b24bda6f16bdebe481c9f8dafbf1b459f1f4",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\objects\\72\\ba4747b753fbc29d6c4c8abcfdf1e93a106f18",
+      "size_kb": 35.8
+    },
+    {
+      "path": ".git\\objects\\75\\9234abadfad56cd5b6c1b003c6b58973f87ab5",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\75\\b5891a392f409ad7d8e8205b5beb1d95bc2702",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\75\\e2e8e2b886a1898fcac6d2fc1001fbc04b02c8",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\76\\b4a01d252e9efcaf2f8b6fa520f2d3d63b9c75",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\objects\\79\\c23d9f08e6a090a45afa9b27d043630a45b8ab",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\7c\\8b92daddb5ec8e4ba7fd1a18d106c019d61c51",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".git\\objects\\7c\\c0d56e499266a1ebca63daedff0833a6cdff00",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\7f\\abf06ad32528ca0654ed29a8f30affd9e5d279",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\objects\\8a\\d74f78d9c9b9b8f3d68772c6d5aa0cb3fe47e9",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\8d\\bf68761ae4f6637da2c3147051bec68a3fdbef",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\8f\\b1030911e4717255e9b091fd9dfc2f21645b3f",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\90\\ade2d2cc0cadd5e8155a635dbb082d7186bce4",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\94\\43de05eaf67b53f4b10a0d3f6aa618d4538056",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\99\\51713b94fae63cb3e402ea69ff09409001c137",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".git\\objects\\9b\\4ceb20ea0d35917bfd022ee79d73d490a7d0b6",
+      "size_kb": 94.7
+    },
+    {
+      "path": ".git\\objects\\9d\\8b7fa14f06c0de54ca2d69fe2ca52875b38017",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\objects\\9e\\31821b5c16df33b7b4ca8470e6632b1e4d0237",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\a1\\ad0061989e30faf40f8357646086ea4b4e0818",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".git\\objects\\a4\\7bf5548638b15ead8d83cf660ce5df2abf42fe",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\objects\\a5\\f23e2f564c37b6d9d0c2771c3413e144ab026b",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\a7\\12908a3bdb7cea868392b291dd5a08e7ba393c",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\aa\\8310e55af7031207f68af5cc0bb33ff39b18f1",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\ab\\41754d3e306c43bb07426777d293f01875118f",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\ab\\d3757e52f134a7b3ea0932b2a8966d7d2241db",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\b0\\2176cbcf3a68b0b1abd3f61d766587900064c5",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\b1\\ad3c652b642a64c749f0f46eef6e38e332c624",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\objects\\bb\\d9a3978506ae7240e7044952d5ee8aac295d1d",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\bc\\137153233df1f3bd40dbd459328932a5e4beb2",
+      "size_kb": 28.4
+    },
+    {
+      "path": ".git\\objects\\bd\\3105de6f9c8cbbd0f2be50825ca401f04afe80",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\bd\\4455a998e7e0ede2254fdaa74039c93fbc908c",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\bf\\ae5ae37d2eaffe6047ba8e8088f4e532724400",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\c2\\157ab7e4bdf8bf4c9825c18e9a30185ef55676",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\c2\\c5d9e1dd3d41ab285793e78cec9fefbb9692a5",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\c3\\f90587eb294098a86345d998afdf1fc01b4eba",
+      "size_kb": 1.4
+    },
+    {
+      "path": ".git\\objects\\c4\\32c60d5362b39c4408b342c63ff359faa7e6bd",
+      "size_kb": 3.0
+    },
+    {
+      "path": ".git\\objects\\c4\\d1f5507ff8b8edd2499ce2b0a4148aac34fe02",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\c6\\0b07a8bd02241b5cd297bcd93d4a7125c1e1e0",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\objects\\c9\\71a4be27079f8e457eb0bff0d8cca6489bbb36",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\cd\\6a8d52245344e60fdd35bdef1ea5628eb12d0a",
+      "size_kb": 0.8
+    },
+    {
+      "path": ".git\\objects\\cf\\6271df8ccbb708c8e7b60d1dce7a8db803d0a4",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\d0\\91f1045143beda3a5b6139729d6c014a4ca6a5",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".git\\objects\\d9\\e9854378fae8afe30fa04a868cdfdf776d5eeb",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\da\\a12c9216c6a43a4999376e9ede417aacdf1938",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\dd\\3ef1e99a962f6a62c34ce45e7c6b81d11c301c",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\df\\155e4718d4a28153cb58df671dd719fcadf457",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\df\\205dc09201babba4af735f905851ee0ddeb18c",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\e0\\9382a273801bb21627986ef3fd410996558150",
+      "size_kb": 39.0
+    },
+    {
+      "path": ".git\\objects\\e4\\b496ec0917462cf5c7d8a6b47fe8cc22cbf826",
+      "size_kb": 6.1
+    },
+    {
+      "path": ".git\\objects\\e8\\9fb6b46bde929da1a08de054630d2560971ae2",
+      "size_kb": 94.0
+    },
+    {
+      "path": ".git\\objects\\e9\\8f2d471cac9f7d8101c60c3249a068c90c18e1",
+      "size_kb": 92.2
+    },
+    {
+      "path": ".git\\objects\\eb\\8338b13459e540fd6193b64b8292cdf8f0129b",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\ee\\a4f34b84e99e37b4cf99ff0dde21b6a3679c14",
+      "size_kb": 184.5
+    },
+    {
+      "path": ".git\\objects\\ef\\4a83e15e25f2192b237872668f62ec076aa22b",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f1\\cb7736cc80a824258fe3e5074df9c9d8989d43",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f1\\e904dca5fa29f6fc5e30d8919dde3fe98398cc",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".git\\objects\\f3\\a88c518895cbf82d715876247b3659afc45895",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f6\\39d06ea2e455f5945fb881920c8f3cb35f631e",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f7\\9f6e6b3f85acc991f0657c84f9fb1f292ec082",
+      "size_kb": 40.4
+    },
+    {
+      "path": ".git\\objects\\f7\\dd3f6c8197c9e69ccd8ba0d794fdfc9b9a5000",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f8\\4ce31ac0a5d7d35282c7d0acd8eabd8d2a6473",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".git\\objects\\f9\\e31a93cddad3b69ae50c14a1950307c681971c",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\objects\\fb\\6ff7137df56c6a2354d04d7582d41c53ebeb5e",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".git\\objects\\pack\\pack-8319de9a22f46b77985a2cbd72f82efe2e69b752.idx",
+      "size_kb": 4.7
+    },
+    {
+      "path": ".git\\objects\\pack\\pack-8319de9a22f46b77985a2cbd72f82efe2e69b752.pack",
+      "size_kb": 958.6
+    },
+    {
+      "path": ".git\\objects\\pack\\pack-8319de9a22f46b77985a2cbd72f82efe2e69b752.rev",
+      "size_kb": 0.6
+    },
+    {
+      "path": ".git\\logs\\refs\\heads\\main",
+      "size_kb": 0.5
+    },
+    {
+      "path": ".git\\logs\\refs\\remotes\\orgin\\main",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\logs\\refs\\remotes\\orgin\\Moving",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\logs\\refs\\remotes\\orgin\\SkinChoose",
+      "size_kb": 0.2
+    },
+    {
+      "path": ".git\\logs\\refs\\remotes\\origin\\main",
+      "size_kb": 0.1
+    }
+  ],
+  "scenes": [
+    {
+      "path": "enemy.tscn",
+      "size_kb": 6.4
+    },
+    {
+      "path": "main.tscn",
+      "size_kb": 53.5
+    },
+    {
+      "path": "multiplayer_menu.tscn",
+      "size_kb": 8.9
+    },
+    {
+      "path": "multiplayer_player.tscn",
+      "size_kb": 10.1
+    },
+    {
+      "path": "player.tscn",
+      "size_kb": 10.5
+    },
+    {
+      "path": "MainMenu\\menu.tscn",
+      "size_kb": 19.7
+    }
+  ],
+  "config": [
+    {
+      "path": "export_presets.cfg",
+      "size_kb": 2.4
+    },
+    {
+      "path": ".godot\\export_credentials.cfg",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\global_script_class_cache.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\scene_groups_cache.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\alagard-12px-unicode.ttf-b18e119dc1466efd6efb19b91da037b2.fontdata-folding-0bd862ff810d2c3aa15c02c4a47212c0.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\chelovek-bejit-po-trave-26013.mp3-456d9c0b968b1c2a13778ea443ba9cd9.mp3str-folding-1f94bb3103a7d2871c5fb6896b7265f6.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\editor_layout.cfg",
+      "size_kb": 2.5
+    },
+    {
+      "path": ".godot\\editor\\editor_script_doc_cache.res-folding-a7de57390d6e786984ca20c70a831128.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\enemy.gd-folding-330a1fc7dbbe1bf2c9ebea044ae04277.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\enemy.gd-folding-423c33919387fb71ba98ff2b6dc2954f.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\enemy.tscn-editstate-ec12bd2205a8e44213188668d747d7fa.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\enemy.tscn-folding-ec12bd2205a8e44213188668d747d7fa.cfg",
+      "size_kb": 0.3
+    },
+    {
+      "path": ".godot\\editor\\export-2bdff2e28ff9e8751ad1da9ff967f70e-main_menu.scn-folding-10536a7324e56b88bad90bb0431052ea.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-3070c538c03ee49b7677ff960a3f5195-main.scn-folding-a944da49341e1e0a5ff3d39c72060b2d.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-36a25e342948d0ceacc500772b5412b3-player.scn-folding-bbdab43dae6813e46e43b9624cd14de2.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-571eec760c03d5c4ebf56ccab8a879c1-multiplayer_menu.scn-folding-6ff08075b345acab7f86ce43a8ab6c70.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-9f2fe39d573ef35b4ed80b15e42b23d1-multiplayer_player.scn-folding-15c49b9414346e250ef68ed05feef053.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-bdef6c2ae16844046ef8277bc21ccb40-menu.scn-folding-e3bf3f2b5299e552a6c490b8a0513c34.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\export-ec12bd2205a8e44213188668d747d7fa-enemy.scn-folding-f7513c08cb2fada0890b110974089bea.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\GameSettings.gd-folding-1025a1639f5e33ea1e52df0e38833d3d.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\GameSettings.gd-folding-f6eff46acee9bc8e6d29cfe3d79b0d54.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\global.gd-folding-04eec02e256d04a7dde0555f24a44e52.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\global.gd-folding-1b5a5db04d8dd4a548fbf6c074feec7f.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\HarreeghPoppedCyrillic.ttf-7e718402423f2de03b75602214e6b057.fontdata-folding-93f26f7c91d3057af2175f1859ec57cc.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\jutkiy-zvuk-vnezapnosti.mp3-a63ba13aaa265b33e34aedbc10db1a44.mp3str-folding-e34b2d049a1a42824b9960398b13fb2c.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\main.gdshader-folding-efc064984f0199555c67181a06d3ebd2.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\main.tscn-editstate-3070c538c03ee49b7677ff960a3f5195.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\main.tscn-folding-3070c538c03ee49b7677ff960a3f5195.cfg",
+      "size_kb": 9.2
+    },
+    {
+      "path": ".godot\\editor\\main_menu.tscn-editstate-2bdff2e28ff9e8751ad1da9ff967f70e.cfg",
+      "size_kb": 4.4
+    },
+    {
+      "path": ".godot\\editor\\main_menu.tscn-folding-2bdff2e28ff9e8751ad1da9ff967f70e.cfg",
+      "size_kb": 0.4
+    },
+    {
+      "path": ".godot\\editor\\menu.gd-folding-f095bceeedac2012e749109637755259.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\menu.tscn-editstate-bdef6c2ae16844046ef8277bc21ccb40.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\menu.tscn-folding-bdef6c2ae16844046ef8277bc21ccb40.cfg",
+      "size_kb": 3.6
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_menu.gd-folding-2c87a8624dfa049d08371910d765e5ca.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_menu.gd-folding-738ce69f9b5eba18344b17a583fb4f09.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_menu.gd-folding-e4be96a53fd17d30eaaba52a8263e431.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_menu.tscn-editstate-571eec760c03d5c4ebf56ccab8a879c1.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_menu.tscn-folding-571eec760c03d5c4ebf56ccab8a879c1.cfg",
+      "size_kb": 2.0
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_player.gd-folding-8537c9f30332f32adc749b236cd7dce0.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_player.tscn-editstate-9f2fe39d573ef35b4ed80b15e42b23d1.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\multiplayer_player.tscn-folding-9f2fe39d573ef35b4ed80b15e42b23d1.cfg",
+      "size_kb": 0.9
+    },
+    {
+      "path": ".godot\\editor\\napryajennyiy-zvuk.mp3-2515861be6385435b40d606459e63314.mp3str-folding-c07dc483aeca72ef62b65a28723a065f.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\network_manager.gd-folding-3774e27f3762eea11f0dd7c9de023d16.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\network_manager.gd-folding-9ad789e970049b6ad9e2976a749f0d7d.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\pause_menu.gd-folding-131720901c2c610bb89bc298243516c6.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\pause_menu.gd-folding-b5f0a330b0972fd0e4b6d73ae498ea74.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\player.gd-folding-37c9f666e3c0ec2c32be54b61af47c16.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\player.gd-folding-c7182c67b4cb8dab7b9e3eb344acdb71.cfg",
+      "size_kb": 0.0
+    },
+    {
+      "path": ".godot\\editor\\player.tscn-editstate-36a25e342948d0ceacc500772b5412b3.cfg",
+      "size_kb": 4.5
+    },
+    {
+      "path": ".godot\\editor\\player.tscn-folding-36a25e342948d0ceacc500772b5412b3.cfg",
+      "size_kb": 0.7
+    },
+    {
+      "path": ".godot\\editor\\project_metadata.cfg",
+      "size_kb": 1.6
+    },
+    {
+      "path": ".godot\\editor\\quick_open_dialog_cache.cfg",
+      "size_kb": 0.1
+    },
+    {
+      "path": ".godot\\editor\\script_editor_cache.cfg",
+      "size_kb": 2.3
+    },
+    {
+      "path": ".godot\\editor\\veter-na-igrovoy-ploschadke-35870.mp3-1bd2dafeb69e6b370009d7e841a994cd.mp3str-folding-7e627e948296f58c0982c2c838f2966c.cfg",
+      "size_kb": 0.0
+    }
+  ],
+  "project": [
+    {
+      "path": "project.godot",
+      "size_kb": 5.9
+    }
+  ],
+  "scripts": [
+    {
+      "path": "MainMenu\\menu.gd",
+      "size_kb": 2.5
+    },
+    {
+      "path": "src\\enemy.gd",
+      "size_kb": 1.7
+    },
+    {
+      "path": "src\\global.gd",
+      "size_kb": 0.4
+    },
+    {
+      "path": "src\\main.gd",
+      "size_kb": 0.2
+    },
+    {
+      "path": "src\\menu.gd",
+      "size_kb": 0.7
+    },
+    {
+      "path": "src\\multiplayer_menu.gd",
+      "size_kb": 4.0
+    },
+    {
+      "path": "src\\multiplayer_player.gd",
+      "size_kb": 1.3
+    },
+    {
+      "path": "src\\network_manager.gd",
+      "size_kb": 10.5
+    },
+    {
+      "path": "src\\pause_menu.gd",
+      "size_kb": 0.9
+    },
+    {
+      "path": "src\\player.gd",
+      "size_kb": 3.4
+    },
+    {
+      "path": "src\\save_load\\save.gd",
+      "size_kb": 0.7
+    }
+  ],
+  "sprites": [
+    {
+      "path": "Resource\\20250421_213259.png",
+      "size_kb": 26.8
+    },
+    {
+      "path": "Resource\\Sprite\\20250421_213259.png",
+      "size_kb": 26.8
+    },
+    {
+      "path": "Resource\\Sprite\\down1.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down2.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down3.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down4.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left1.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\left2.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left3.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left4.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\right1.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\right2.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\right3.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\right4.png",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\up1.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\Sprite\\up2.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\Sprite\\up3.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\Sprite\\up4.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\SpriteMale\\20250421_213259.png",
+      "size_kb": 26.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down1.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down2.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down3.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down4.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left1.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left2.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left3.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left4.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right1.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right2.png",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\SpriteMale\\right3.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right4.png",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\up1.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\SpriteMale\\up2.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\SpriteMale\\up3.png",
+      "size_kb": 0.6
+    },
+    {
+      "path": "Resource\\SpriteMale\\up4.png",
+      "size_kb": 0.6
+    }
+  ],
+  "import_meta": [
+    {
+      "path": "Resource\\20250421_213259.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Icon.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Button\\EButton.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Button\\MenuButton.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\MenuButton_v2.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\MenuButton_v2_pressed.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_down_v1.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_down_v2.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_left_v1.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_left_v2.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_right_v1.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_right_v2.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_up_v1.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Button\\ui_move_up_v2.svg.import",
+      "size_kb": 0.9
+    },
+    {
+      "path": "Resource\\Enemy\\down1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down3.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down4.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down5.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down6.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down7.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\down8.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left3.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left4.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left5.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left6.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left7.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\left8.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right3.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right4.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right5.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right6.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right7.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\right8.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up3.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up4.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up5.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up6.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up7.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Enemy\\up8.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Font\\alagard-12px-unicode.ttf.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Font\\HarreeghPoppedCyrillic.ttf.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\items\\log.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\items\\rocks.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\items\\rope.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map10.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map11.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map12.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map3.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map4.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map5.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map6.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map7.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map8.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Map\\map9.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Menu\\menu1.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu10.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu11.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu12.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu2.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu3.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu4.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu5.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu6.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu7.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu8.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Menu\\menu9.jpg.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sounds\\chelovek-bejit-po-trave-26013.mp3.import",
+      "size_kb": 0.4
+    },
+    {
+      "path": "Resource\\Sounds\\jutkiy-zvuk-vnezapnosti.mp3.import",
+      "size_kb": 0.4
+    },
+    {
+      "path": "Resource\\Sounds\\napryajennyiy-zvuk.mp3.import",
+      "size_kb": 0.4
+    },
+    {
+      "path": "Resource\\Sounds\\veter-na-igrovoy-ploschadke-35870.mp3.import",
+      "size_kb": 0.4
+    },
+    {
+      "path": "Resource\\Sprite\\20250421_213259.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\down1.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down2.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down3.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\down4.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left1.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left2.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left3.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\left4.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\right1.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\right2.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\right3.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\right4.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Sprite\\up1.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\up2.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\up3.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Sprite\\up4.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\SpriteMale\\20250421_213259.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down1.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down2.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down3.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\down4.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left1.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left2.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left3.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\left4.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right1.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right2.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right3.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\right4.png.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\SpriteMale\\up1.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\SpriteMale\\up2.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\SpriteMale\\up3.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\SpriteMale\\up4.png.import",
+      "size_kb": 0.7
+    },
+    {
+      "path": "Resource\\Tree\\tree1.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Tree\\tree2.svg.import",
+      "size_kb": 0.8
+    },
+    {
+      "path": "Resource\\Tree\\tree3.svg.import",
+      "size_kb": 0.8
+    }
+  ]
+}

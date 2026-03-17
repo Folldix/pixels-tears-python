@@ -1,0 +1,8 @@
+WINDOW_TITLE = "Pixels and Tears (PyGame)"
+
+BASE_WIDTH = 1280
+BASE_HEIGHT = 720
+FPS = 60
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
