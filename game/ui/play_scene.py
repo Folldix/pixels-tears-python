@@ -81,11 +81,11 @@ class Player:
         elif self.direction.y != 0:
             self.facing = "down" if self.direction.y > 0 else "up"
 
-    def update(self, dt: float) -> None:
+    def update(self, dt: float, world_w: int, world_h: int) -> None:
         self.handle_keys()
         self.pos += self.direction * self.speed * dt
-        self.pos.x = max(0, min(BASE_WIDTH, self.pos.x))
-        self.pos.y = max(0, min(BASE_HEIGHT, self.pos.y))
+        self.pos.x = max(0, min(world_w, self.pos.x))
+        self.pos.y = max(0, min(world_h, self.pos.y))
 
         moving = self.direction.length_squared() > 0
         if moving:
@@ -117,9 +117,10 @@ class Player:
         r = img.get_rect(center=(int(self.pos.x), int(self.pos.y)))
         return r
 
-    def draw(self, screen: pg.Surface) -> None:
+    def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
         img = self.image()
-        screen.blit(img, self.rect())
+        r = self.rect().move(-int(cam.x), -int(cam.y))
+        screen.blit(img, r)
 
 
 @dataclass
@@ -131,7 +132,7 @@ class Enemy:
     _timer: float = 0.0
     visible: bool = False
 
-    def update(self, dt: float, player_pos: pg.Vector2) -> None:
+    def update(self, dt: float, player_pos: pg.Vector2, world_w: int, world_h: int) -> None:
         if not self.visible:
             self._timer += dt
             if self._timer >= self.active_after_s:
@@ -147,11 +148,18 @@ class Enemy:
         )
         vel = direction * self.speed + jitter
         self.pos += vel * dt
+        self.pos.x = max(0, min(world_w, self.pos.x))
+        self.pos.y = max(0, min(world_h, self.pos.y))
 
-    def draw(self, screen: pg.Surface) -> None:
+    def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
         if not self.visible:
             return
-        pg.draw.circle(screen, (200, 60, 60), (int(self.pos.x), int(self.pos.y)), 14)
+        pg.draw.circle(
+            screen,
+            (200, 60, 60),
+            (int(self.pos.x - cam.x), int(self.pos.y - cam.y)),
+            14,
+        )
 
 
 @dataclass
@@ -159,11 +167,11 @@ class Interactable:
     pos: pg.Vector2
     visible: bool = True
 
-    def draw(self, screen: pg.Surface) -> None:
+    def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
         if not self.visible:
             return
         r = pg.Rect(0, 0, 18, 18)
-        r.center = (int(self.pos.x), int(self.pos.y))
+        r.center = (int(self.pos.x - cam.x), int(self.pos.y - cam.y))
         pg.draw.rect(screen, (80, 200, 120), r, border_radius=4)
 
 
@@ -175,12 +183,14 @@ class PlayScene:
     def __post_init__(self) -> None:
         self.font = self.assets.font("font/HarreeghPoppedCyrillic.ttf", 18)
         self.big_font = self.assets.font("font/HarreeghPoppedCyrillic.ttf", 28)
-        self.player = Player(self.assets, self.state, pos=pg.Vector2(BASE_WIDTH // 2, BASE_HEIGHT // 2))
+        self.map = self._load_map()
+        self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
+        self.player = Player(self.assets, self.state, pos=pg.Vector2(self.world_w // 2, self.world_h // 2))
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
         self.interactables = [
-            Interactable(pg.Vector2(420, 320)),
-            Interactable(pg.Vector2(540, 380)),
-            Interactable(pg.Vector2(680, 420)),
+            Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
+            Interactable(pg.Vector2(self.world_w // 2 + 20, self.world_h // 2 + 40)),
+            Interactable(pg.Vector2(self.world_w // 2 + 160, self.world_h // 2 + 80)),
         ]
         self.paused = False
         self.ws: WsClient | None = None
@@ -189,6 +199,21 @@ class PlayScene:
         self.remote_players: dict[str, pg.Vector2] = {}
         if self.state.multiplayergame and self.state.join_server:
             self._start_ws()
+
+    def _load_map(self) -> pg.Surface:
+        # Беремо map1.png за замовчуванням (або будь-яку першу map*.png)
+        map_dir = self.assets.root / "map"
+        candidates = []
+        if map_dir.exists():
+            candidates = sorted(map_dir.glob("map*.png"))
+        chosen = candidates[0] if candidates else None
+        if chosen is None:
+            # fallback — просто полотно розміру екрана
+            surf = pg.Surface((BASE_WIDTH, BASE_HEIGHT))
+            surf.fill((24, 24, 30))
+            return surf.convert()
+        img = pg.image.load(str(chosen)).convert()
+        return img
 
     def _start_ws(self) -> None:
         self.incoming = Queue()
@@ -238,8 +263,8 @@ class PlayScene:
     def update(self, dt: float) -> None:
         if self.paused:
             return
-        self.player.update(dt)
-        self.enemy.update(dt, self.player.pos)
+        self.player.update(dt, self.world_w, self.world_h)
+        self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
         self._net_tick()
 
     def _net_tick(self) -> None:
@@ -270,15 +295,16 @@ class PlayScene:
                 self.remote_players[pid] = pg.Vector2(x, y)
 
     def render(self, screen: pg.Surface) -> None:
-        screen.fill((24, 24, 30))
+        cam = self._camera()
+        screen.blit(self.map, (-int(cam.x), -int(cam.y)))
         for it in self.interactables:
-            it.draw(screen)
-        self.player.draw(screen)
-        self.enemy.draw(screen)
+            it.draw(screen, cam)
+        self.player.draw(screen, cam)
+        self.enemy.draw(screen, cam)
         for pid, pos in self.remote_players.items():
-            pg.draw.circle(screen, (80, 140, 240), (int(pos.x), int(pos.y)), 12)
+            pg.draw.circle(screen, (80, 140, 240), (int(pos.x - cam.x), int(pos.y - cam.y)), 12)
             label = self.font.render(pid, True, WHITE)
-            screen.blit(label, (int(pos.x) + 14, int(pos.y) - 10))
+            screen.blit(label, (int(pos.x - cam.x) + 14, int(pos.y - cam.y) - 10))
 
         hint = self.font.render("E — взаємодія, ESC — пауза", True, WHITE)
         screen.blit(hint, (18, 18))
@@ -296,4 +322,12 @@ class PlayScene:
 
             to_menu = self.font.render("M — в меню", True, WHITE)
             screen.blit(to_menu, to_menu.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT // 2 + 40)))
+
+    def _camera(self) -> pg.Vector2:
+        # Камера тримає гравця по центру, але не виходить за межі мапи
+        x = self.player.pos.x - BASE_WIDTH / 2
+        y = self.player.pos.y - BASE_HEIGHT / 2
+        x = max(0, min(self.world_w - BASE_WIDTH, x))
+        y = max(0, min(self.world_h - BASE_HEIGHT, y))
+        return pg.Vector2(x, y)
 
