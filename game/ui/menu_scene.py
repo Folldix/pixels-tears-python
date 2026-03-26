@@ -124,7 +124,7 @@ class MenuScene:
             self._bg_timer += dt * self.bg_anim_speed
 
     def render(self, screen: pg.Surface) -> None:
-        if self._bg is not None:
+        if self._bg_frames:
             screen.blit(self._bg, (0, 0))
             overlay = pg.Surface((BASE_WIDTH, BASE_HEIGHT), flags=pg.SRCALPHA)
             overlay.fill((0, 0, 0, 130))
