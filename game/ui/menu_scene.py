@@ -27,7 +27,9 @@ class MenuScene:
         self.selection: int = 0
         self.editing: str | None = None  # player | lobby
 
-        self._bg = self._load_random_bg()
+        self._bg_frames: list[pg.Surface] = self._load_bg_frames()
+        self._bg_timer: float = 0.0
+        self.bg_anim_speed: float = 10.0  # кадрів за секунду
 
     def _load_font(self) -> pg.font.Font:
         for rel in (
@@ -40,18 +42,22 @@ class MenuScene:
                 continue
         return pg.font.SysFont(None, 32)
 
-    def _load_random_bg(self) -> pg.Surface | None:
-        menu_dir = self.assets.root / "menu"
+    def _load_bg_frames(self) -> list[pg.Surface]:
+        frames = []
+        menu_dir = self.assets.root / "menu"  # <--- ПЕРЕВІР, ЩО ЦЕЙ РЯДОК Є!
         if not menu_dir.exists():
-            return None
-        choices = sorted(menu_dir.glob("menu*.jpg"))
-        if not choices:
-            return None
-        try:
-            img = pg.image.load(str(random.choice(choices))).convert()
-        except Exception:
-            return None
-        return pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
+            return frames
+
+        for i in range(1, 13):
+            path = menu_dir / f"menu{i}.jpg"
+            if path.exists():
+                try:
+                    img = pg.image.load(str(path)).convert()
+                    img = pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
+                    frames.append(img)
+                except Exception:
+                    continue
+        return frames
 
     def handle_event(self, ev: pg.event.Event) -> None:
         if ev.type != pg.KEYDOWN:
@@ -113,11 +119,14 @@ class MenuScene:
                 self.editing = "lobby"
 
     def update(self, dt: float) -> None:
-        pass
+        if self._bg_frames:
+            # Додаємо час до таймера, помножений на швидкість
+            self._bg_timer += dt * self.bg_anim_speed
 
     def render(self, screen: pg.Surface) -> None:
-        if self._bg is not None:
-            screen.blit(self._bg, (0, 0))
+        if self._bg_frames:
+            idx = int(self._bg_timer) % len(self._bg_frames)
+            screen.blit(self._bg_frames[idx], (0, 0))
             overlay = pg.Surface((BASE_WIDTH, BASE_HEIGHT), flags=pg.SRCALPHA)
             overlay.fill((0, 0, 0, 130))
             screen.blit(overlay, (0, 0))
