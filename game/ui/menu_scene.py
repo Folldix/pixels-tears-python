@@ -27,7 +27,7 @@ class MenuScene:
         self.selection: int = 0
         self.editing: str | None = None  # player | lobby
 
-        self._bg = self._load_random_bg()
+
 
     def _load_font(self) -> pg.font.Font:
         for rel in (
