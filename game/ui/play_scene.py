@@ -283,6 +283,11 @@ class PlayScene:
      color = self.map.get_at((x, y))
      r, g, b = color[:3]
 
+     # вода
+     if b > 150 and g < 120:
+      return False
+
+
     def update(self, dt: float) -> None:
      if self.paused:
         return
