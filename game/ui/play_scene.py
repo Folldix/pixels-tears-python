@@ -282,6 +282,7 @@ class PlayScene:
                 nearest = it
         if nearest is not None:
             nearest.visible = False
+
 #Логіка колізії
     def is_walkable(self, pos: pg.Vector2) -> bool:
      x, y = int(pos.x), int(pos.y)
@@ -289,33 +290,41 @@ class PlayScene:
      if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
         return False
 
-     color = self.map.get_at((x, y))
-     r, g, b = color[:3]
+     r, g, b = self.map.get_at((x, y))[:3]
 
-     # вода
-     if b > 150 and g < 120:
-      return False
-
-     # дерева
-     if g > 140 and r < 120 and b < 120:
+    #Вода
+     if b > r and b > g:
         return False
 
-     # каміння 
-     if abs(r - g) < 20 and abs(g - b) < 20 and r > 120:
+     if g > 150 and r < 100 and b < 100:
       return False
-     # вогонь
+
+    #Печера
+     if r < 50 and g < 50 and b < 50:
+      return False 
+    
+    #Скеля
+     if abs(r - g) < 20 and abs(g - b) < 20 and r > 100:
+        return False
+
+    #Вогнище
      if r > 200 and g > 100 and b < 100:
         return False
 
      return True
-    def find_spawn(self) -> pg.Vector2:
-     for x in range(0, self.world_w, 10):
-        for y in range(0, self.world_h, 10):
-            pos = pg.Vector2(x, y)
-            if self.is_walkable(pos):
-                return pos
 
-     return pg.Vector2(100, 100)
+    def find_spawn(self) -> pg.Vector2:
+     for _ in range(2000):
+        x = random.randint(0, self.world_w)
+        y = random.randint(0, self.world_h)
+
+        pos = pg.Vector2(x, y)
+
+        if self.is_walkable(pos):
+            return pos
+
+    # fallback — центр
+     return pg.Vector2(self.world_w // 2, self.world_h // 2)
 
     def update(self, dt: float) -> None:
      if self.paused:
