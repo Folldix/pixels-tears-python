@@ -119,7 +119,9 @@ class MenuScene:
                 self.editing = "lobby"
 
     def update(self, dt: float) -> None:
-        pass
+        if self._bg_frames:
+            # Додаємо час до таймера, помножений на швидкість
+            self._bg_timer += dt * self.bg_anim_speed
 
     def render(self, screen: pg.Surface) -> None:
         if self._bg is not None:
