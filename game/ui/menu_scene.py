@@ -48,6 +48,10 @@ class MenuScene:
         if not menu_dir.exists():
             return frames
         return frames
+    for i in range(1, 13):
+        path = menu_dir / f"menu{i}.jpg"
+        if path.exists():
+            pass  # TODO: завантажити зображення
 
     def handle_event(self, ev: pg.event.Event) -> None:
         if ev.type != pg.KEYDOWN:
