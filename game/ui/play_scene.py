@@ -287,6 +287,9 @@ class PlayScene:
      if b > 150 and g < 120:
       return False
 
+     # дерева
+     if g > 140 and r < 120 and b < 120:
+        return False
 
     def update(self, dt: float) -> None:
      if self.paused:
