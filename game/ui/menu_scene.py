@@ -27,7 +27,7 @@ class MenuScene:
         self.selection: int = 0
         self.editing: str | None = None  # player | lobby
 
-        self._bg_frames: list[pg.Surface] = []
+        self._bg_frames: list[pg.Surface] = self._load_bg_frames()
         self._bg_timer: float = 0.0
         self.bg_anim_speed: float = 10.0  # кадрів за секунду
 
