@@ -42,18 +42,12 @@ class MenuScene:
                 continue
         return pg.font.SysFont(None, 32)
 
-    def _load_random_bg(self) -> pg.Surface | None:
+    def _load_bg_frames(self) -> list[pg.Surface]:
+        frames = []
         menu_dir = self.assets.root / "menu"
         if not menu_dir.exists():
-            return None
-        choices = sorted(menu_dir.glob("menu*.jpg"))
-        if not choices:
-            return None
-        try:
-            img = pg.image.load(str(random.choice(choices))).convert()
-        except Exception:
-            return None
-        return pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
+            return frames
+        return frames
 
     def handle_event(self, ev: pg.event.Event) -> None:
         if ev.type != pg.KEYDOWN:
