@@ -51,7 +51,13 @@ class MenuScene:
     for i in range(1, 13):
         path = menu_dir / f"menu{i}.jpg"
         if path.exists():
-            pass  # TODO: завантажити зображення
+            try:
+                img = pg.image.load(str(path)).convert()
+                # Масштабуємо під базову роздільну здатність вікна
+                img = pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
+                frames.append(img)
+            except Exception:
+                continue
 
     def handle_event(self, ev: pg.event.Event) -> None:
         if ev.type != pg.KEYDOWN:
