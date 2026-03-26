@@ -44,20 +44,20 @@ class MenuScene:
 
     def _load_bg_frames(self) -> list[pg.Surface]:
         frames = []
-        menu_dir = self.assets.root / "menu"
+        menu_dir = self.assets.root / "menu"  # <--- ПЕРЕВІР, ЩО ЦЕЙ РЯДОК Є!
         if not menu_dir.exists():
             return frames
+
+        for i in range(1, 13):
+            path = menu_dir / f"menu{i}.jpg"
+            if path.exists():
+                try:
+                    img = pg.image.load(str(path)).convert()
+                    img = pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
+                    frames.append(img)
+                except Exception:
+                    continue
         return frames
-    for i in range(1, 13):
-        path = menu_dir / f"menu{i}.jpg"
-        if path.exists():
-            try:
-                img = pg.image.load(str(path)).convert()
-                # Масштабуємо під базову роздільну здатність вікна
-                img = pg.transform.smoothscale(img, (BASE_WIDTH, BASE_HEIGHT))
-                frames.append(img)
-            except Exception:
-                continue
 
     def handle_event(self, ev: pg.event.Event) -> None:
         if ev.type != pg.KEYDOWN:
