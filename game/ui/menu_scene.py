@@ -125,7 +125,8 @@ class MenuScene:
 
     def render(self, screen: pg.Surface) -> None:
         if self._bg_frames:
-            screen.blit(self._bg, (0, 0))
+            idx = int(self._bg_timer) % len(self._bg_frames)
+            screen.blit(self._bg_frames[idx], (0, 0))
             overlay = pg.Surface((BASE_WIDTH, BASE_HEIGHT), flags=pg.SRCALPHA)
             overlay.fill((0, 0, 0, 130))
             screen.blit(overlay, (0, 0))
