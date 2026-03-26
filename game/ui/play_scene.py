@@ -273,6 +273,15 @@ class PlayScene:
                 nearest = it
         if nearest is not None:
             nearest.visible = False
+#Логіка колізії
+    def is_walkable(self, pos: pg.Vector2) -> bool:
+     x, y = int(pos.x), int(pos.y)
+
+     if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
+        return False
+
+     color = self.map.get_at((x, y))
+     r, g, b = color[:3]
 
     def update(self, dt: float) -> None:
      if self.paused:
