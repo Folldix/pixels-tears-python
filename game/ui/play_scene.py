@@ -184,8 +184,17 @@ class PlayScene:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
+        self.map = self._load_map()
         self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
-        self.player = Player(self.assets, self.state, pos=pg.Vector2(self.world_w // 2, self.world_h // 2))
+
+        spawn_pos = self.find_spawn()
+
+        self.player = Player(
+    self.assets,
+    self.state,
+    pos=spawn_pos
+)
+        pos=pg.Vector2(300, 300)
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
         self.interactables = [
             Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
@@ -193,6 +202,7 @@ class PlayScene:
             Interactable(pg.Vector2(self.world_w // 2 + 160, self.world_h // 2 + 80)),
         ]
         self.paused = False
+        self.mouse_hold = False
         self.ws: WsClient | None = None
         self.incoming: Queue[dict[str, Any]] | None = None
         self.outgoing: Queue[dict[str, Any]] | None = None
@@ -226,26 +236,39 @@ class PlayScene:
         self.ws.send({"type": "register_player", "player_id": self.state.player_name, "lobby_code": self.state.lobby_code})
 
     def handle_event(self, ev: pg.event.Event) -> None:
-        if ev.type == pg.KEYDOWN and ev.key == pg.K_ESCAPE:
-            self.paused = not self.paused
-            if self.paused and getattr(self.player, "walk_sound", None) is not None:
+    
+     if ev.type == pg.KEYDOWN and ev.key == pg.K_ESCAPE:
+        self.paused = not self.paused
+        if self.paused and getattr(self.player, "walk_sound", None) is not None:
+            self.player.walk_sound.stop()
+        return
+
+    
+     if ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1:
+        self.mouse_hold = True
+
+     if ev.type == pg.MOUSEBUTTONUP and ev.button == 1:
+        self.mouse_hold = False
+
+    
+     if self.paused and ev.type == pg.KEYDOWN:
+        if ev.key == pg.K_c:
+            self.paused = False
+
+        if ev.key == pg.K_m:
+            if getattr(self.player, "walk_sound", None) is not None:
                 self.player.walk_sound.stop()
-            return
+            from game.ui.menu_scene import _SceneChange, MenuScene
+            raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
+        return
 
-        if self.paused and ev.type == pg.KEYDOWN:
-            # Аналог кнопок Continiue / toMenu у Godot
-            if ev.key == pg.K_c:
-                self.paused = False
-            if ev.key == pg.K_m:
-                if getattr(self.player, "walk_sound", None) is not None:
-                    self.player.walk_sound.stop()
-                from game.ui.menu_scene import _SceneChange, MenuScene
+    # взаємодія
+     if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
+        self._interact()
 
-                raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
-            return
-
-        if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
-            self._interact()
+    
+     if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
+        self._interact()
 
     def _interact(self) -> None:
         nearest: Interactable | None = None
@@ -260,12 +283,77 @@ class PlayScene:
         if nearest is not None:
             nearest.visible = False
 
+#Логіка колізії
+    def is_walkable(self, pos: pg.Vector2) -> bool:
+     x, y = int(pos.x), int(pos.y)
+
+     if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
+        return False
+
+     r, g, b = self.map.get_at((x, y))[:3]
+
+    #Вода
+     if b > r and b > g:
+        return False
+
+     if g > 150 and r < 100 and b < 100:
+      return False
+
+    #Печера
+     if r < 50 and g < 50 and b < 50:
+      return False 
+    
+    #Скеля
+     if abs(r - g) < 20 and abs(g - b) < 20 and r > 100:
+        return False
+
+    #Вогнище
+     if r > 200 and g > 100 and b < 100:
+        return False
+
+     return True
+
+    def find_spawn(self) -> pg.Vector2:
+     for _ in range(2000):
+        x = random.randint(0, self.world_w)
+        y = random.randint(0, self.world_h)
+
+        pos = pg.Vector2(x, y)
+
+        if self.is_walkable(pos):
+            return pos
+
+    # fallback — центр
+     return pg.Vector2(self.world_w // 2, self.world_h // 2)
+
     def update(self, dt: float) -> None:
-        if self.paused:
-            return
-        self.player.update(dt, self.world_w, self.world_h)
-        self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
-        self._net_tick()
+     if self.paused:
+        return
+
+    #керування мишкою
+     if self.mouse_hold:
+        mouse_x, mouse_y = pg.mouse.get_pos()
+        cam = self._camera()
+
+        target = pg.Vector2(mouse_x + cam.x, mouse_y + cam.y)
+        direction = target - self.player.pos
+
+        if direction.length_squared() > 4:
+            self.player.direction = direction.normalize()
+     else:
+        self.player.handle_keys()
+
+    #рух
+     new_pos = self.player.pos + self.player.direction * self.player.speed * dt
+
+     if self.is_walkable(new_pos):
+      self.player.pos = new_pos
+     self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
+     self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
+
+    
+     self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
+     self._net_tick()
 
     def _net_tick(self) -> None:
         if not self.ws or not self.incoming:
