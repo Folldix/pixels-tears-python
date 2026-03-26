@@ -300,9 +300,9 @@ class PlayScene:
      if g > 140 and r < 120 and b < 120:
         return False
 
-     # каміння / скелі
-     if r > 120 and g > 120 and b > 120:
-        return False
+     # каміння 
+     if abs(r - g) < 20 and abs(g - b) < 20 and r > 120:
+      return False
      # вогонь
      if r > 200 and g > 100 and b < 100:
         return False
