@@ -294,6 +294,11 @@ class PlayScene:
      # каміння / скелі
      if r > 120 and g > 120 and b > 120:
         return False
+     # вогонь
+     if r > 200 and g > 100 and b < 100:
+        return False
+
+     return True
 
     def update(self, dt: float) -> None:
      if self.paused:
