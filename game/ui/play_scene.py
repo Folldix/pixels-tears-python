@@ -292,7 +292,10 @@ class PlayScene:
         self.player.handle_keys()
 
     #рух
-     self.player.pos += self.player.direction * self.player.speed * dt
+     new_pos = self.player.pos + self.player.direction * self.player.speed * dt
+
+     if self.is_walkable(new_pos):
+      self.player.pos = new_pos
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
 
