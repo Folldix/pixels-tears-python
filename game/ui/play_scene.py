@@ -184,8 +184,17 @@ class PlayScene:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
+        self.map = self._load_map()
         self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
-        self.player = Player(self.assets, self.state, pos=pg.Vector2(self.world_w // 2, self.world_h // 2))
+
+        spawn_pos = self.find_spawn()
+
+        self.player = Player(
+    self.assets,
+    self.state,
+    pos=spawn_pos
+)
+        pos=pg.Vector2(300, 300)
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
         self.interactables = [
             Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
@@ -299,6 +308,14 @@ class PlayScene:
         return False
 
      return True
+    def find_spawn(self) -> pg.Vector2:
+     for x in range(0, self.world_w, 10):
+        for y in range(0, self.world_h, 10):
+            pos = pg.Vector2(x, y)
+            if self.is_walkable(pos):
+                return pos
+
+     return pg.Vector2(100, 100)
 
     def update(self, dt: float) -> None:
      if self.paused:
