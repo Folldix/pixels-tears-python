@@ -27,7 +27,7 @@ class Player:
     state: GameState
 
     pos: pg.Vector2
-    speed: float = 100.0
+    speed: float = 150.0
 
     direction: pg.Vector2 = field(default_factory=lambda: pg.Vector2(0, 0))
     anim_time: float = 0.0
@@ -81,12 +81,17 @@ class Player:
         elif self.direction.y != 0:
             self.facing = "down" if self.direction.y > 0 else "up"
 
-    def update(self, dt: float, world_w: int, world_h: int) -> None:
-        self.handle_keys()
-        self.pos += self.direction * self.speed * dt
-        self.pos.x = max(0, min(world_w, self.pos.x))
-        self.pos.y = max(0, min(world_h, self.pos.y))
+    def sync_facing_from_direction(self) -> None:
+        """Те саме обличчя/напрям, що й у handle_keys — для керування мишею."""
+        if self.direction.length_squared() == 0:
+            return
+        if abs(self.direction.x) > abs(self.direction.y):
+            self.facing = "right" if self.direction.x > 0 else "left"
+        else:
+            self.facing = "down" if self.direction.y > 0 else "up"
 
+    def tick_animation(self, dt: float) -> None:
+        """Оновлення кадрів ходьби та звуку; рух робить PlayScene (колізія)."""
         moving = self.direction.length_squared() > 0
         if moving:
             self.anim_time += dt
@@ -97,8 +102,6 @@ class Player:
             self.anim_idx = 0
             self.anim_time = 0.0
 
-        # Звук кроків
-        moving = self.direction.length_squared() > 0
         if self.walk_sound is not None:
             if moving and not self._walk_playing:
                 self.walk_sound.play(loops=-1)
@@ -184,17 +187,17 @@ class PlayScene:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
-        self.map = self._load_map()
+        self.collision_mask = self._load_collision_mask()
+        self.player_hit_offsets = self._load_player_hit_offsets()
         self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
 
-        spawn_pos = self.find_spawn()
+        spawn_pos = pg.Vector2(1500, 1300)
 
         self.player = Player(
-    self.assets,
-    self.state,
-    pos=spawn_pos
-)
-        pos=pg.Vector2(300, 300)
+            self.assets,
+            self.state,
+            pos=spawn_pos
+        )
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
         self.interactables = [
             Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
@@ -224,6 +227,34 @@ class PlayScene:
             return surf.convert()
         img = pg.image.load(str(chosen)).convert()
         return img
+
+    def _load_collision_mask(self) -> pg.Surface | None:
+        """Load collision mask where pure white means obstacle."""
+        mask_dir = self.assets.root / "map_transparent"
+        candidates = (
+            mask_dir / "map_white_black.png",
+            mask_dir / "map_transparent.png",
+        )
+        for path in candidates:
+            if path.exists():
+                return pg.image.load(str(path)).convert()
+        return None
+
+    def _load_player_hit_offsets(self) -> list[tuple[int, int]]:
+        """Зміщення від центру до пікселів хітбоксу (як у rect(center=pos)). Файл 80×80 як спрайт."""
+        path = self.assets.path("player_colision", "sprite_collision_80x80.png")
+        if not path.exists():
+            return [(0, 0)]
+        surf = pg.image.load(str(path)).convert_alpha()
+        w, h = surf.get_size()
+        out: list[tuple[int, int]] = []
+        for y in range(h):
+            for x in range(w):
+                r, g, b, a = surf.get_at((x, y))
+                if a < 128:
+                    continue
+                out.append((x - w // 2, y - h // 2))
+        return out if out else [(0, 0)]
 
     def _start_ws(self) -> None:
         self.incoming = Queue()
@@ -283,48 +314,31 @@ class PlayScene:
         if nearest is not None:
             nearest.visible = False
 
-#Логіка колізії
-    def is_walkable(self, pos: pg.Vector2) -> bool:
-     x, y = int(pos.x), int(pos.y)
+    def _map_point_walkable(self, x: int, y: int) -> bool:
+        if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
+            return False
+        if self.collision_mask is None:
+            return True
+        mask_w, mask_h = self.collision_mask.get_size()
+        if mask_w <= 0 or mask_h <= 0:
+            return True
+        mx = int(x * mask_w / self.world_w)
+        my = int(y * mask_h / self.world_h)
+        mx = max(0, min(mask_w - 1, mx))
+        my = max(0, min(mask_h - 1, my))
+        r, g, b = self.collision_mask.get_at((mx, my))[:3]
+        return not (r == 255 and g == 255 and b == 255)
 
-     if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
-        return False
-
-     r, g, b = self.map.get_at((x, y))[:3]
-
-    #Вода
-     if b > r and b > g:
-        return False
-
-     if g > 150 and r < 100 and b < 100:
-      return False
-
-    #Печера
-     if r < 50 and g < 50 and b < 50:
-      return False 
-    
-    #Скеля
-     if abs(r - g) < 20 and abs(g - b) < 20 and r > 100:
-        return False
-
-    #Вогнище
-     if r > 200 and g > 100 and b < 100:
-        return False
-
-     return True
-
-    def find_spawn(self) -> pg.Vector2:
-     for _ in range(2000):
-        x = random.randint(0, self.world_w)
-        y = random.randint(0, self.world_h)
-
-        pos = pg.Vector2(x, y)
-
-        if self.is_walkable(pos):
-            return pos
+    def is_player_walkable(self, center: pg.Vector2) -> bool:
+        """Колізія з мапою: усі непрозорі пікселі PNG хітбоксу (центр як у спрайта)."""
+        cx, cy = int(center.x), int(center.y)
+        for dx, dy in self.player_hit_offsets:
+            if not self._map_point_walkable(cx + dx, cy + dy):
+                return False
+        return True
 
     # fallback — центр
-     return pg.Vector2(self.world_w // 2, self.world_h // 2)
+    #  return pg.Vector2(self.world_w // 2, self.world_h // 2)
 
     def update(self, dt: float) -> None:
      if self.paused:
@@ -340,16 +354,17 @@ class PlayScene:
 
         if direction.length_squared() > 4:
             self.player.direction = direction.normalize()
+            self.player.sync_facing_from_direction()
      else:
         self.player.handle_keys()
 
-    #рух
+    #рух (анімація в tick_animation — Player.update більше не викликається)
      new_pos = self.player.pos + self.player.direction * self.player.speed * dt
-
-     if self.is_walkable(new_pos):
-      self.player.pos = new_pos
+     if self.is_player_walkable(new_pos):
+        self.player.pos = new_pos
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
+     self.player.tick_animation(dt)
 
     
      self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
