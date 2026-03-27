@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 import random
 from queue import Queue
 from typing import Any
@@ -11,6 +12,12 @@ from game.assets import Assets
 from game.constants import BASE_HEIGHT, BASE_WIDTH, WHITE
 from game.state import GameState
 from game.net.ws_client import WsClient
+
+
+def _map_frame_sort_key(path: Path) -> tuple[int, str]:
+    """map1.png < map2.png < map10.png (не алфавітно)."""
+    digits = "".join(c for c in path.stem if c.isdigit())
+    return (int(digits) if digits else 0, path.stem.lower())
 
 
 def _load_dir_frames(assets: Assets, folder: str, prefix: str) -> list[pg.Surface]:
@@ -186,10 +193,13 @@ class PlayScene:
     def __post_init__(self) -> None:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
-        self.map = self._load_map()
+        self.map_frames = self._load_map_frames()
+        self.map_frame_idx = 0
+        self._map_anim_time = 0.0
+        self.map_frame_interval = 0.18
         self.collision_mask = self._load_collision_mask()
         self.player_hit_offsets = self._load_player_hit_offsets()
-        self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
+        self.world_w, self.world_h = self.map_frames[0].get_width(), self.map_frames[0].get_height()
 
         spawn_pos = pg.Vector2(1500, 1300)
 
@@ -213,20 +223,19 @@ class PlayScene:
         if self.state.multiplayergame and self.state.join_server:
             self._start_ws()
 
-    def _load_map(self) -> pg.Surface:
-        # Беремо map1.png за замовчуванням (або будь-яку першу map*.png)
+    def _load_map_frames(self) -> list[pg.Surface]:
+        """Усі map*.png з assets/map по порядку — кадри анімації тла."""
         map_dir = self.assets.root / "map"
-        candidates = []
-        if map_dir.exists():
-            candidates = sorted(map_dir.glob("map*.png"))
-        chosen = candidates[0] if candidates else None
-        if chosen is None:
-            # fallback — просто полотно розміру екрана
+        if not map_dir.exists():
             surf = pg.Surface((BASE_WIDTH, BASE_HEIGHT))
             surf.fill((24, 24, 30))
-            return surf.convert()
-        img = pg.image.load(str(chosen)).convert()
-        return img
+            return [surf.convert()]
+        candidates = sorted(map_dir.glob("map*.png"), key=_map_frame_sort_key)
+        if not candidates:
+            surf = pg.Surface((BASE_WIDTH, BASE_HEIGHT))
+            surf.fill((24, 24, 30))
+            return [surf.convert()]
+        return [pg.image.load(str(p)).convert() for p in candidates]
 
     def _load_collision_mask(self) -> pg.Surface | None:
         """Load collision mask where pure white means obstacle."""
@@ -344,6 +353,12 @@ class PlayScene:
      if self.paused:
         return
 
+     if len(self.map_frames) > 1:
+        self._map_anim_time += dt
+        while self._map_anim_time >= self.map_frame_interval:
+            self._map_anim_time -= self.map_frame_interval
+            self.map_frame_idx = (self.map_frame_idx + 1) % len(self.map_frames)
+
     #керування мишкою
      if self.mouse_hold:
         mouse_x, mouse_y = pg.mouse.get_pos()
@@ -399,7 +414,7 @@ class PlayScene:
 
     def render(self, screen: pg.Surface) -> None:
         cam = self._camera()
-        screen.blit(self.map, (-int(cam.x), -int(cam.y)))
+        screen.blit(self.map_frames[self.map_frame_idx], (-int(cam.x), -int(cam.y)))
         for it in self.interactables:
             it.draw(screen, cam)
         self.player.draw(screen, cam)
