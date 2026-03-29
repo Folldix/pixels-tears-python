@@ -120,7 +120,7 @@ class Player:
     def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
         img = self.image()
 
-        scale_factor = 1.5
+        scale_factor = 1.2
         new_w = int(img.get_width() * scale_factor)
         new_h = int(img.get_height() * scale_factor)
 
@@ -193,7 +193,11 @@ class PlayScene:
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
         self.map = self._load_map()
-        self.world_w, self.world_h = self.map.get_width(), self.map.get_height()
+        self.world_w, self.world_h = self.map[0].get_width(), self.map[0].get_height()
+
+        self.map_index = 0
+        self.map_timer = 0.0
+        self.map_speed = 0.2
 
         spawn_pos = self.find_spawn()
 
@@ -218,20 +222,22 @@ class PlayScene:
         if self.state.multiplayergame and self.state.join_server:
             self._start_ws()
 
-    def _load_map(self) -> pg.Surface:
-        # Беремо map1.png за замовчуванням (або будь-яку першу map*.png)
+    def _load_map(self) -> list[pg.Surface]:
         map_dir = self.assets.root / "map"
-        candidates = []
+        frames = []
         if map_dir.exists():
-            candidates = sorted(map_dir.glob("map*.png"))
-        chosen = candidates[0] if candidates else None
-        if chosen is None:
-            # fallback — просто полотно розміру екрана
-            surf = pg.Surface((BASE_WIDTH, BASE_HEIGHT))
+            # Завантажуємо всі 12 кадрів по черзі
+            candidates = sorted(map_dir.glob("map*.png"), key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
+            for path in candidates:
+                img = pg.image.load(str(path)).convert()
+                frames.append(img)
+
+        if not frames:
+            surf = pg.Surface((1920, 1080))
             surf.fill((24, 24, 30))
-            return surf.convert()
-        img = pg.image.load(str(chosen)).convert()
-        return img
+            frames.append(surf.convert())
+
+        return frames
 
     def _start_ws(self) -> None:
         self.incoming = Queue()
@@ -298,7 +304,7 @@ class PlayScene:
      if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
         return False
 
-     r, g, b = self.map.get_at((x, y))[:3]
+     r, g, b = self.map[0].get_at((x, y))[:3]
 
     #Вода
      if b > r and b > g:
@@ -337,6 +343,11 @@ class PlayScene:
     def update(self, dt: float) -> None:
      if self.paused:
         return
+     self.map_timer += dt
+     if self.map_timer >= self.map_speed:
+         self.map_timer = 0
+         # Перемикаємо на наступний кадр, а після 12-го — на 1-й (індекс 0)
+         self.map_index = (self.map_index + 1) % len(self.map)
 
     #керування мишкою
      if self.mouse_hold:
@@ -395,7 +406,8 @@ class PlayScene:
         cam = self._camera()
 
         game_surface = pg.Surface((960, 540))
-        game_surface.blit(self.map, (-int(cam.x), -int(cam.y)))
+        current_frame = self.map[self.map_index]
+        game_surface.blit(current_frame, (-int(cam.x), -int(cam.y)))
 
         self.player.draw(game_surface, cam)
 
