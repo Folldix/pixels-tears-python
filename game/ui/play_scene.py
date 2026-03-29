@@ -192,20 +192,23 @@ class PlayScene:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
-        self.map = self._load_map()
+
+        collision_path = self.assets.root / "map" / "collision.png"
+        self.collision_mask = pg.image.load(str(collision_path)).convert()
+
         self.world_w, self.world_h = self.map[0].get_width(), self.map[0].get_height()
 
         self.map_index = 0
         self.map_timer = 0.0
         self.map_speed = 0.2
 
-        spawn_pos = self.find_spawn()
+        spawn_pos = pg.Vector2(1790, 1268)
 
         self.player = Player(
-    self.assets,
-    self.state,
-    pos=spawn_pos
-)
+         self.assets,
+         self.state,
+        pos=spawn_pos
+        )
         pos=pg.Vector2(300, 300)
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
         self.interactables = [
@@ -299,33 +302,29 @@ class PlayScene:
 
 #Логіка колізії
     def is_walkable(self, pos: pg.Vector2) -> bool:
-     x, y = int(pos.x), int(pos.y)
+        hw = 18
+        hh = 24
 
-     if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
-        return False
 
-     r, g, b = self.map[0].get_at((x, y))[:3]
+        points_to_check = [
+            (int(pos.x - hw), int(pos.y + hh)),
+            (int(pos.x + hw), int(pos.y + hh)),
+            (int(pos.x - hw), int(pos.y)),
+            (int(pos.x + hw), int(pos.y)),
+        ]
 
-    #Вода
-     if b > r and b > g:
-        return False
+        mask_w = self.collision_mask.get_width()
+        mask_h = self.collision_mask.get_height()
 
-     if g > 150 and r < 100 and b < 100:
-      return False
+        for x, y in points_to_check:
+            if x < 0 or y < 0 or x >= mask_w or y >= mask_h:
+                return False
 
-    #Печера
-     if r < 50 and g < 50 and b < 50:
-      return False 
-    
-    #Скеля
-     if abs(r - g) < 20 and abs(g - b) < 20 and r > 100:
-        return False
+            color = self.collision_mask.get_at((x, y))
+            if color[0] < 50:
+                return False
 
-    #Вогнище
-     if r > 200 and g > 100 and b < 100:
-        return False
-
-     return True
+        return True
 
     def find_spawn(self) -> pg.Vector2:
      for _ in range(2000):
@@ -362,11 +361,13 @@ class PlayScene:
      else:
         self.player.handle_keys()
 
-    #рух
-     new_pos = self.player.pos + self.player.direction * self.player.speed * dt
+     move_step = self.player.direction * self.player.speed * dt
 
-     if self.is_walkable(new_pos):
-      self.player.pos = new_pos
+     if self.is_walkable(self.player.pos + pg.Vector2(move_step.x, 0)):
+         self.player.pos.x += move_step.x
+
+     if self.is_walkable(self.player.pos + pg.Vector2(0, move_step.y)):
+         self.player.pos.y += move_step.y
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
 
