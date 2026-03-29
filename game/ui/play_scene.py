@@ -119,9 +119,17 @@ class Player:
 
     def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
         img = self.image()
-        r = self.rect().move(-int(cam.x), -int(cam.y))
-        screen.blit(img, r)
 
+        scale_factor = 1.5
+        new_w = int(img.get_width() * scale_factor)
+        new_h = int(img.get_height() * scale_factor)
+
+        img = pg.transform.scale(img, (new_w, new_h))
+
+        draw_x = int(self.pos.x - cam.x)
+        draw_y = int(self.pos.y - cam.y)
+        img_rect = img.get_rect(center=(draw_x, draw_y))
+        screen.blit(img, img_rect)
 
 @dataclass
 class Enemy:
@@ -383,8 +391,14 @@ class PlayScene:
                 self.remote_players[pid] = pg.Vector2(x, y)
 
     def render(self, screen: pg.Surface) -> None:
+        screen.fill((0, 0, 0))
         cam = self._camera()
-        screen.blit(self.map, (-int(cam.x), -int(cam.y)))
+
+        game_surface = pg.Surface((960, 540))
+        game_surface.blit(self.map, (-int(cam.x), -int(cam.y)))
+
+        self.player.draw(game_surface, cam)
+
         for it in self.interactables:
             it.draw(screen, cam)
         self.player.draw(screen, cam)
@@ -394,28 +408,26 @@ class PlayScene:
             label = self.font.render(pid, True, WHITE)
             screen.blit(label, (int(pos.x - cam.x) + 14, int(pos.y - cam.y) - 10))
 
-        hint = self.font.render("E — взаємодія, ESC — пауза", True, WHITE)
+        scaled_game = pg.transform.scale(game_surface, (1920, 1080))
+        screen.blit(scaled_game, (0, 0))
+        hint = self.font.render("E — взаємодія, ESC — пауза", True, (255, 255, 255))
         screen.blit(hint, (18, 18))
 
         if self.paused:
-            overlay = pg.Surface((BASE_WIDTH, BASE_HEIGHT), flags=pg.SRCALPHA)
+            overlay = pg.Surface((1920, 1080), flags=pg.SRCALPHA)
             overlay.fill((0, 0, 0, 170))
             screen.blit(overlay, (0, 0))
 
-            title = self.big_font.render("Пауза", True, WHITE)
-            screen.blit(title, title.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT // 2 - 60)))
+            title = self.big_font.render("Пауза", True, (255, 255, 255))
+            screen.blit(title, title.get_rect(center=(1920 // 2, 1080 // 2)))
 
-            cont = self.font.render("C — продовжити", True, WHITE)
-            screen.blit(cont, cont.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT // 2)))
+            cont = self.font.render("C — продовжити", True, (255, 255, 255))
+            screen.blit(cont, cont.get_rect(center=(1920 // 2, 1080 // 2 + 50)))
 
-            to_menu = self.font.render("M — в меню", True, WHITE)
-            screen.blit(to_menu, to_menu.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT // 2 + 40)))
+            to_menu = self.font.render("M — в меню", True, (255, 255, 255))
+            screen.blit(to_menu, to_menu.get_rect(center=(1920 // 2, 1080 // 2 + 100)))
 
     def _camera(self) -> pg.Vector2:
-        # Камера тримає гравця по центру, але не виходить за межі мапи
-        x = self.player.pos.x - BASE_WIDTH / 2
-        y = self.player.pos.y - BASE_HEIGHT / 2
-        x = max(0, min(self.world_w - BASE_WIDTH, x))
-        y = max(0, min(self.world_h - BASE_HEIGHT, y))
+        x = self.player.pos.x - 480
+        y = self.player.pos.y - 270
         return pg.Vector2(x, y)
-
