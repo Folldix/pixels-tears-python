@@ -17,9 +17,9 @@ class MenuScene:
     def __post_init__(self) -> None:
         self.font = self._load_font()
         self.small_font = (
-            self.assets.font("font/Press_Start_2P.ttf", 22)
+            self.assets.font("font/Press_Start_2P.ttf", 40)
             if (self.assets.root / "font/Press_Start_2P.ttf").exists()
-            else pg.font.SysFont(None, 22)
+            else pg.font.SysFont(None, 40)
         )
 
         self.screen: str = "main"
@@ -147,8 +147,11 @@ class MenuScene:
             screen.blit(overlay, (0, 0))
         else:
             screen.fill((18, 18, 24))
+        shadow = self._text("Pixels and Tears", 80, (20, 20, 30))
+        screen.blit(shadow, shadow.get_rect(center=(BASE_WIDTH // 2 + 4, 120 + 4)))
 
-        title = self._text("Pixels and Tears", 56)
+
+        title = self._text("Pixels and Tears", 80, WHITE)
         screen.blit(title, title.get_rect(center=(BASE_WIDTH // 2, 120)))
 
         # Передаємо mouse_pos у методи рендеру
@@ -162,20 +165,20 @@ class MenuScene:
         esc = self._text("Esc — вихід/назад", 22)
         screen.blit(esc, esc.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT - 60)))
 
-    def _text(self, s: str, size: int) -> pg.Surface:
+    def _text(self, s: str, size: int, color: tuple = WHITE) -> pg.Surface:
         font = (
             self.assets.font("font/Press_Start_2P.ttf", size)
-            if (self.assets.root / "font/HarreeghPPress_Start_2PoppedCyrillic.ttf").exists()
+            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
             else pg.font.SysFont(None, size)
         )
-        return font.render(s, True, WHITE)
+        return font.render(s, True, color)
 
     def _render_options(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
         for i, label in enumerate(options):
             # Створюємо базовий прямокутник для перевірки наведення
             base_surf = self.small_font.render(label, True, (255, 255, 255))
             # Розширюємо хітбокс трохи по ширині, щоб було легше клікати
-            base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 44)).inflate(40, 20)
+            base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70)).inflate(40, 20)
 
             # Перевіряємо, чи наведена мишка, АБО чи пункт обраний клавіатурою
             is_hovered = base_rect.collidepoint(mouse_pos)
@@ -190,7 +193,7 @@ class MenuScene:
             color = (255, 255, 255) if selected else (150, 150, 150)  # Жовтий при наведенні/виборі
 
             surf = self.small_font.render(text, True, color)
-            rect = surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 44))
+            rect = surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70))
 
             screen.blit(surf, rect)
 
