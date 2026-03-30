@@ -17,24 +17,26 @@ class MenuScene:
     def __post_init__(self) -> None:
         self.font = self._load_font()
         self.small_font = (
-            self.assets.font("font/Press_Start_2P.ttf", 22)
+            self.assets.font("font/Press_Start_2P.ttf", 40)
             if (self.assets.root / "font/Press_Start_2P.ttf").exists()
-            else pg.font.SysFont(None, 22)
+            else pg.font.SysFont(None, 40)
         )
 
-        # Екрани згідно діаграми: головне меню / вибір скіна / мережева гра
-        self.screen: str = "main"  # main | skin | mp
+        self.screen: str = "main"
         self.selection: int = 0
-        self.editing: str | None = None  # player | lobby
+        self.editing: str | None = None
 
         self._bg_frames: list[pg.Surface] = self._load_bg_frames()
         self._bg_timer: float = 0.0
-        self.bg_anim_speed: float = 10.0  # кадрів за секунду
+        self.bg_anim_speed: float = 10.0
+
+        # НОВЕ: Список для збереження клікабельних зон (хітбоксів) кнопок у поточному кадрі
+        self._button_rects: list[pg.Rect] = []
 
     def _load_font(self) -> pg.font.Font:
         for rel in (
-            "font/Press_Start_2P.ttf",
-            "font/Press_Start_2P.ttf",
+                "font/Press_Start_2P.ttf",
+                "font/Press_Start_2P.ttf",
         ):
             try:
                 return self.assets.font(rel, 32)
@@ -44,7 +46,7 @@ class MenuScene:
 
     def _load_bg_frames(self) -> list[pg.Surface]:
         frames = []
-        menu_dir = self.assets.root / "menu"  # <--- ПЕРЕВІР, ЩО ЦЕЙ РЯДОК Є!
+        menu_dir = self.assets.root / "menu"
         if not menu_dir.exists():
             return frames
 
@@ -60,6 +62,16 @@ class MenuScene:
         return frames
 
     def handle_event(self, ev: pg.event.Event) -> None:
+        # --- НОВЕ: Обробка кліку мишкою ---
+        if ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1:
+            # Перевіряємо, чи клікнули по якійсь кнопці
+            for index, rect in enumerate(self._button_rects):
+                if rect.collidepoint(ev.pos):
+                    self.selection = index
+                    self._activate_selected()
+                    return  # Виходимо після обробки кліку
+        # -----------------------------------
+
         if ev.type != pg.KEYDOWN:
             return
 
@@ -71,7 +83,6 @@ class MenuScene:
             self.editing = None
             return
 
-        # Редагування текстових полів у мережевому меню
         if self.editing is not None:
             if ev.key == pg.K_BACKSPACE:
                 if self.editing == "player":
@@ -104,7 +115,6 @@ class MenuScene:
             self._activate_selected()
             return
 
-        # Гарячі клавіші на окремих екранах
         if self.screen == "skin":
             if ev.key == pg.K_m:
                 self.state.skin_name = "male"
@@ -120,10 +130,15 @@ class MenuScene:
 
     def update(self, dt: float) -> None:
         if self._bg_frames:
-            # Додаємо час до таймера, помножений на швидкість
             self._bg_timer += dt * self.bg_anim_speed
 
     def render(self, screen: pg.Surface) -> None:
+        # Очищаємо старі хітбокси кнопок перед малюванням нового кадру
+        self._button_rects.clear()
+
+        # Отримуємо позицію мишки
+        mouse_pos = pg.mouse.get_pos()
+
         if self._bg_frames:
             idx = int(self._bg_timer) % len(self._bg_frames)
             screen.blit(self._bg_frames[idx], (0, 0))
@@ -132,34 +147,58 @@ class MenuScene:
             screen.blit(overlay, (0, 0))
         else:
             screen.fill((18, 18, 24))
+        shadow = self._text("Pixels and Tears", 80, (20, 20, 30))
+        screen.blit(shadow, shadow.get_rect(center=(BASE_WIDTH // 2 + 4, 120 + 4)))
 
-        title = self._text("Pixels and Tears", 56)
+
+        title = self._text("Pixels and Tears", 80, WHITE)
         screen.blit(title, title.get_rect(center=(BASE_WIDTH // 2, 120)))
 
+        # Передаємо mouse_pos у методи рендеру
         if self.screen == "main":
-            self._render_main(screen)
+            self._render_main(screen, mouse_pos)
         elif self.screen == "skin":
-            self._render_skin(screen)
+            self._render_skin(screen, mouse_pos)
         elif self.screen == "mp":
-            self._render_mp(screen)
+            self._render_mp(screen, mouse_pos)
 
         esc = self._text("Esc — вихід/назад", 22)
         screen.blit(esc, esc.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT - 60)))
 
-    def _text(self, s: str, size: int) -> pg.Surface:
+    def _text(self, s: str, size: int, color: tuple = WHITE) -> pg.Surface:
         font = (
             self.assets.font("font/Press_Start_2P.ttf", size)
-            if (self.assets.root / "font/HarreeghPPress_Start_2PoppedCyrillic.ttf").exists()
+            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
             else pg.font.SysFont(None, size)
         )
-        return font.render(s, True, WHITE)
+        return font.render(s, True, color)
 
-    def _render_options(self, screen: pg.Surface, options: list[str], y0: int) -> None:
+    def _render_options(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
         for i, label in enumerate(options):
+            # Створюємо базовий прямокутник для перевірки наведення
+            base_surf = self.small_font.render(label, True, (255, 255, 255))
+            # Розширюємо хітбокс трохи по ширині, щоб було легше клікати
+            base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70)).inflate(40, 20)
+
+            # Перевіряємо, чи наведена мишка, АБО чи пункт обраний клавіатурою
+            is_hovered = base_rect.collidepoint(mouse_pos)
+
+            # Якщо мишка наведена, автоматично оновлюємо "клавіатурне" виділення
+            if is_hovered:
+                self.selection = i
+
             selected = i == self.selection
+
             text = ("> " if selected else "  ") + label
-            surf = self.small_font.render(text, True, (255, 255, 255) if selected else (220, 220, 220))
-            screen.blit(surf, surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 44)))
+            color = (255, 255, 255) if selected else (150, 150, 150)  # Жовтий при наведенні/виборі
+
+            surf = self.small_font.render(text, True, color)
+            rect = surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70))
+
+            screen.blit(surf, rect)
+
+            # Зберігаємо хітбокс для перевірки кліку
+            self._button_rects.append(base_rect)
 
     def _option_count(self) -> int:
         if self.screen == "main":
@@ -205,22 +244,24 @@ class MenuScene:
                 self._start_join()
             return
 
-    def _render_main(self, screen: pg.Surface) -> None:
+    def _render_main(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         self._render_options(
             screen,
             ["Почати локальну гру", "Грати по мережі", "Змінити вигляд персонажа", "Вийти з гри"],
             290,
+            mouse_pos
         )
 
-    def _render_skin(self, screen: pg.Surface) -> None:
+    def _render_skin(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         skin = self._text(f"Поточний скін: {self.state.skin_name}", 28)
         screen.blit(skin, skin.get_rect(center=(BASE_WIDTH // 2, 240)))
-        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 320)
+        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 320, mouse_pos)
 
-    def _render_mp(self, screen: pg.Surface) -> None:
+    def _render_mp(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         info = self._text("Мережева гра", 28)
         screen.blit(info, info.get_rect(center=(BASE_WIDTH // 2, 230)))
 
+        # Поля вводу (вони поки не клікабельні, активуються через меню або гарячі клавіші)
         pn = self.small_font.render(
             f"Ім'я: {self.state.player_name or '—'}" + ("  [ввід]" if self.editing == "player" else ""),
             True,
@@ -235,7 +276,9 @@ class MenuScene:
         )
         screen.blit(lc, lc.get_rect(center=(BASE_WIDTH // 2, 315)))
 
-        self._render_options(screen, ["Ввести ім'я (P)", "Створити сервер", "Ввести ID сервера (L)", "Приєднатися до сервера"], 385)
+        self._render_options(screen,
+                             ["Ввести ім'я (P)", "Створити сервер", "Ввести ID сервера (L)", "Приєднатися до сервера"],
+                             385, mouse_pos)
 
     def _start_local(self) -> None:
         self.state.multiplayergame = False
@@ -271,4 +314,3 @@ class _SceneChange(RuntimeError):
     def __init__(self, next_scene):
         super().__init__("scene change")
         self.next_scene = next_scene
-
