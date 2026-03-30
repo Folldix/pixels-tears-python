@@ -181,6 +181,32 @@ class Interactable:
         r.center = (int(self.pos.x - cam.x), int(self.pos.y - cam.y))
         pg.draw.rect(screen, (80, 200, 120), r, border_radius=4)
 
+@dataclass
+class Material:
+    pos: pg.Vector2
+    image: pg.Surface
+    item_type: str
+    visible: bool = True
+
+    def draw(self, surface: pg.Surface, cam: pg.Vector2, player_pos: pg.Vector2, font: pg.font.Font) -> None:
+        if not self.visible:
+            return
+
+        # Малюємо сам предмет
+        draw_x = int(self.pos.x - cam.x)
+        draw_y = int(self.pos.y - cam.y)
+        rect = self.image.get_rect(center=(draw_x, draw_y))
+        surface.blit(self.image, rect)
+
+        dist = self.pos.distance_to(player_pos)
+        if dist < 60:
+
+            hint_surf = font.render("E", True, (255, 255, 255))
+            hint_rect = hint_surf.get_rect(center=(draw_x, draw_y - 30))
+
+            pg.draw.circle(surface, (0, 0, 0, 150), hint_rect.center, 12)
+            surface.blit(hint_surf, hint_rect)
+
 
 @dataclass
 class PlayScene:
@@ -216,6 +242,38 @@ class PlayScene:
             Interactable(pg.Vector2(self.world_w // 2 + 20, self.world_h // 2 + 40)),
             Interactable(pg.Vector2(self.world_w // 2 + 160, self.world_h // 2 + 80)),
         ]
+
+        self.materials: list[Material] = []
+
+        self.inventory = {"stick": 0, "stones": 0, "cable": 0}
+
+        # 2. Функція для завантаження та ЗБІЛЬШЕННЯ картинок
+        def load_large_item(name, scale=2.5):  # scale=2.5 збільшить у 2.5 рази
+            img = self.assets.image("items", name)
+            new_size = (int(img.get_width() * scale), int(img.get_height() * scale))
+            return pg.transform.scale(img, new_size)
+
+        stick_img = load_large_item("stick.png")
+        stones_img = load_large_item("stones.png")
+        cable_img = load_large_item("cable.png")
+
+        def get_random_spawn() -> pg.Vector2:
+            for _ in range(1000):
+                x = random.randint(0, self.world_w)
+                y = random.randint(0, self.world_h)
+                pos = pg.Vector2(x, y)
+                if self.is_walkable(pos):
+                    return pos
+            return pg.Vector2(self.world_w // 2, self.world_h // 2)
+
+        # 3. Спавним точну кількість предметів
+        for _ in range(5):  # 5 досок
+            self.materials.append(Material(get_random_spawn(), stick_img, "stick"))
+        for _ in range(4):  # 4 камінця
+            self.materials.append(Material(get_random_spawn(), stones_img, "stones"))
+        for _ in range(4):  # 4 троси
+            self.materials.append(Material(get_random_spawn(), cable_img, "cable"))
+
         self.paused = False
         self.mouse_hold = False
         self.ws: WsClient | None = None
@@ -301,17 +359,12 @@ class PlayScene:
         self._interact()
 
     def _interact(self) -> None:
-        nearest: Interactable | None = None
-        min_dist = 40.0
-        for it in self.interactables:
-            if not it.visible:
-                continue
-            d = self.player.pos.distance_to(it.pos)
-            if d < min_dist:
-                min_dist = d
-                nearest = it
-        if nearest is not None:
-            nearest.visible = False
+        pickup_dist = 60.0
+        for mat in self.materials:
+            if mat.visible and self.player.pos.distance_to(mat.pos) < pickup_dist:
+                mat.visible = False
+                self.inventory[mat.item_type] += 1
+                break
 
 #Логіка колізії
     def is_walkable(self, pos: pg.Vector2) -> bool:
@@ -432,6 +485,9 @@ class PlayScene:
         current_frame = self.map[self.map_index]
         game_surface.blit(current_frame, (-int(cam.x), -int(cam.y)))
 
+        for mat in self.materials:
+            mat.draw(game_surface, cam, self.player.pos, self.font)
+
         self.player.draw(game_surface, cam)
 
         if hasattr(self, 'crowns') and self.crowns:
@@ -451,6 +507,16 @@ class PlayScene:
         screen.blit(scaled_game, (0, 0))
         hint = self.font.render("E — взаємодія, ESC — пауза", True, (255, 255, 255))
         screen.blit(hint, (18, 18))
+
+        y_pos = 60
+        for item, count in self.inventory.items():
+            names = {"stick": "Дошки", "stones": "Камені", "cable": "Троси"}
+            limit = {"stick": 5, "stones": 4, "cable": 4}
+
+            txt = f"{names[item]}: {count}/{limit[item]}"
+            img = self.font.render(txt, True, (255, 255, 255))
+            screen.blit(img, (18, y_pos))
+            y_pos += 30  # Зсуваємо наступний рядок нижче
 
         if self.paused:
             overlay = pg.Surface((1920, 1080), flags=pg.SRCALPHA)
