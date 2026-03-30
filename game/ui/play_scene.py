@@ -46,6 +46,11 @@ class Player:
         self.walk_sound = self._load_walk_sound()
         self._walk_playing = False
 
+        self.hitbox_hw = 15
+        self.hitbox_hh = 10
+        self.hitbox = pg.Rect(self.pos.x - self.hitbox_hw, self.pos.y - self.hitbox_hh, self.hitbox_hw * 2,
+                              self.hitbox_hh * 2)
+
     def _load_walk_sound(self) -> pg.mixer.Sound | None:
         # Аналог $WalkSound у Godot: пробуємо підхопити звук кроків.
         for rel in (
@@ -81,12 +86,7 @@ class Player:
         elif self.direction.y != 0:
             self.facing = "down" if self.direction.y > 0 else "up"
 
-    def update(self, dt: float, world_w: int, world_h: int) -> None:
-        self.handle_keys()
-        self.pos += self.direction * self.speed * dt
-        self.pos.x = max(0, min(world_w, self.pos.x))
-        self.pos.y = max(0, min(world_h, self.pos.y))
-
+    def update_animation(self, dt: float) -> None:
         moving = self.direction.length_squared() > 0
         if moving:
             self.anim_time += dt
@@ -98,8 +98,7 @@ class Player:
             self.anim_time = 0.0
 
         # Звук кроків
-        moving = self.direction.length_squared() > 0
-        if self.walk_sound is not None:
+        if getattr(self, "walk_sound", None) is not None:
             if moving and not self._walk_playing:
                 self.walk_sound.play(loops=-1)
                 self._walk_playing = True
@@ -192,6 +191,7 @@ class PlayScene:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
         self.map = self._load_map()
+        self.crowns = self._load_crowns()
 
         collision_path = self.assets.root / "map" / "collision.png"
         self.collision_mask = pg.image.load(str(collision_path)).convert()
@@ -240,6 +240,19 @@ class PlayScene:
             surf.fill((24, 24, 30))
             frames.append(surf.convert())
 
+        return frames
+
+    def _load_crowns(self) -> list[pg.Surface]:
+        map_dir = self.assets.root / "map"
+        frames = []
+        if map_dir.exists():
+            # Шукаємо всі файли з назвами crown1.png, crown2.png і т.д.
+            candidates = sorted(map_dir.glob("crown*.png"),
+                                key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
+            for path in candidates:
+                # convert_alpha() обов'язковий, щоб зберегти прозорий фон!
+                img = pg.image.load(str(path)).convert_alpha()
+                frames.append(img)
         return frames
 
     def _start_ws(self) -> None:
@@ -302,25 +315,33 @@ class PlayScene:
 
 #Логіка колізії
     def is_walkable(self, pos: pg.Vector2) -> bool:
-        hw = 18
-        hh = 24
+        x = int(pos.x)
 
+        # 🪄 МАГІЯ: Опускаємо хітбокс вниз до ніжок!
+        # Цифра 20 приблизна. Якщо зупиняється занадто рано - зменш (напр. 15),
+        # якщо все ще наступає на пеньок - збільш (напр. 25).
+        y_offset = 20
+        y = int(pos.y) + y_offset
+
+        hw = self.player.hitbox_hw
+        hh = self.player.hitbox_hh
 
         points_to_check = [
-            (int(pos.x - hw), int(pos.y + hh)),
-            (int(pos.x + hw), int(pos.y + hh)),
-            (int(pos.x - hw), int(pos.y)),
-            (int(pos.x + hw), int(pos.y)),
+            (x - hw, y - hh),
+            (x + hw, y - hh),
+            (x - hw, y + hh),
+            (x + hw, y + hh),
         ]
 
         mask_w = self.collision_mask.get_width()
         mask_h = self.collision_mask.get_height()
 
-        for x, y in points_to_check:
-            if x < 0 or y < 0 or x >= mask_w or y >= mask_h:
+        for px, py in points_to_check:
+            if px < 0 or py < 0 or px >= mask_w or py >= mask_h:
                 return False
 
-            color = self.collision_mask.get_at((x, y))
+            color = self.collision_mask.get_at((int(px), int(py)))
+
             if color[0] < 50:
                 return False
 
@@ -371,7 +392,8 @@ class PlayScene:
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
 
-    
+     self.player.update_animation(dt)
+
      self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
      self._net_tick()
 
@@ -412,9 +434,13 @@ class PlayScene:
 
         self.player.draw(game_surface, cam)
 
+        if hasattr(self, 'crowns') and self.crowns:
+            crown_index = self.map_index % len(self.crowns)
+            current_crown = self.crowns[crown_index]
+            game_surface.blit(current_crown, (-int(cam.x), -int(cam.y)))
+
         for it in self.interactables:
             it.draw(screen, cam)
-        self.player.draw(screen, cam)
         self.enemy.draw(screen, cam)
         for pid, pos in self.remote_players.items():
             pg.draw.circle(screen, (80, 140, 240), (int(pos.x - cam.x), int(pos.y - cam.y)), 12)
