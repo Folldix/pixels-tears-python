@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
 import random
 from queue import Queue
 from typing import Any
@@ -12,13 +11,6 @@ from game.assets import Assets
 from game.constants import BASE_HEIGHT, BASE_WIDTH, WHITE
 from game.state import GameState
 from game.net.ws_client import WsClient
-
-
-def _map_frame_sort_key(path: Path) -> tuple[int, str]:
-    """map1.png < map2.png < map10.png (не алфавітно)."""
-    digits = "".join(c for c in path.stem if c.isdigit())
-    return (int(digits) if digits else 0, path.stem.lower())
-
 
 def _load_dir_frames(assets: Assets, folder: str, prefix: str) -> list[pg.Surface]:
     # Очікуємо імена на кшталт up1.png..up4.png, left1.png..left4.png і т.д.
@@ -52,12 +44,26 @@ class Player:
         self.facing = "down"
         self.walk_sound = self._load_walk_sound()
         self._walk_playing = False
+        self.hitbox = self._load_player_hit_offsets()
+        
+    def _load_player_hit_offsets(self) -> list[tuple[int, int]]:
+        """
+        Зміщення від центру до пікселів хітбоксу (як у rect(center=pos)).
 
-        self.hitbox_hw = 25
-        self.hitbox_hh = 20
-        self.hitbox = pg.Rect(self.pos.x - self.hitbox_hw, self.pos.y - self.hitbox_hh, self.hitbox_hw * 2,
-                              self.hitbox_hh * 2)
+        За вимогою (спрайт 80×80) колізія — прямокутник у координатах оригінального
+        зображення спрайта:
+        x:[30..49], y:[45..60] (включно).
+        """
+        w, h = 80, 80
+        x1, y1 = 30, 45
+        x2, y2 = 49, 60
 
+        out: list[tuple[int, int]] = []
+        for y in range(y1, y2 + 1):
+            for x in range(x1, x2 + 1):
+                out.append((x - w // 2, y - h // 2))
+        return out
+    
     def _load_walk_sound(self) -> pg.mixer.Sound | None:
         # Аналог $WalkSound у Godot: пробуємо підхопити звук кроків.
         for rel in (
@@ -93,7 +99,16 @@ class Player:
         elif self.direction.y != 0:
             self.facing = "down" if self.direction.y > 0 else "up"
 
-    def update_animation(self, dt: float) -> None:
+    def sync_facing_from_direction(self) -> None:
+        """Те саме обличчя/напрям, що й у handle_keys — для керування мишею."""
+        if self.direction.length_squared() == 0:
+            return
+        if abs(self.direction.x) > abs(self.direction.y):
+            self.facing = "right" if self.direction.x > 0 else "left"
+        else:
+            self.facing = "down" if self.direction.y > 0 else "up"
+
+    def tick_animation(self, dt: float) -> None:
         moving = self.direction.length_squared() > 0
         if moving:
             self.anim_time += dt
@@ -137,6 +152,7 @@ class Player:
         img_rect = img.get_rect(center=(draw_x, draw_y))
         screen.blit(img, img_rect)
 
+
 @dataclass
 class Enemy:
     pos: pg.Vector2
@@ -177,18 +193,6 @@ class Enemy:
 
 
 @dataclass
-class Interactable:
-    pos: pg.Vector2
-    visible: bool = True
-
-    def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
-        if not self.visible:
-            return
-        r = pg.Rect(0, 0, 18, 18)
-        r.center = (int(self.pos.x - cam.x), int(self.pos.y - cam.y))
-        pg.draw.rect(screen, (80, 200, 120), r, border_radius=4)
-
-@dataclass
 class Material:
     pos: pg.Vector2
     image: pg.Surface
@@ -224,32 +228,22 @@ class PlayScene:
     def __post_init__(self) -> None:
         self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
         self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
-        self.map = self._load_map()
+        self.map_frames = self._load_map_frames()
+        self.map_frame_idx = 0
+        self._map_anim_time = 0.0
+        self.map_frame_interval = 0.2
+        self.collision_mask = self._load_collision_mask()
+        self.world_w, self.world_h = self.map_frames[0].get_width(), self.map_frames[0].get_height()
+
         self.crowns = self._load_crowns()
-
-        collision_path = self.assets.root / "map" / "collision.png"
-        self.collision_mask = pg.image.load(str(collision_path)).convert()
-
-        self.world_w, self.world_h = self.map[0].get_width(), self.map[0].get_height()
-
-        self.map_index = 0
-        self.map_timer = 0.0
-        self.map_speed = 0.2
-
-        spawn_pos = pg.Vector2(1790, 1268)
+        spawn_pos = pg.Vector2(1500, 1300)
 
         self.player = Player(
-         self.assets,
-         self.state,
-        pos=spawn_pos
+            self.assets,
+            self.state,
+            pos=spawn_pos
         )
-        pos=pg.Vector2(300, 300)
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
-        self.interactables = [
-            Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
-            Interactable(pg.Vector2(self.world_w // 2 + 20, self.world_h // 2 + 40)),
-            Interactable(pg.Vector2(self.world_w // 2 + 160, self.world_h // 2 + 80)),
-        ]
 
         self.materials: list[Material] = []
 
@@ -297,7 +291,20 @@ class PlayScene:
         if self.state.multiplayergame and self.state.join_server:
             self._start_ws()
 
-    def _load_map(self) -> list[pg.Surface]:
+    def _load_crowns(self) -> list[pg.Surface]:
+        map_dir = self.assets.root / "map"
+        frames = []
+        if map_dir.exists():
+            # Шукаємо всі файли з назвами crown1.png, crown2.png і т.д.
+            candidates = sorted(map_dir.glob("crown*.png"),
+                                key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
+            for path in candidates:
+                # convert_alpha() обов'язковий, щоб зберегти прозорий фон!
+                img = pg.image.load(str(path)).convert_alpha()
+                frames.append(img)
+        return frames
+    
+    def _load_map_frames(self) -> list[pg.Surface]:
         map_dir = self.assets.root / "map"
         frames = []
         if map_dir.exists():
@@ -314,18 +321,17 @@ class PlayScene:
 
         return frames
 
-    def _load_crowns(self) -> list[pg.Surface]:
-        map_dir = self.assets.root / "map"
-        frames = []
-        if map_dir.exists():
-            # Шукаємо всі файли з назвами crown1.png, crown2.png і т.д.
-            candidates = sorted(map_dir.glob("crown*.png"),
-                                key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
-            for path in candidates:
-                # convert_alpha() обов'язковий, щоб зберегти прозорий фон!
-                img = pg.image.load(str(path)).convert_alpha()
-                frames.append(img)
-        return frames
+    def _load_collision_mask(self) -> pg.Surface | None:
+        """Load collision mask where pure white means obstacle."""
+        mask_dir = self.assets.root / "map_transparent"
+        candidates = (
+            mask_dir / "map_white_black.png",
+            mask_dir / "map_transparent.png",
+        )
+        for path in candidates:
+            if path.exists():
+                return pg.image.load(str(path)).convert()
+        return None
 
     def _start_ws(self) -> None:
         self.incoming = Queue()
@@ -390,51 +396,56 @@ class PlayScene:
                 self.inventory[mat.item_type] += 1
                 break
 
-#Логіка колізії
+
     def is_walkable(self, pos: pg.Vector2) -> bool:
         x = int(pos.x)
+        y = int(pos.y)
+        if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
+            return False
+        if self.collision_mask is None:
+            return True
+        mask_w, mask_h = self.collision_mask.get_size()
+        if mask_w <= 0 or mask_h <= 0:
+            return True
+        mx = int(x * mask_w / self.world_w)
+        my = int(y * mask_h / self.world_h)
+        mx = max(0, min(mask_w - 1, mx))
+        my = max(0, min(mask_h - 1, my))
+        r, g, b = self.collision_mask.get_at((mx, my))[:3]
+        return not (r == 255 and g == 255 and b == 255)
 
-        # 🪄 МАГІЯ: Опускаємо хітбокс вниз до ніжок!
-        # Цифра 20 приблизна. Якщо зупиняється занадто рано - зменш (напр. 15),
-        # якщо все ще наступає на пеньок - збільш (напр. 25).
-        y_offset = 20
-        y = int(pos.y) + y_offset
-
-        hw = self.player.hitbox_hw
-        hh = self.player.hitbox_hh
-
-        points_to_check = [
-            (x - hw, y - hh),
-            (x + hw, y - hh),
-            (x - hw, y + hh),
-            (x + hw, y + hh),
-        ]
-
-        mask_w = self.collision_mask.get_width()
-        mask_h = self.collision_mask.get_height()
-
-        for px, py in points_to_check:
-            if px < 0 or py < 0 or px >= mask_w or py >= mask_h:
+    def is_player_walkable(self, center: pg.Vector2) -> bool:
+        """Колізія з мапою: усі непрозорі пікселі PNG хітбоксу (центр як у спрайта)."""
+        cx, cy = int(center.x), int(center.y)
+        for dx, dy in self.player.hitbox:
+            if not self.is_walkable(pg.Vector2(cx + dx, cy + dy)):
                 return False
-
-            color = self.collision_mask.get_at((int(px), int(py)))
-
-            if color[0] < 50:
-                return False
-
         return True
 
     # fallback — центр
     #  return pg.Vector2(self.world_w // 2, self.world_h // 2)
 
+    def find_spawn(self) -> pg.Vector2:
+     for _ in range(2000):
+        x = random.randint(0, self.world_w)
+        y = random.randint(0, self.world_h)
+
+        pos = pg.Vector2(x, y)
+
+        if self.is_walkable(pos):
+            return pos
+
+    # fallback — центр
+     return pg.Vector2(self.world_w // 2, self.world_h // 2)
+
     def update(self, dt: float) -> None:
      if self.paused:
         return
-     self.map_timer += dt
-     if self.map_timer >= self.map_speed:
-         self.map_timer = 0
+     self._map_anim_time += dt
+     if self._map_anim_time >= self.map_frame_interval:
+         self._map_anim_time = 0
          # Перемикаємо на наступний кадр, а після 12-го — на 1-й (індекс 0)
-         self.map_index = (self.map_index + 1) % len(self.map)
+         self.map_frame_idx = (self.map_frame_idx + 1) % len(self.map_frames)
      if self.game_finished and self.victory_timer > 0:
          self.victory_timer -= dt
          if self.victory_timer <= 0:
@@ -452,25 +463,25 @@ class PlayScene:
 
         if direction.length_squared() > 4:
             self.player.direction = direction.normalize()
-            self.player.sync_facing_from_direction()
      else:
         self.player.handle_keys()
 
      move_step = self.player.direction * self.player.speed * dt
 
-     if self.is_walkable(self.player.pos + pg.Vector2(move_step.x, 0)):
+     # Колізія з урахуванням хітбоксу гравця (прямокутник 80×80 offsets)
+     if self.is_player_walkable(pg.Vector2(self.player.pos.x + move_step.x, self.player.pos.y)):
          self.player.pos.x += move_step.x
 
-     if self.is_walkable(self.player.pos + pg.Vector2(0, move_step.y)):
+     if self.is_player_walkable(pg.Vector2(self.player.pos.x, self.player.pos.y + move_step.y)):
          self.player.pos.y += move_step.y
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
-     self.player.tick_animation(dt)
 
-     self.player.update_animation(dt)
+     self.player.tick_animation(dt)
 
      self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
      self._net_tick()
+
 
     def _net_tick(self) -> None:
         if not self.ws or not self.incoming:
@@ -504,7 +515,7 @@ class PlayScene:
         cam = self._camera()
 
         game_surface = pg.Surface((960, 540))
-        current_frame = self.map[self.map_index]
+        current_frame = self.map_frames[self.map_frame_idx]
         game_surface.blit(current_frame, (-int(cam.x), -int(cam.y)))
 
         for mat in self.materials:
@@ -528,12 +539,10 @@ class PlayScene:
         self.player.draw(game_surface, cam)
 
         if hasattr(self, 'crowns') and self.crowns:
-            crown_index = self.map_index % len(self.crowns)
+            crown_index = self.map_frame_idx % len(self.crowns)
             current_crown = self.crowns[crown_index]
             game_surface.blit(current_crown, (-int(cam.x), -int(cam.y)))
 
-        for it in self.interactables:
-            it.draw(screen, cam)
         self.enemy.draw(screen, cam)
         for pid, pos in self.remote_players.items():
             pg.draw.circle(screen, (80, 140, 240), (int(pos.x - cam.x), int(pos.y - cam.y)), 12)
@@ -582,7 +591,6 @@ class PlayScene:
 
             hint_txt = self.font.render("Повернення в меню через кілька секунд...", True, (200, 200, 200))
             screen.blit(hint_txt, hint_txt.get_rect(center=(1920 // 2, 1080 // 2 + 60)))
-
 
 
     def _camera(self) -> pg.Vector2:
