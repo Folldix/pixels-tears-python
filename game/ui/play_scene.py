@@ -27,7 +27,7 @@ class Player:
     state: GameState
 
     pos: pg.Vector2
-    speed: float = 100.0
+    speed: float = 150.0
 
     direction: pg.Vector2 = field(default_factory=lambda: pg.Vector2(0, 0))
     anim_time: float = 0.0
@@ -46,8 +46,8 @@ class Player:
         self.walk_sound = self._load_walk_sound()
         self._walk_playing = False
 
-        self.hitbox_hw = 15
-        self.hitbox_hh = 10
+        self.hitbox_hw = 25
+        self.hitbox_hh = 20
         self.hitbox = pg.Rect(self.pos.x - self.hitbox_hw, self.pos.y - self.hitbox_hh, self.hitbox_hw * 2,
                               self.hitbox_hh * 2)
 
