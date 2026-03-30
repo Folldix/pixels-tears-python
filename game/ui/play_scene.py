@@ -200,12 +200,13 @@ class Material:
 
         dist = self.pos.distance_to(player_pos)
         if dist < 60:
+            hint_x, hint_y = draw_x + 15, draw_y - 30
+
+            shadow = font.render("E", True, (0, 0, 0))
+            surface.blit(shadow, (hint_x + 2, hint_y + 2))
 
             hint_surf = font.render("E", True, (255, 255, 255))
-            hint_rect = hint_surf.get_rect(center=(draw_x, draw_y - 30))
-
-            pg.draw.circle(surface, (0, 0, 0, 150), hint_rect.center, 12)
-            surface.blit(hint_surf, hint_rect)
+            surface.blit(hint_surf, (hint_x, hint_y))
 
 
 @dataclass
@@ -246,6 +247,12 @@ class PlayScene:
         self.materials: list[Material] = []
 
         self.inventory = {"stick": 0, "stones": 0, "cable": 0}
+
+        self.game_finished = False
+        self.victory_timer = 5.0
+        self.show_victory_msg = False
+
+        self.basket_pos = pg.Vector2(849, 3668)
 
         # 2. Функція для завантаження та ЗБІЛЬШЕННЯ картинок
         def load_large_item(name, scale=2.5):  # scale=2.5 збільшить у 2.5 рази
@@ -359,6 +366,16 @@ class PlayScene:
         self._interact()
 
     def _interact(self) -> None:
+
+        items_needed = {"stick": 5, "stones": 4, "cable": 4}
+        all_collected = all(self.inventory[k] >= items_needed[k] for k in items_needed)
+
+        if all_collected and self.player.pos.distance_to(self.basket_pos) < 80:
+            self.show_victory_msg = True
+            self.game_finished = True
+            self.victory_timer = 5.0
+            return
+
         pickup_dist = 60.0
         for mat in self.materials:
             if mat.visible and self.player.pos.distance_to(mat.pos) < pickup_dist:
@@ -421,6 +438,12 @@ class PlayScene:
          self.map_timer = 0
          # Перемикаємо на наступний кадр, а після 12-го — на 1-й (індекс 0)
          self.map_index = (self.map_index + 1) % len(self.map)
+     if self.game_finished and self.victory_timer > 0:
+         self.victory_timer -= dt
+         if self.victory_timer <= 0:
+             # Повернення в меню (код з твоєї паузи)
+             from game.ui.menu_scene import _SceneChange, MenuScene
+             raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
 
     #керування мишкою
      if self.mouse_hold:
@@ -488,6 +511,21 @@ class PlayScene:
         for mat in self.materials:
             mat.draw(game_surface, cam, self.player.pos, self.font)
 
+        items_needed = {"stick": 5, "stones": 4, "cable": 4}
+        all_collected = all(self.inventory[k] >= items_needed[k] for k in items_needed)
+
+        if all_collected and not self.show_victory_msg:
+
+            if pg.time.get_ticks() % 1000 < 500:
+                basket_draw_x = int(self.basket_pos.x - cam.x)
+                basket_draw_y = int(self.basket_pos.y - cam.y)
+
+                excl_shadow = self.big_font.render("!", True, (0, 0, 0))
+                game_surface.blit(excl_shadow, (basket_draw_x + 2, basket_draw_y - 68))
+
+                excl_mark = self.big_font.render("!", True, (255, 0, 0))
+                game_surface.blit(excl_mark, (basket_draw_x, basket_draw_y - 70))
+
         self.player.draw(game_surface, cam)
 
         if hasattr(self, 'crowns') and self.crowns:
@@ -531,6 +569,22 @@ class PlayScene:
 
             to_menu = self.font.render("M — в меню", True, (255, 255, 255))
             screen.blit(to_menu, to_menu.get_rect(center=(1920 // 2, 1080 // 2 + 100)))
+
+        if all_collected and not self.show_victory_msg:
+            if pg.time.get_ticks() % 1000 < 500:
+                msg = self.font.render("БІЖИМО НА ПРИЧАЛ!", True, (0, 0, 0))
+                screen.blit(msg, (50, 1080 // 2))
+
+        if self.show_victory_msg:
+            win_txt = self.big_font.render("ВИ ПРОЙШЛИ ГРУ!", True, (255, 255, 255))
+            rect = win_txt.get_rect(center=(1920 // 2, 1080 // 2))
+            pg.draw.rect(screen, (123, 151, 87, 150), rect.inflate(20, 20))
+            screen.blit(win_txt, rect)
+
+            hint_txt = self.font.render("Повернення в меню через кілька секунд...", True, (200, 200, 200))
+            screen.blit(hint_txt, hint_txt.get_rect(center=(1920 // 2, 1080 // 2 + 60)))
+
+
 
     def _camera(self) -> pg.Vector2:
         x = self.player.pos.x - 480
