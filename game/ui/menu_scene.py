@@ -33,6 +33,20 @@ class MenuScene:
         # НОВЕ: Список для збереження клікабельних зон (хітбоксів) кнопок у поточному кадрі
         self._button_rects: list[pg.Rect] = []
 
+        btn_path = self.assets.path("button", "MenuButton_v2.png")
+        if btn_path.exists():
+            raw = pg.image.load(str(btn_path)).convert_alpha()
+            target_w = 440
+            target_h = max(1, int(raw.get_height() * target_w / raw.get_width()))
+            self._menu_btn_bg = pg.transform.smoothscale(raw, (target_w, target_h))
+        else:
+            self._menu_btn_bg = None
+        self._menu_btn_font = (
+            self.assets.font("font/Press_Start_2P.ttf", 24)
+            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
+            else pg.font.SysFont(None, 24)
+        )
+
     def _load_font(self) -> pg.font.Font:
         for rel in (
                 "font/Press_Start_2P.ttf",
@@ -174,30 +188,48 @@ class MenuScene:
         return font.render(s, True, color)
 
     def _render_options(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
+        if self._menu_btn_bg is None:
+            self._render_options_text_only(screen, options, y0, mouse_pos)
+            return
+
+        bw, bh = self._menu_btn_bg.get_size()
+        row = bh + 14
+
         for i, label in enumerate(options):
-            # Створюємо базовий прямокутник для перевірки наведення
-            base_surf = self.small_font.render(label, True, (255, 255, 255))
-            # Розширюємо хітбокс трохи по ширині, щоб було легше клікати
-            base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70)).inflate(40, 20)
-
-            # Перевіряємо, чи наведена мишка, АБО чи пункт обраний клавіатурою
+            cx, cy = BASE_WIDTH // 2, y0 + i * row
+            base_rect = self._menu_btn_bg.get_rect(center=(cx, cy))
             is_hovered = base_rect.collidepoint(mouse_pos)
-
-            # Якщо мишка наведена, автоматично оновлюємо "клавіатурне" виділення
             if is_hovered:
                 self.selection = i
 
             selected = i == self.selection
+            screen.blit(self._menu_btn_bg, base_rect)
 
+            color = (255, 255, 240) if selected else (170, 170, 175)
+            surf = self._menu_btn_font.render(label, True, color)
+            max_tw = bw - 36
+            if surf.get_width() > max_tw:
+                scale = max_tw / surf.get_width()
+                surf = pg.transform.smoothscale(
+                    surf, (max(1, int(surf.get_width() * scale)), max(1, int(surf.get_height() * scale)))
+                )
+            text_rect = surf.get_rect(center=(cx, cy))
+            screen.blit(surf, text_rect)
+            self._button_rects.append(base_rect)
+
+    def _render_options_text_only(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
+        for i, label in enumerate(options):
+            base_surf = self.small_font.render(label, True, (255, 255, 255))
+            base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70)).inflate(40, 20)
+            is_hovered = base_rect.collidepoint(mouse_pos)
+            if is_hovered:
+                self.selection = i
+            selected = i == self.selection
             text = ("> " if selected else "  ") + label
-            color = (255, 255, 255) if selected else (150, 150, 150)  # Жовтий при наведенні/виборі
-
+            color = (255, 255, 255) if selected else (150, 150, 150)
             surf = self.small_font.render(text, True, color)
             rect = surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70))
-
             screen.blit(surf, rect)
-
-            # Зберігаємо хітбокс для перевірки кліку
             self._button_rects.append(base_rect)
 
     def _option_count(self) -> int:
@@ -255,7 +287,7 @@ class MenuScene:
     def _render_skin(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         skin = self._text(f"Поточний скін: {self.state.skin_name}", 28)
         screen.blit(skin, skin.get_rect(center=(BASE_WIDTH // 2, 240)))
-        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 320, mouse_pos)
+        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 360, mouse_pos)
 
     def _render_mp(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         info = self._text("Мережева гра", 28)
@@ -278,7 +310,7 @@ class MenuScene:
 
         self._render_options(screen,
                              ["Ввести ім'я (P)", "Створити сервер", "Ввести ID сервера (L)", "Приєднатися до сервера"],
-                             385, mouse_pos)
+                             440, mouse_pos)
 
     def _start_local(self) -> None:
         self.state.multiplayergame = False

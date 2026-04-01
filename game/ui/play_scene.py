@@ -283,7 +283,6 @@ class PlayScene:
             self.materials.append(Material(get_random_spawn(), cable_img, "cable"))
 
         self.paused = False
-        self.mouse_hold = False
         self.ws: WsClient | None = None
         self.incoming: Queue[dict[str, Any]] | None = None
         self.outgoing: Queue[dict[str, Any]] | None = None
@@ -352,13 +351,6 @@ class PlayScene:
         return
 
     
-     if ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1:
-        self.mouse_hold = True
-
-     if ev.type == pg.MOUSEBUTTONUP and ev.button == 1:
-        self.mouse_hold = False
-
-    
      if self.paused and ev.type == pg.KEYDOWN:
         if ev.key == pg.K_c:
             self.paused = False
@@ -371,10 +363,6 @@ class PlayScene:
         return
 
     # взаємодія
-     if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
-        self._interact()
-
-    
      if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
         self._interact()
 
@@ -453,18 +441,7 @@ class PlayScene:
              from game.ui.menu_scene import _SceneChange, MenuScene
              raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
 
-    #керування мишкою
-     if self.mouse_hold:
-        mouse_x, mouse_y = pg.mouse.get_pos()
-        cam = self._camera()
-
-        target = pg.Vector2(mouse_x + cam.x, mouse_y + cam.y)
-        direction = target - self.player.pos
-
-        if direction.length_squared() > 4:
-            self.player.direction = direction.normalize()
-     else:
-        self.player.handle_keys()
+     self.player.handle_keys()
 
      move_step = self.player.direction * self.player.speed * dt
 
