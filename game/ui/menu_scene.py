@@ -7,6 +7,7 @@ import pygame as pg
 from game.assets import Assets
 from game.constants import BASE_HEIGHT, BASE_WIDTH, WHITE
 from game.state import GameState
+from game.ui.textured_buttons import blit_textured_menu_button, load_menu_button_pair
 
 
 @dataclass
@@ -17,9 +18,9 @@ class MenuScene:
     def __post_init__(self) -> None:
         self.font = self._load_font()
         self.small_font = (
-            self.assets.font("font/Press_Start_2P.ttf", 40)
-            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
-            else pg.font.SysFont(None, 40)
+            self.assets.font("font/alagard-12px-unicode.ttf", 50)
+            if (self.assets.root / "font/alagard-12px-unicode.ttf").exists()
+            else pg.font.SysFont(None, 50)
         )
 
         self.screen: str = "main"
@@ -33,10 +34,17 @@ class MenuScene:
         # НОВЕ: Список для збереження клікабельних зон (хітбоксів) кнопок у поточному кадрі
         self._button_rects: list[pg.Rect] = []
 
+        self._menu_btn_pair = load_menu_button_pair(self.assets)
+        self._menu_btn_font = (
+            self.assets.font("font/alagard-12px-unicode.ttf", 48)
+            if (self.assets.root / "font/alagard-12px-unicode.ttf").exists()
+            else pg.font.SysFont(None, 48)
+        )
+
     def _load_font(self) -> pg.font.Font:
         for rel in (
-                "font/Press_Start_2P.ttf",
-                "font/Press_Start_2P.ttf",
+                "font/alagard-12px-unicode.ttf",
+                "font/alagard-12px-unicode.ttf",
         ):
             try:
                 return self.assets.font(rel, 32)
@@ -162,42 +170,58 @@ class MenuScene:
         elif self.screen == "mp":
             self._render_mp(screen, mouse_pos)
 
-        esc = self._text("Esc — вихід/назад", 22)
+        esc = self._text("Esc - вихід", 22)
         screen.blit(esc, esc.get_rect(center=(BASE_WIDTH // 2, BASE_HEIGHT - 60)))
 
     def _text(self, s: str, size: int, color: tuple = WHITE) -> pg.Surface:
         font = (
-            self.assets.font("font/Press_Start_2P.ttf", size)
-            if (self.assets.root / "font/Press_Start_2P.ttf").exists()
+            self.assets.font("font/alagard-12px-unicode.ttf", size)
+            if (self.assets.root / "font/alagard-12px-unicode.ttf").exists()
             else pg.font.SysFont(None, size)
         )
         return font.render(s, True, color)
 
     def _render_options(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
+        if self._menu_btn_pair is None:
+            self._render_options_text_only(screen, options, y0, mouse_pos)
+            return
+
+        normal, pressed = self._menu_btn_pair
+        _, bh = normal.get_size()
+        row = bh + 14
+
         for i, label in enumerate(options):
-            # Створюємо базовий прямокутник для перевірки наведення
+            cx, cy = BASE_WIDTH // 2, y0 + i * row
+            hit = blit_textured_menu_button(
+                screen,
+                normal,
+                pressed,
+                cx,
+                cy,
+                mouse_pos,
+                label,
+                self._menu_btn_font,
+                keyboard_selected=i == self.selection,
+                text_color_active=(255, 255, 240),
+                text_color_inactive=(21, 87, 36),
+            )
+            if hit.collidepoint(mouse_pos):
+                self.selection = i
+            self._button_rects.append(hit)
+
+    def _render_options_text_only(self, screen: pg.Surface, options: list[str], y0: int, mouse_pos: tuple[int, int]) -> None:
+        for i, label in enumerate(options):
             base_surf = self.small_font.render(label, True, (255, 255, 255))
-            # Розширюємо хітбокс трохи по ширині, щоб було легше клікати
             base_rect = base_surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70)).inflate(40, 20)
-
-            # Перевіряємо, чи наведена мишка, АБО чи пункт обраний клавіатурою
             is_hovered = base_rect.collidepoint(mouse_pos)
-
-            # Якщо мишка наведена, автоматично оновлюємо "клавіатурне" виділення
             if is_hovered:
                 self.selection = i
-
             selected = i == self.selection
-
             text = ("> " if selected else "  ") + label
-            color = (255, 255, 255) if selected else (150, 150, 150)  # Жовтий при наведенні/виборі
-
+            color = (255, 255, 255) if selected else (150, 150, 150)
             surf = self.small_font.render(text, True, color)
             rect = surf.get_rect(center=(BASE_WIDTH // 2, y0 + i * 70))
-
             screen.blit(surf, rect)
-
-            # Зберігаємо хітбокс для перевірки кліку
             self._button_rects.append(base_rect)
 
     def _option_count(self) -> int:
@@ -247,7 +271,7 @@ class MenuScene:
     def _render_main(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         self._render_options(
             screen,
-            ["Почати локальну гру", "Грати по мережі", "Змінити вигляд персонажа", "Вийти з гри"],
+            ["Локальна гра", "Гра по мережі", "Вибір скіна", "Вийти з гри"],
             290,
             mouse_pos
         )
@@ -255,7 +279,7 @@ class MenuScene:
     def _render_skin(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         skin = self._text(f"Поточний скін: {self.state.skin_name}", 28)
         screen.blit(skin, skin.get_rect(center=(BASE_WIDTH // 2, 240)))
-        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 320, mouse_pos)
+        self._render_options(screen, ["Чоловічий скін (M)", "Жіночий скін (F)", "Назад"], 360, mouse_pos)
 
     def _render_mp(self, screen: pg.Surface, mouse_pos: tuple[int, int]) -> None:
         info = self._text("Мережева гра", 28)
@@ -278,7 +302,7 @@ class MenuScene:
 
         self._render_options(screen,
                              ["Ввести ім'я (P)", "Створити сервер", "Ввести ID сервера (L)", "Приєднатися до сервера"],
-                             385, mouse_pos)
+                             440, mouse_pos)
 
     def _start_local(self) -> None:
         self.state.multiplayergame = False

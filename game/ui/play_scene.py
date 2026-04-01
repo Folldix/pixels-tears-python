@@ -11,7 +11,12 @@ from game.assets import Assets
 from game.constants import BASE_HEIGHT, BASE_WIDTH, WHITE
 from game.state import GameState
 from game.net.ws_client import WsClient
+from game.ui.textured_buttons import blit_textured_menu_button, load_menu_button_pair
 
+TOUCH_MOVE_BTN_PX = 100
+TOUCH_E_BTN_PX = 280
+TOUCH_MOVE_GAP = 8
+TOUCH_MARGIN = 32
 
 def _load_dir_frames(assets: Assets, folder: str, prefix: str) -> list[pg.Surface]:
     # Очікуємо імена на кшталт up1.png..up4.png, left1.png..left4.png і т.д.
@@ -45,12 +50,26 @@ class Player:
         self.facing = "down"
         self.walk_sound = self._load_walk_sound()
         self._walk_playing = False
+        self.hitbox = self._load_player_hit_offsets()
+        
+    def _load_player_hit_offsets(self) -> list[tuple[int, int]]:
+        """
+        Зміщення від центру до пікселів хітбоксу (як у rect(center=pos)).
 
-        self.hitbox_hw = 25
-        self.hitbox_hh = 20
-        self.hitbox = pg.Rect(self.pos.x - self.hitbox_hw, self.pos.y - self.hitbox_hh, self.hitbox_hw * 2,
-                              self.hitbox_hh * 2)
+        За вимогою (спрайт 80×80) колізія — прямокутник у координатах оригінального
+        зображення спрайта:
+        x:[30..49], y:[45..60] (включно).
+        """
+        w, h = 80, 80
+        x1, y1 = 30, 45
+        x2, y2 = 49, 60
 
+        out: list[tuple[int, int]] = []
+        for y in range(y1, y2 + 1):
+            for x in range(x1, x2 + 1):
+                out.append((x - w // 2, y - h // 2))
+        return out
+    
     def _load_walk_sound(self) -> pg.mixer.Sound | None:
         # Аналог $WalkSound у Godot: пробуємо підхопити звук кроків.
         for rel in (
@@ -65,16 +84,17 @@ class Player:
                     return None
         return None
 
-    def handle_keys(self) -> None:
+    def handle_keys(self, touch_dirs: set[str] | None = None) -> None:
+        td = touch_dirs or set()
         keys = pg.key.get_pressed()
         d = pg.Vector2(0, 0)
-        if keys[pg.K_w] or keys[pg.K_UP]:
+        if keys[pg.K_w] or keys[pg.K_UP] or "up" in td:
             d.y -= 1
-        if keys[pg.K_s] or keys[pg.K_DOWN]:
+        if keys[pg.K_s] or keys[pg.K_DOWN] or "down" in td:
             d.y += 1
-        if keys[pg.K_a] or keys[pg.K_LEFT]:
+        if keys[pg.K_a] or keys[pg.K_LEFT] or "left" in td:
             d.x -= 1
-        if keys[pg.K_d] or keys[pg.K_RIGHT]:
+        if keys[pg.K_d] or keys[pg.K_RIGHT] or "right" in td:
             d.x += 1
         self.direction = d.normalize() if d.length_squared() > 0 else pg.Vector2(0, 0)
 
@@ -86,7 +106,16 @@ class Player:
         elif self.direction.y != 0:
             self.facing = "down" if self.direction.y > 0 else "up"
 
-    def update_animation(self, dt: float) -> None:
+    def sync_facing_from_direction(self) -> None:
+        """Те саме обличчя/напрям, що й у handle_keys — для керування мишею."""
+        if self.direction.length_squared() == 0:
+            return
+        if abs(self.direction.x) > abs(self.direction.y):
+            self.facing = "right" if self.direction.x > 0 else "left"
+        else:
+            self.facing = "down" if self.direction.y > 0 else "up"
+
+    def tick_animation(self, dt: float) -> None:
         moving = self.direction.length_squared() > 0
         if moving:
             self.anim_time += dt
@@ -130,6 +159,7 @@ class Player:
         img_rect = img.get_rect(center=(draw_x, draw_y))
         screen.blit(img, img_rect)
 
+
 @dataclass
 class Enemy:
     pos: pg.Vector2
@@ -170,18 +200,6 @@ class Enemy:
 
 
 @dataclass
-class Interactable:
-    pos: pg.Vector2
-    visible: bool = True
-
-    def draw(self, screen: pg.Surface, cam: pg.Vector2) -> None:
-        if not self.visible:
-            return
-        r = pg.Rect(0, 0, 18, 18)
-        r.center = (int(self.pos.x - cam.x), int(self.pos.y - cam.y))
-        pg.draw.rect(screen, (80, 200, 120), r, border_radius=4)
-
-@dataclass
 class Material:
     pos: pg.Vector2
     image: pg.Surface
@@ -205,7 +223,7 @@ class Material:
             shadow = font.render("E", True, (0, 0, 0))
             surface.blit(shadow, (hint_x + 2, hint_y + 2))
 
-            hint_surf = font.render("E", True, (255, 255, 255))
+            hint_surf = font.render("E", True, (105, 240, 111))
             surface.blit(hint_surf, (hint_x, hint_y))
 
 
@@ -215,34 +233,24 @@ class PlayScene:
     state: GameState
 
     def __post_init__(self) -> None:
-        self.font = self.assets.font("font/Press_Start_2P.ttf", 18)
-        self.big_font = self.assets.font("font/Press_Start_2P.ttf", 28)
-        self.map = self._load_map()
+        self.font = self.assets.font("font/alagard-12px-unicode.ttf", 24)
+        self.big_font = self.assets.font("font/alagard-12px-unicode.ttf", 48)
+        self.map_frames = self._load_map_frames()
+        self.map_frame_idx = 0
+        self._map_anim_time = 0.0
+        self.map_frame_interval = 0.2
+        self.collision_mask = self._load_collision_mask()
+        self.world_w, self.world_h = self.map_frames[0].get_width(), self.map_frames[0].get_height()
+
         self.crowns = self._load_crowns()
-
-        collision_path = self.assets.root / "map" / "collision.png"
-        self.collision_mask = pg.image.load(str(collision_path)).convert()
-
-        self.world_w, self.world_h = self.map[0].get_width(), self.map[0].get_height()
-
-        self.map_index = 0
-        self.map_timer = 0.0
-        self.map_speed = 0.2
-
-        spawn_pos = pg.Vector2(1790, 1268)
+        spawn_pos = pg.Vector2(1500, 1300)
 
         self.player = Player(
-         self.assets,
-         self.state,
-        pos=spawn_pos
+            self.assets,
+            self.state,
+            pos=spawn_pos
         )
-        pos=pg.Vector2(300, 300)
         self.enemy = Enemy(pos=pg.Vector2(80, 80))
-        self.interactables = [
-            Interactable(pg.Vector2(self.world_w // 2 - 120, self.world_h // 2 - 60)),
-            Interactable(pg.Vector2(self.world_w // 2 + 20, self.world_h // 2 + 40)),
-            Interactable(pg.Vector2(self.world_w // 2 + 160, self.world_h // 2 + 80)),
-        ]
 
         self.materials: list[Material] = []
 
@@ -282,7 +290,21 @@ class PlayScene:
             self.materials.append(Material(get_random_spawn(), cable_img, "cable"))
 
         self.paused = False
-        self.mouse_hold = False
+        self._pause_btn_pair = load_menu_button_pair(self.assets)
+        self._esc_btn_pair = load_menu_button_pair(self.assets, 300)
+        self.pause_selection = 0
+        esc_font_path = self.assets.root / "font/alagard-12px-unicode.ttf"
+        self._esc_btn_lbl_font = (
+            self.assets.font("font/alagard-12px-unicode.ttf", 36)
+            if esc_font_path.exists()
+            else self.font
+        )
+        self._pause_option_rects: list[pg.Rect] = []
+        self._esc_hint_hit: pg.Rect | None = None
+        self._touch_held: set[str] = set()
+        self._move_hit: dict[str, pg.Rect] = {}
+        self._interact_btn_hit: pg.Rect | None = None
+        self._load_touch_controls()
         self.ws: WsClient | None = None
         self.incoming: Queue[dict[str, Any]] | None = None
         self.outgoing: Queue[dict[str, Any]] | None = None
@@ -290,7 +312,20 @@ class PlayScene:
         if self.state.multiplayergame and self.state.join_server:
             self._start_ws()
 
-    def _load_map(self) -> list[pg.Surface]:
+    def _load_crowns(self) -> list[pg.Surface]:
+        map_dir = self.assets.root / "map"
+        frames = []
+        if map_dir.exists():
+            # Шукаємо всі файли з назвами crown1.png, crown2.png і т.д.
+            candidates = sorted(map_dir.glob("crown*.png"),
+                                key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
+            for path in candidates:
+                # convert_alpha() обов'язковий, щоб зберегти прозорий фон!
+                img = pg.image.load(str(path)).convert_alpha()
+                frames.append(img)
+        return frames
+    
+    def _load_map_frames(self) -> list[pg.Surface]:
         map_dir = self.assets.root / "map"
         frames = []
         if map_dir.exists():
@@ -307,18 +342,88 @@ class PlayScene:
 
         return frames
 
-    def _load_crowns(self) -> list[pg.Surface]:
-        map_dir = self.assets.root / "map"
-        frames = []
-        if map_dir.exists():
-            # Шукаємо всі файли з назвами crown1.png, crown2.png і т.д.
-            candidates = sorted(map_dir.glob("crown*.png"),
-                                key=lambda p: int(''.join(filter(str.isdigit, p.name)) or 0))
-            for path in candidates:
-                # convert_alpha() обов'язковий, щоб зберегти прозорий фон!
-                img = pg.image.load(str(path)).convert_alpha()
-                frames.append(img)
-        return frames
+    def _load_collision_mask(self) -> pg.Surface | None:
+        """Load collision mask where pure white means obstacle."""
+        mask_dir = self.assets.root / "map_transparent"
+        candidates = (
+            mask_dir / "map_white_black.png",
+            mask_dir / "map_transparent.png",
+        )
+        for path in candidates:
+            if path.exists():
+                return pg.image.load(str(path)).convert()
+        return None
+
+    def _load_touch_controls(self) -> None:
+        self._move_ui: dict[str, tuple[pg.Surface, pg.Surface]] = {}
+        w = h = TOUCH_MOVE_BTN_PX
+        for name in ("up", "down", "left", "right"):
+            p1 = self.assets.path("button", f"ui_move_{name}_v1.png")
+            p2 = self.assets.path("button", f"ui_move_{name}_v2.png")
+            if not p2.exists():
+                continue
+            s2 = pg.image.load(str(p2)).convert_alpha()
+            s1 = pg.image.load(str(p1)).convert_alpha() if p1.exists() else s2.copy()
+            s1 = pg.transform.smoothscale(s1, (w, h))
+            s2 = pg.transform.smoothscale(s2, (w, h))
+            self._move_ui[name] = (s1, s2)
+
+        self._e_btn_surf = None
+        ep = self.assets.path("button", "EButton.png")
+        if ep.exists():
+            e = pg.image.load(str(ep)).convert_alpha()
+            self._e_btn_surf = pg.transform.smoothscale(e, (TOUCH_E_BTN_PX, TOUCH_E_BTN_PX))
+
+    def _dir_keys_active(self, name: str) -> bool:
+        keys = pg.key.get_pressed()
+        if name == "up":
+            return bool(keys[pg.K_w] or keys[pg.K_UP])
+        if name == "down":
+            return bool(keys[pg.K_s] or keys[pg.K_DOWN])
+        if name == "left":
+            return bool(keys[pg.K_a] or keys[pg.K_LEFT])
+        if name == "right":
+            return bool(keys[pg.K_d] or keys[pg.K_RIGHT])
+        return False
+
+    def _draw_touch_controls(self, screen: pg.Surface) -> None:
+        self._move_hit.clear()
+        self._interact_btn_hit = None
+        if self.paused or self.show_victory_msg:
+            return
+
+        if self._move_ui:
+            bw = TOUCH_MOVE_BTN_PX
+            bh = TOUCH_MOVE_BTN_PX
+            g = TOUCH_MOVE_GAP
+            m = TOUCH_MARGIN
+            cx = m + bw + g + bw // 2
+            cy = BASE_HEIGHT - m - bh // 2 - (bh + g)
+
+            layout = {
+                "up": (cx, cy - (bh + g)),
+                "down": (cx, cy + (bh + g)),
+                "left": (cx - (bw + g), cy),
+                "right": (cx + (bw + g), cy),
+            }
+            for name, (bcx, bcy) in layout.items():
+                pair = self._move_ui.get(name)
+                if not pair:
+                    continue
+                active_surf, inactive_surf = pair
+                touch_on = name in self._touch_held
+                key_on = self._dir_keys_active(name)
+                use_active = touch_on or key_on
+                surf = active_surf if use_active else inactive_surf
+                rect = surf.get_rect(center=(bcx, bcy))
+                screen.blit(surf, rect)
+                self._move_hit[name] = rect
+
+        if self._e_btn_surf:
+            er = self._e_btn_surf.get_rect()
+            er.bottomright = (BASE_WIDTH - TOUCH_MARGIN, BASE_HEIGHT - TOUCH_MARGIN)
+            screen.blit(self._e_btn_surf, er)
+            self._interact_btn_hit = er
 
     def _start_ws(self) -> None:
         self.incoming = Queue()
@@ -330,25 +435,63 @@ class PlayScene:
             self.ws.send({"type": "join_lobby", "code": self.state.lobby_code, "player_id": self.state.player_name})
         self.ws.send({"type": "register_player", "player_id": self.state.player_name, "lobby_code": self.state.lobby_code})
 
+    def _activate_pause_choice(self) -> None:
+        if self.pause_selection == 0:
+            self.paused = False
+            return
+        if getattr(self.player, "walk_sound", None) is not None:
+            self.player.walk_sound.stop()
+        from game.ui.menu_scene import _SceneChange, MenuScene
+
+        raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
+
     def handle_event(self, ev: pg.event.Event) -> None:
-    
+
      if ev.type == pg.KEYDOWN and ev.key == pg.K_ESCAPE:
         self.paused = not self.paused
+        self._touch_held.clear()
         if self.paused and getattr(self.player, "walk_sound", None) is not None:
             self.player.walk_sound.stop()
         return
 
-    
-     if ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1:
-        self.mouse_hold = True
-
      if ev.type == pg.MOUSEBUTTONUP and ev.button == 1:
-        self.mouse_hold = False
+        self._touch_held.clear()
 
-    
+     if ev.type == pg.MOUSEBUTTONDOWN and ev.button == 1:
+        if not self.paused and not self.show_victory_msg:
+            if self._interact_btn_hit and self._interact_btn_hit.collidepoint(ev.pos):
+                self._interact()
+                return
+            for d, r in self._move_hit.items():
+                if r.collidepoint(ev.pos):
+                    self._touch_held = {d}
+                    return
+        if self.paused:
+            for i, r in enumerate(self._pause_option_rects):
+                if r.collidepoint(ev.pos):
+                    self.pause_selection = i
+                    self._activate_pause_choice()
+                    return
+        if self._esc_hint_hit and self._esc_hint_hit.collidepoint(ev.pos):
+            self.paused = not self.paused
+            self._touch_held.clear()
+            if self.paused and getattr(self.player, "walk_sound", None) is not None:
+                self.player.walk_sound.stop()
+            return
+
      if self.paused and ev.type == pg.KEYDOWN:
+        if ev.key in (pg.K_UP, pg.K_w):
+            self.pause_selection = (self.pause_selection - 1) % 2
+            return
+        if ev.key in (pg.K_DOWN, pg.K_s):
+            self.pause_selection = (self.pause_selection + 1) % 2
+            return
+        if ev.key in (pg.K_RETURN, pg.K_KP_ENTER):
+            self._activate_pause_choice()
+            return
         if ev.key == pg.K_c:
             self.paused = False
+            return
 
         if ev.key == pg.K_m:
             if getattr(self.player, "walk_sound", None) is not None:
@@ -358,10 +501,6 @@ class PlayScene:
         return
 
     # взаємодія
-     if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
-        self._interact()
-
-    
      if ev.type == pg.KEYDOWN and ev.key == pg.K_e:
         self._interact()
 
@@ -383,39 +522,34 @@ class PlayScene:
                 self.inventory[mat.item_type] += 1
                 break
 
-#Логіка колізії
+
     def is_walkable(self, pos: pg.Vector2) -> bool:
         x = int(pos.x)
+        y = int(pos.y)
+        if x < 0 or y < 0 or x >= self.world_w or y >= self.world_h:
+            return False
+        if self.collision_mask is None:
+            return True
+        mask_w, mask_h = self.collision_mask.get_size()
+        if mask_w <= 0 or mask_h <= 0:
+            return True
+        mx = int(x * mask_w / self.world_w)
+        my = int(y * mask_h / self.world_h)
+        mx = max(0, min(mask_w - 1, mx))
+        my = max(0, min(mask_h - 1, my))
+        r, g, b = self.collision_mask.get_at((mx, my))[:3]
+        return not (r == 255 and g == 255 and b == 255)
 
-        # 🪄 МАГІЯ: Опускаємо хітбокс вниз до ніжок!
-        # Цифра 20 приблизна. Якщо зупиняється занадто рано - зменш (напр. 15),
-        # якщо все ще наступає на пеньок - збільш (напр. 25).
-        y_offset = 20
-        y = int(pos.y) + y_offset
-
-        hw = self.player.hitbox_hw
-        hh = self.player.hitbox_hh
-
-        points_to_check = [
-            (x - hw, y - hh),
-            (x + hw, y - hh),
-            (x - hw, y + hh),
-            (x + hw, y + hh),
-        ]
-
-        mask_w = self.collision_mask.get_width()
-        mask_h = self.collision_mask.get_height()
-
-        for px, py in points_to_check:
-            if px < 0 or py < 0 or px >= mask_w or py >= mask_h:
+    def is_player_walkable(self, center: pg.Vector2) -> bool:
+        """Колізія з мапою: усі непрозорі пікселі PNG хітбоксу (центр як у спрайта)."""
+        cx, cy = int(center.x), int(center.y)
+        for dx, dy in self.player.hitbox:
+            if not self.is_walkable(pg.Vector2(cx + dx, cy + dy)):
                 return False
-
-            color = self.collision_mask.get_at((int(px), int(py)))
-
-            if color[0] < 50:
-                return False
-
         return True
+
+    # fallback — центр
+    #  return pg.Vector2(self.world_w // 2, self.world_h // 2)
 
     def find_spawn(self) -> pg.Vector2:
      for _ in range(2000):
@@ -433,11 +567,11 @@ class PlayScene:
     def update(self, dt: float) -> None:
      if self.paused:
         return
-     self.map_timer += dt
-     if self.map_timer >= self.map_speed:
-         self.map_timer = 0
+     self._map_anim_time += dt
+     if self._map_anim_time >= self.map_frame_interval:
+         self._map_anim_time = 0
          # Перемикаємо на наступний кадр, а після 12-го — на 1-й (індекс 0)
-         self.map_index = (self.map_index + 1) % len(self.map)
+         self.map_frame_idx = (self.map_frame_idx + 1) % len(self.map_frames)
      if self.game_finished and self.victory_timer > 0:
          self.victory_timer -= dt
          if self.victory_timer <= 0:
@@ -445,33 +579,24 @@ class PlayScene:
              from game.ui.menu_scene import _SceneChange, MenuScene
              raise _SceneChange(MenuScene(assets=self.assets, state=self.state))
 
-    #керування мишкою
-     if self.mouse_hold:
-        mouse_x, mouse_y = pg.mouse.get_pos()
-        cam = self._camera()
-
-        target = pg.Vector2(mouse_x + cam.x, mouse_y + cam.y)
-        direction = target - self.player.pos
-
-        if direction.length_squared() > 4:
-            self.player.direction = direction.normalize()
-     else:
-        self.player.handle_keys()
+     self.player.handle_keys(self._touch_held)
 
      move_step = self.player.direction * self.player.speed * dt
 
-     if self.is_walkable(self.player.pos + pg.Vector2(move_step.x, 0)):
+     # Колізія з урахуванням хітбоксу гравця (прямокутник 80×80 offsets)
+     if self.is_player_walkable(pg.Vector2(self.player.pos.x + move_step.x, self.player.pos.y)):
          self.player.pos.x += move_step.x
 
-     if self.is_walkable(self.player.pos + pg.Vector2(0, move_step.y)):
+     if self.is_player_walkable(pg.Vector2(self.player.pos.x, self.player.pos.y + move_step.y)):
          self.player.pos.y += move_step.y
      self.player.pos.x = max(0, min(self.world_w, self.player.pos.x))
      self.player.pos.y = max(0, min(self.world_h, self.player.pos.y))
 
-     self.player.update_animation(dt)
+     self.player.tick_animation(dt)
 
      self.enemy.update(dt, self.player.pos, self.world_w, self.world_h)
      self._net_tick()
+
 
     def _net_tick(self) -> None:
         if not self.ws or not self.incoming:
@@ -502,10 +627,13 @@ class PlayScene:
 
     def render(self, screen: pg.Surface) -> None:
         screen.fill((0, 0, 0))
+        mouse_pos = pg.mouse.get_pos()
+        self._pause_option_rects = []
+        self._esc_hint_hit = None
         cam = self._camera()
 
         game_surface = pg.Surface((960, 540))
-        current_frame = self.map[self.map_index]
+        current_frame = self.map_frames[self.map_frame_idx]
         game_surface.blit(current_frame, (-int(cam.x), -int(cam.y)))
 
         for mat in self.materials:
@@ -529,12 +657,10 @@ class PlayScene:
         self.player.draw(game_surface, cam)
 
         if hasattr(self, 'crowns') and self.crowns:
-            crown_index = self.map_index % len(self.crowns)
+            crown_index = self.map_frame_idx % len(self.crowns)
             current_crown = self.crowns[crown_index]
             game_surface.blit(current_crown, (-int(cam.x), -int(cam.y)))
 
-        for it in self.interactables:
-            it.draw(screen, cam)
         self.enemy.draw(screen, cam)
         for pid, pos in self.remote_players.items():
             pg.draw.circle(screen, (80, 140, 240), (int(pos.x - cam.x), int(pos.y - cam.y)), 12)
@@ -543,10 +669,12 @@ class PlayScene:
 
         scaled_game = pg.transform.scale(game_surface, (1920, 1080))
         screen.blit(scaled_game, (0, 0))
-        hint = self.font.render("E — взаємодія, ESC — пауза", True, (255, 255, 255))
-        screen.blit(hint, (18, 18))
 
-        y_pos = 60
+        if self._esc_btn_pair:
+            _, eh = self._esc_btn_pair[0].get_size()
+            y_pos = max(46, 18 + eh + 14)
+        else:
+            y_pos = 46
         for item, count in self.inventory.items():
             names = {"stick": "Дошки", "stones": "Камені", "cable": "Троси"}
             limit = {"stick": 5, "stones": 4, "cable": 4}
@@ -561,14 +689,68 @@ class PlayScene:
             overlay.fill((0, 0, 0, 170))
             screen.blit(overlay, (0, 0))
 
+            mid = 1080 // 2
             title = self.big_font.render("Пауза", True, (255, 255, 255))
-            screen.blit(title, title.get_rect(center=(1920 // 2, 1080 // 2)))
+            screen.blit(title, title.get_rect(center=(1920 // 2, mid - 170)))
 
-            cont = self.font.render("C — продовжити", True, (255, 255, 255))
-            screen.blit(cont, cont.get_rect(center=(1920 // 2, 1080 // 2 + 50)))
+            if self._pause_btn_pair:
+                normal, pressed = self._pause_btn_pair
+                _, bh = normal.get_size()
+                row = bh + 14
+                y0 = mid + 10
+                for i, label in enumerate(["Продовжити (C)", "В меню (M)"]):
+                    cx = 1920 // 2
+                    cy = y0 + i * row
+                    hit = blit_textured_menu_button(
+                        screen,
+                        normal,
+                        pressed,
+                        cx,
+                        cy,
+                        mouse_pos,
+                        label,
+                        self.big_font,
+                        keyboard_selected=i == self.pause_selection,
+                        text_color_active=(255, 255, 240),
+                        text_color_inactive=(21, 87, 36),
+                    )
+                    if hit.collidepoint(mouse_pos):
+                        self.pause_selection = i
+                    self._pause_option_rects.append(hit)
+            else:
+                cont = self.font.render("C — продовжити", True, (255, 255, 255))
+                cr = cont.get_rect(center=(1920 // 2, mid + 50))
+                screen.blit(cont, cr)
+                self._pause_option_rects.append(cr.inflate(48, 24))
+                to_menu = self.font.render("M — в меню", True, (255, 255, 255))
+                tr = to_menu.get_rect(center=(1920 // 2, mid + 100))
+                screen.blit(to_menu, tr)
+                self._pause_option_rects.append(tr.inflate(48, 24))
 
-            to_menu = self.font.render("M — в меню", True, (255, 255, 255))
-            screen.blit(to_menu, to_menu.get_rect(center=(1920 // 2, 1080 // 2 + 100)))
+        if self._esc_btn_pair:
+            en, ep = self._esc_btn_pair
+            bw, bh = en.get_size()
+            ecx = 18 + bw // 2
+            ecy = 18 + bh // 2
+            self._esc_hint_hit = blit_textured_menu_button(
+                screen,
+                en,
+                ep,
+                ecx,
+                ecy,
+                mouse_pos,
+                "ESC - пауза",
+                self._esc_btn_lbl_font,
+                keyboard_selected=False,
+                text_color_active=(255, 255, 240),
+                text_color_inactive=(21, 87, 36),
+            )
+        else:
+            hint = self.font.render("ESC - пауза", True, (21, 87, 36))
+            screen.blit(hint, (18, 18))
+            self._esc_hint_hit = hint.get_rect(topleft=(18, 18)).inflate(24, 12)
+
+        self._draw_touch_controls(screen)
 
         if all_collected and not self.show_victory_msg:
             if pg.time.get_ticks() % 1000 < 500:
@@ -583,7 +765,6 @@ class PlayScene:
 
             hint_txt = self.font.render("Повернення в меню через кілька секунд...", True, (200, 200, 200))
             screen.blit(hint_txt, hint_txt.get_rect(center=(1920 // 2, 1080 // 2 + 60)))
-
 
 
     def _camera(self) -> pg.Vector2:
