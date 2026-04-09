@@ -74,7 +74,7 @@ class Player:
         # Аналог $WalkSound у Godot: пробуємо підхопити звук кроків.
         for rel in (
             ("sounds", "chelovek-bejit-po-trave-26013.mp3"),
-            ("sounds", "veter-na-igrovoy-ploschadke-35870.mp3"),
+            # ("sounds", "veter-na-igrovoy-ploschadke-35870.mp3"),
         ):
             p = self.assets.path(*rel)
             if p.exists():
