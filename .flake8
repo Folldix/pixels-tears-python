@@ -1,0 +1,25 @@
+[flake8]
+# Максимальна довжина рядка (PEP8 = 79, але 100 зручніше для ігрового коду)
+max-line-length = 100
+
+# Ігноруємо:
+# E501 — рядки > 100 (деякі рядки у play_scene навмисно довгі)
+# W503 — перенос перед оператором (застарілий стиль)
+# E203 — пробіл перед ':' (конфлікт із black)
+extend-ignore = E501, W503, E203
+
+# Папки які не перевіряємо
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    migrations,
+    *.egg-info
+
+# Форматування HTML-звіту (flake8-html)
+format = html
+htmldir = reports/flake8
+
+# Мінімальний рівень складності (McCabe)
+max-complexity = 12
