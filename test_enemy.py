@@ -12,9 +12,7 @@ pytestmark = pytest.mark.unit
 WORLD_W, WORLD_H = 2000, 2000
 
 
-# ═══════════════════════════════════════════════
 # Початковий стан
-# ═══════════════════════════════════════════════
 class TestEnemyInit:
 
     def test_initial_position(self, enemy):
@@ -34,9 +32,7 @@ class TestEnemyInit:
         assert enemy._timer == pytest.approx(0.0)
 
 
-# ═══════════════════════════════════════════════
 # Таймер активації
-# ═══════════════════════════════════════════════
 class TestEnemyActivation:
 
     def test_not_visible_before_threshold(self, enemy):
@@ -64,9 +60,7 @@ class TestEnemyActivation:
         assert e.visible == visible
 
 
-# ═══════════════════════════════════════════════
 # Переміщення до гравця
-# ═══════════════════════════════════════════════
 class TestEnemyMovement:
 
     def _make_active_enemy(self, x=100.0, y=100.0):
@@ -118,9 +112,7 @@ class TestEnemyMovement:
         assert e.pos.x == pytest.approx(speed, abs=2.0)
 
 
-# ═══════════════════════════════════════════════
 # custom active_after_s
-# ═══════════════════════════════════════════════
 @pytest.mark.parametrize("active_after,dt,should_be_visible", [
     (0.0,   0.1,   True),
     (10.0,  5.0,   False),

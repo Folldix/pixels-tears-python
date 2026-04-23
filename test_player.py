@@ -5,14 +5,13 @@ test_player.py — тести для класу Player.
 """
 import pytest
 import pygame
+from collections import defaultdict
 from unittest.mock import MagicMock, patch, PropertyMock
 
 pytestmark = pytest.mark.unit
 
 
-# ═══════════════════════════════════════════════
 # Початковий стан
-# ═══════════════════════════════════════════════
 class TestPlayerInit:
 
     def test_initial_position(self, player):
@@ -40,14 +39,12 @@ class TestPlayerInit:
         assert len(player.hitbox) == 320
 
 
-# ═══════════════════════════════════════════════
 # handle_keys — мокуємо pygame.key.get_pressed
-# ═══════════════════════════════════════════════
 class TestPlayerHandleKeys:
 
     def _make_keys(self, *pressed_keys):
-        """Повертає масив з натиснутими клавішами."""
-        keys = [False] * 400
+        """Повертає key-state, сумісний і з великими pygame keycode."""
+        keys = defaultdict(bool)
         for k in pressed_keys:
             keys[k] = True
         return keys
@@ -102,9 +99,7 @@ class TestPlayerHandleKeys:
         assert player.facing == "right"
 
 
-# ═══════════════════════════════════════════════
 # sync_facing_from_direction
-# ═══════════════════════════════════════════════
 class TestSyncFacing:
 
     @pytest.mark.parametrize("dx,dy,expected", [
@@ -129,9 +124,7 @@ class TestSyncFacing:
         assert player.facing == "up"
 
 
-# ═══════════════════════════════════════════════
 # tick_animation
-# ═══════════════════════════════════════════════
 class TestTickAnimation:
 
     def test_animation_advances_when_moving(self, player):
@@ -178,9 +171,7 @@ class TestTickAnimation:
         player.tick_animation(0.05)  # не має кидати виняток
 
 
-# ═══════════════════════════════════════════════
 # image() та rect()
-# ═══════════════════════════════════════════════
 class TestPlayerImage:
 
     def test_idle_image_when_not_moving(self, player):

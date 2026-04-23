@@ -26,6 +26,14 @@ def _load_dir_frames(assets: Assets, folder: str, prefix: str) -> list[pg.Surfac
     return frames
 
 
+def _pressed(keys: Any, key: int) -> bool:
+    """Безпечна перевірка натиснення для різних типів key-state у pygame/tests."""
+    try:
+        return bool(keys[key])
+    except (IndexError, KeyError, TypeError):
+        return False
+
+
 @dataclass
 class Player:
     assets: Assets
@@ -88,13 +96,13 @@ class Player:
         td = touch_dirs or set()
         keys = pg.key.get_pressed()
         d = pg.Vector2(0, 0)
-        if keys[pg.K_w] or keys[pg.K_UP] or "up" in td:
+        if _pressed(keys, pg.K_w) or _pressed(keys, pg.K_UP) or "up" in td:
             d.y -= 1
-        if keys[pg.K_s] or keys[pg.K_DOWN] or "down" in td:
+        if _pressed(keys, pg.K_s) or _pressed(keys, pg.K_DOWN) or "down" in td:
             d.y += 1
-        if keys[pg.K_a] or keys[pg.K_LEFT] or "left" in td:
+        if _pressed(keys, pg.K_a) or _pressed(keys, pg.K_LEFT) or "left" in td:
             d.x -= 1
-        if keys[pg.K_d] or keys[pg.K_RIGHT] or "right" in td:
+        if _pressed(keys, pg.K_d) or _pressed(keys, pg.K_RIGHT) or "right" in td:
             d.x += 1
         self.direction = d.normalize() if d.length_squared() > 0 else pg.Vector2(0, 0)
 
@@ -174,7 +182,8 @@ class Enemy:
             self._timer += dt
             if self._timer >= self.active_after_s:
                 self.visible = True
-            return
+            else:
+                return
 
         direction = (player_pos - self.pos)
         if direction.length_squared() > 0:
@@ -377,13 +386,13 @@ class PlayScene:
     def _dir_keys_active(self, name: str) -> bool:
         keys = pg.key.get_pressed()
         if name == "up":
-            return bool(keys[pg.K_w] or keys[pg.K_UP])
+            return bool(_pressed(keys, pg.K_w) or _pressed(keys, pg.K_UP))
         if name == "down":
-            return bool(keys[pg.K_s] or keys[pg.K_DOWN])
+            return bool(_pressed(keys, pg.K_s) or _pressed(keys, pg.K_DOWN))
         if name == "left":
-            return bool(keys[pg.K_a] or keys[pg.K_LEFT])
+            return bool(_pressed(keys, pg.K_a) or _pressed(keys, pg.K_LEFT))
         if name == "right":
-            return bool(keys[pg.K_d] or keys[pg.K_RIGHT])
+            return bool(_pressed(keys, pg.K_d) or _pressed(keys, pg.K_RIGHT))
         return False
 
     def _draw_touch_controls(self, screen: pg.Surface) -> None:

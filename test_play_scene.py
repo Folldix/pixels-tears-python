@@ -11,9 +11,7 @@ from unittest.mock import MagicMock, patch, PropertyMock
 pytestmark = pytest.mark.unit
 
 
-# ═══════════════════════════════════════════════
 # Фікстури PlayScene (без реальних файлів)
-# ═══════════════════════════════════════════════
 @pytest.fixture
 def play(mock_assets, default_state, tmp_path):
     """
@@ -38,9 +36,7 @@ def play(mock_assets, default_state, tmp_path):
     return scene
 
 
-# ═══════════════════════════════════════════════
 # Інвентар — початковий стан
-# ═══════════════════════════════════════════════
 class TestInventory:
 
     def test_initial_inventory_zeros(self, play):
@@ -51,9 +47,7 @@ class TestInventory:
             assert key in play.inventory
 
 
-# ═══════════════════════════════════════════════
 # _interact — підбирання предметів
-# ═══════════════════════════════════════════════
 class TestInteract:
 
     def _place_item_near_player(self, play, item_type="stick"):
@@ -125,9 +119,7 @@ class TestInteract:
         assert play.show_victory_msg is False
 
 
-# ═══════════════════════════════════════════════
 # is_walkable
-# ═══════════════════════════════════════════════
 class TestIsWalkable:
 
     def test_no_mask_always_walkable(self, play):
@@ -172,9 +164,7 @@ class TestIsWalkable:
         assert play.is_walkable(pygame.Vector2(px, py)) is True
 
 
-# ═══════════════════════════════════════════════
 # Камера
-# ═══════════════════════════════════════════════
 class TestCamera:
 
     def test_camera_centered_on_player(self, play):
@@ -195,9 +185,7 @@ class TestCamera:
         assert cam.y == pytest.approx(py - 270)
 
 
-# ═══════════════════════════════════════════════
 # Пауза
-# ═══════════════════════════════════════════════
 class TestPause:
 
     def test_update_skips_when_paused(self, play):

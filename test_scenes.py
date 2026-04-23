@@ -10,9 +10,7 @@ from unittest.mock import MagicMock, patch
 pytestmark = pytest.mark.unit
 
 
-# ═══════════════════════════════════════════════
 # SceneStack
-# ═══════════════════════════════════════════════
 class TestSceneStack:
 
     def _make_scene(self, name="scene"):
@@ -59,9 +57,7 @@ class TestSceneStack:
         assert scene_stack.top is s1
 
 
-# ═══════════════════════════════════════════════
 # MenuScene — логіка без рендерингу
-# ═══════════════════════════════════════════════
 @pytest.fixture
 def menu(mock_assets, default_state, tmp_path):
     """MenuScene з замоканими ресурсами."""

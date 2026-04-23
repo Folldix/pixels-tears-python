@@ -7,15 +7,11 @@ import pytest
 from game.state import GameState
 
 
-# ═══════════════════════════════════════════════
 # Маркери
-# ═══════════════════════════════════════════════
 pytestmark = pytest.mark.unit
 
 
-# ═══════════════════════════════════════════════
 # Базові значення за замовчуванням
-# ═══════════════════════════════════════════════
 class TestGameStateDefaults:
 
     def test_default_skin(self, default_state):
@@ -36,18 +32,14 @@ class TestGameStateDefaults:
         assert default_state.server_url.startswith("ws://")
 
 
-# ═══════════════════════════════════════════════
 # Параметризація: валідні скіни
-# ═══════════════════════════════════════════════
 @pytest.mark.parametrize("skin", ["male", "female"])
 def test_valid_skin_names(skin):
     state = GameState(skin_name=skin)
     assert state.skin_name == skin
 
 
-# ═══════════════════════════════════════════════
 # Параметризація: лобі-коди різної довжини
-# ═══════════════════════════════════════════════
 @pytest.mark.parametrize("code,expected_len", [
     ("ABC123", 6),
     ("XY", 2),
@@ -60,9 +52,7 @@ def test_lobby_code_stored_as_is(code, expected_len):
     assert len(state.lobby_code) == expected_len
 
 
-# ═══════════════════════════════════════════════
 # Мутація стану
-# ═══════════════════════════════════════════════
 class TestGameStateMutation:
 
     def test_change_skin(self, default_state):
@@ -90,9 +80,7 @@ class TestGameStateMutation:
         assert mp_state.lobby_code == "ABC123"
 
 
-# ═══════════════════════════════════════════════
 # Параметризація: комбінації мережевих флагів
-# ═══════════════════════════════════════════════
 @pytest.mark.parametrize("multi,host,join", [
     (False, False, False),   # локальна гра
     (True, True, True),      # хост
@@ -105,9 +93,7 @@ def test_network_flag_combinations(multi, host, join):
     assert state.join_server == join
 
 
-# ═══════════════════════════════════════════════
 # Маркер: повільний тест (демо)
-# ═══════════════════════════════════════════════
 @pytest.mark.slow
 def test_many_state_instances():
     """Створює 1000 екземплярів — перевірка відсутності витоків."""
