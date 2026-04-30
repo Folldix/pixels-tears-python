@@ -1,9 +1,12 @@
-pip install flake8
-pip freeze > requirements.txt
-pip install -r requirements.txt
+pip install pytest pytest-html flake8 flake8-html
 pytest
 pytest -m uni
 pytest -m slow
-pip install pytest-html
 pytest --html=report.html --self-contained-html
 flake8 .
+flake8 . --format=html --htmldir=reports/flake8
+pip freeze > requirements.txt
+pip install -r requirements.txt
+git add .
+git commit -m "test"
+git push origin master
