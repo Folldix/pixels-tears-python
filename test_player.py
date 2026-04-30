@@ -41,7 +41,7 @@ class TestPlayerInit:
 
 # handle_keys — мокуємо pygame.key.get_pressed
 class TestPlayerHandleKeys:
-
+    # створює "фейковий" стан клавіш (частина Mock-логіки).
     def _make_keys(self, *pressed_keys):
         """Повертає key-state, сумісний і з великими pygame keycode."""
         keys = defaultdict(bool)
@@ -57,7 +57,7 @@ class TestPlayerHandleKeys:
     ])
     def test_single_direction_keys(self, player, key, expected_facing, dx, dy):
         with patch("pygame.key.get_pressed", return_value=self._make_keys(key)):
-            player.handle_keys()
+            player.handle_keys() # Mock
         assert player.facing == expected_facing
         if dx != 0:
             assert (player.direction.x > 0) == (dx > 0)
@@ -65,7 +65,7 @@ class TestPlayerHandleKeys:
             assert (player.direction.y > 0) == (dy > 0)
 
     def test_no_keys_direction_zero(self, player):
-        with patch("pygame.key.get_pressed", return_value=self._make_keys()):
+        with patch("pygame.key.get_pressed", return_value=self._make_keys()):# Patch + Mock
             player.handle_keys()
         assert player.direction.length_squared() == 0
 
@@ -158,7 +158,7 @@ class TestTickAnimation:
         mock_sound.play.assert_called_once_with(loops=-1)
 
     def test_walk_sound_stops_on_idle(self, player):
-        mock_sound = MagicMock()
+        mock_sound = MagicMock() #MagicMock
         player.walk_sound = mock_sound
         player._walk_playing = True
         player.direction = pygame.Vector2(0, 0)
@@ -189,5 +189,5 @@ class TestPlayerImage:
     def test_rect_centered_on_pos(self, player):
         player.direction = pygame.Vector2(0, 0)
         r = player.rect()
-        assert r.centerx == pytest.approx(int(player.pos.x), abs=1)
+        assert r.centerx == pytest.approx(int(player.pos.x), abs=1) # assert + approx
         assert r.centery == pytest.approx(int(player.pos.y), abs=1)

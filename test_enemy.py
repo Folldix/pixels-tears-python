@@ -15,8 +15,9 @@ WORLD_W, WORLD_H = 2000, 2000
 # Початковий стан
 class TestEnemyInit:
 
+     # enemy ← Fixture (fixture створюється в conftest.py автоматично через @pytest.fixture)
     def test_initial_position(self, enemy):
-        assert enemy.pos.x == pytest.approx(50.0)
+        assert enemy.pos.x == pytest.approx(50.0) # assert ← перевірка умови (pytest.approx ← approx, використовується для перевірки float)
         assert enemy.pos.y == pytest.approx(50.0)
 
     def test_initial_invisible(self, enemy):
@@ -47,7 +48,7 @@ class TestEnemyActivation:
         enemy.update(100.0, pygame.Vector2(500, 500), WORLD_W, WORLD_H)
         enemy.update(100.0, pygame.Vector2(500, 500), WORLD_W, WORLD_H)
         assert enemy._timer == pytest.approx(200.0)
-
+         #Parametrize (один тест запускається кілька разів з різними значеннями)
     @pytest.mark.parametrize("dt,visible", [
         (299.9, False),
         (300.0, True),
@@ -75,6 +76,9 @@ class TestEnemyMovement:
 
         # Патчимо random щоб прибрати jitter
         with patch("random.random", return_value=0.5):
+             #Patch( тимчасово замінюємо random.random())
+
+            # Mock (мокування), тобто тут random.random() стає "фейковим"
             e.update(1.0, player_pos, WORLD_W, WORLD_H)
 
         assert e.pos.x > 0.0  # рухається праворуч до гравця
