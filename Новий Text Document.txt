@@ -1,4 +1,4 @@
-pip install pytest pytest-html flake8 flake8-html
+pip install pytest pytest-html flake8 flake8-html pytest-cov
 pytest
 pytest -m uni
 pytest -m slow
